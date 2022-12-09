@@ -1,8 +1,8 @@
-# 🦉 **OwlGram**
-OwlGram is an **unofficial** messaging app that uses **Telegram's API**.
+# 🦉 **AdvanceGram**
+AdvanceGram is an **unofficial** messaging app that uses **Telegram's API**.
 
 # 🛠 About Reproducible Builds
-To reproduce the build of OwlGram is only needed ccache (**already installed in "Tools" folder**), but the build
+To reproduce the build of AdvanceGram is only needed ccache (**already installed in "Tools" folder**), but the build
 isn't reproducible from macOS because it doesn't support ccache.
 
 1. [**Obtain your own api_id**](https://core.telegram.org/api/obtaining_api_id) for your application and put [**here**](https://github.com/OwlGramDev/OwlGram/blob/master/TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java).
