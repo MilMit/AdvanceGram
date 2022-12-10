@@ -38,7 +38,6 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -46,8 +45,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.exoplayer2.util.Log;
 
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.Emoji;
@@ -63,8 +60,8 @@ import org.telegram.ui.ActionBar.Theme;
 
 import java.util.ArrayList;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.helpers.FolderIconHelper;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.helpers.FolderIconHelper;
 
 public class FilterTabsView extends FrameLayout {
 

@@ -134,7 +134,7 @@ ConnectionsManager::~ConnectionsManager() {
     }
     pthread_mutex_destroy(&mutex);
 }
-
+//MilMit #1
 ConnectionsManager& ConnectionsManager::getInstance(int32_t instanceNum) {
     switch (instanceNum) {
         case 0:
@@ -165,9 +165,27 @@ ConnectionsManager& ConnectionsManager::getInstance(int32_t instanceNum) {
             static ConnectionsManager instance8(8);
             return instance8;
         case 9:
-        default:
             static ConnectionsManager instance9(9);
             return instance9;
+        case 10:
+            static ConnectionsManager instance10(10);
+            return instance10;
+        case 11:
+            static ConnectionsManager instance11(11);
+            return instance11;
+        case 12:
+            static ConnectionsManager instance12(12);
+            return instance12;
+        case 13:
+            static ConnectionsManager instance13(13);
+            return instance13;
+        case 14:
+            static ConnectionsManager instance14(14);
+            return instance14;
+        case 15:
+        default:
+            static ConnectionsManager instance15(15);
+            return instance15;
     }
 }
 

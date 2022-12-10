@@ -69,8 +69,8 @@ import org.telegram.ui.ActionBar.Theme;
 
 import java.util.ArrayList;
 
-import it.owlgram.android.translator.BaseTranslator;
-import it.owlgram.android.translator.TranslatorHelper;
+import milmit.advancegram.messenger.translator.BaseTranslator;
+import milmit.advancegram.messenger.translator.TranslatorHelper;
 
 public class TranslateAlert extends Dialog {
 

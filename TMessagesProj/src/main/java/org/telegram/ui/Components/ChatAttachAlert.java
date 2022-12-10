@@ -110,8 +110,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import it.owlgram.android.entities.EntitiesHelper;
-import it.owlgram.android.helpers.PermissionHelper;
+import milmit.advancegram.messenger.entities.EntitiesHelper;
+import milmit.advancegram.messenger.helpers.PermissionHelper;
 
 public class ChatAttachAlert extends BottomSheet implements NotificationCenter.NotificationCenterDelegate, BottomSheet.BottomSheetDelegateInterface {
 

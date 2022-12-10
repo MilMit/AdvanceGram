@@ -135,9 +135,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.helpers.MonetHelper;
-import it.owlgram.android.entities.syntax_highlight.SyntaxHighlight;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.helpers.MonetHelper;
+import milmit.advancegram.messenger.entities.syntax_highlight.SyntaxHighlight;
 
 public class Theme {
 

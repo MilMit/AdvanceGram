@@ -13,6 +13,8 @@ import android.content.SharedPreferences;
 import android.os.SystemClock;
 import android.util.Base64;
 
+import milmit.advancegram.messenger.AdvConfig;
+
 import org.telegram.tgnet.SerializedData;
 import org.telegram.tgnet.TLRPC;
 
@@ -268,7 +270,8 @@ public class UserConfig extends BaseController {
     private void checkPremiumSelf(TLRPC.User oldUser, TLRPC.User newUser) {
         if (oldUser == null || (newUser != null && oldUser.premium != newUser.premium)) {
             AndroidUtilities.runOnUIThread(() -> {
-                getMessagesController().updatePremium(newUser.premium);
+                //MilMit #2
+                getMessagesController().updatePremium(newUser.premium || AdvConfig.localPremium.Bool());
                 NotificationCenter.getInstance(currentAccount).postNotificationName(NotificationCenter.currentUserPremiumStatusChanged);
                 NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.premiumStatusChangedGlobal);
 
@@ -512,7 +515,8 @@ public class UserConfig extends BaseController {
         if (currentUser == null) {
             return false;
         }
-        return currentUser.premium;
+//MilMit #2
+        return currentUser.premium || AdvConfig.localPremium.Bool();
     }
 
     public Long getEmojiStatus() {

@@ -96,7 +96,7 @@
 -keep class com.huawei.hms.**{ *; }
 
 # Keep OwlConfig fields name
--keepnames class it.owlgram.android.OwlConfig { <fields>; }
+-keepnames class milmit.advancegram.messenger.OwlConfig { <fields>; }
 
 # Keep all classes of Apache Commons
 -keep class org.apache.commons.text.** { *; }

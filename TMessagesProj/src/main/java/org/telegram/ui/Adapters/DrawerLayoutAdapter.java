@@ -21,7 +21,6 @@ import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
-import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.DrawerLayoutContainer;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.DividerCell;
@@ -36,9 +35,9 @@ import org.telegram.ui.Components.SideMenultItemAnimator;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.helpers.MenuOrderManager;
-import it.owlgram.android.helpers.PasscodeHelper;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.helpers.MenuOrderManager;
+import milmit.advancegram.messenger.helpers.PasscodeHelper;
 
 public class DrawerLayoutAdapter extends RecyclerListView.SelectionAdapter {
 

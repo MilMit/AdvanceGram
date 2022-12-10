@@ -113,8 +113,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-import it.owlgram.android.components.SendOptionsMenuLayout;
-import it.owlgram.android.helpers.ForwardContext;
+import milmit.advancegram.messenger.components.SendOptionsMenuLayout;
+import milmit.advancegram.messenger.helpers.ForwardContext;
 
 public class ShareAlert extends BottomSheet implements NotificationCenter.NotificationCenterDelegate {
 

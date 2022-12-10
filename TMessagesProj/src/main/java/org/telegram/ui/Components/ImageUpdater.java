@@ -60,7 +60,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import it.owlgram.android.helpers.PermissionHelper;
+import milmit.advancegram.messenger.helpers.PermissionHelper;
 
 public class ImageUpdater implements NotificationCenter.NotificationCenterDelegate, PhotoCropActivity.PhotoEditActivityDelegate {
     private final static int ID_TAKE_PHOTO = 0,

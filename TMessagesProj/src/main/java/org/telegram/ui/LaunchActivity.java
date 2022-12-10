@@ -176,7 +176,6 @@ import org.telegram.ui.Components.StickersAlert;
 import org.telegram.ui.Components.TermsOfServiceView;
 import org.telegram.ui.Components.ThemeEditorView;
 import org.telegram.ui.Components.UndoView;
-import org.telegram.ui.Components.UpdateAppAlertDialog;
 import org.telegram.ui.Components.voip.VoIPHelper;
 import org.webrtc.voiceengine.WebRtcAudioTrack;
 
@@ -196,26 +195,26 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import it.owlgram.android.StoreUtils;
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.components.UpdateAlertDialog;
-import it.owlgram.android.Crashlytics;
-import it.owlgram.android.helpers.ForwardContext;
-import it.owlgram.android.helpers.LanguageHelper;
-import it.owlgram.android.helpers.MonetHelper;
-import it.owlgram.android.helpers.StickersHelper;
-import it.owlgram.android.helpers.UpdateSignaling;
-import it.owlgram.android.settings.OwlgramAppearanceSettings;
-import it.owlgram.android.settings.OwlgramChatSettings;
-import it.owlgram.android.settings.OwlgramExperimentalSettings;
-import it.owlgram.android.settings.OwlgramGeneralSettings;
-import it.owlgram.android.settings.OwlgramSettings;
-import it.owlgram.android.ui.DatacenterActivity;
-import it.owlgram.android.updates.ApkDownloader;
-import it.owlgram.android.updates.ApkInstaller;
-import it.owlgram.android.updates.AppDownloader;
-import it.owlgram.android.updates.PlayStoreAPI;
-import it.owlgram.android.updates.UpdateManager;
+import milmit.advancegram.messenger.StoreUtils;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.components.UpdateAlertDialog;
+import milmit.advancegram.messenger.Crashlytics;
+import milmit.advancegram.messenger.helpers.ForwardContext;
+import milmit.advancegram.messenger.helpers.LanguageHelper;
+import milmit.advancegram.messenger.helpers.MonetHelper;
+import milmit.advancegram.messenger.helpers.StickersHelper;
+import milmit.advancegram.messenger.helpers.UpdateSignaling;
+import milmit.advancegram.messenger.settings.OwlgramAppearanceSettings;
+import milmit.advancegram.messenger.settings.OwlgramChatSettings;
+import milmit.advancegram.messenger.settings.OwlgramExperimentalSettings;
+import milmit.advancegram.messenger.settings.OwlgramGeneralSettings;
+import milmit.advancegram.messenger.settings.OwlgramSettings;
+import milmit.advancegram.messenger.ui.DatacenterActivity;
+import milmit.advancegram.messenger.updates.ApkDownloader;
+import milmit.advancegram.messenger.updates.ApkInstaller;
+import milmit.advancegram.messenger.updates.AppDownloader;
+import milmit.advancegram.messenger.updates.PlayStoreAPI;
+import milmit.advancegram.messenger.updates.UpdateManager;
 
 public class LaunchActivity extends BasePermissionsActivity implements INavigationLayout.INavigationLayoutDelegate, NotificationCenter.NotificationCenterDelegate, DialogsActivity.DialogsActivityDelegate {
     public final static Pattern PREFIX_T_ME_PATTERN = Pattern.compile("^(?:http(?:s|)://|)([A-z0-9-]+?)\\.t\\.me");
@@ -2528,7 +2527,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                     } else if (url.startsWith("tg:chupagram") || url.startsWith("tg://chupagram")) {
                                         if (!OwlConfig.unlockedChupa) {
                                             BaseFragment fragment = mainFragmentsStack.get(mainFragmentsStack.size() - 1);
-                                            AppIconBulletinLayout layout = new AppIconBulletinLayout(fragment.getParentActivity(), LauncherIconController.LauncherIcon.CHUPA, null);
+                                            AppIconBulletinLayout layout = new AppIconBulletinLayout(fragment.getParentActivity(), LauncherIconController.LauncherIcon.NEON, null);
                                             layout.textView.setText(LocaleController.getString("UnlockedHiddenChupaIcon", R.string.UnlockedHiddenChupaIcon));
                                             fireworksOverlay.start();
                                             layout.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
@@ -2698,9 +2697,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                             NotificationCenter.getInstance(intentAccount[0]).postNotificationName(NotificationCenter.closeChats);
                                             push_user_id = userId;
                                             @SuppressLint("Range") String mimeType = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.MIMETYPE));
-                                            if (TextUtils.equals(mimeType, "vnd.android.cursor.item/vnd.it.owlgram.android.android.call")) {
+                                            if (TextUtils.equals(mimeType, "vnd.android.cursor.item/vnd.milmit.advancegram.messenger.android.call")) {
                                                 audioCallUser = true;
-                                            } else if (TextUtils.equals(mimeType, "vnd.android.cursor.item/vnd.it.owlgram.android.android.call.video")) {
+                                            } else if (TextUtils.equals(mimeType, "vnd.android.cursor.item/vnd.milmit.advancegram.messenger.android.call.video")) {
                                                 videoCallUser = true;
                                             }
                                         }

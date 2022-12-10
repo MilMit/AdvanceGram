@@ -72,7 +72,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
-import it.owlgram.android.helpers.PasscodeHelper;
+import milmit.advancegram.messenger.helpers.PasscodeHelper;
 
 public class PasscodeView extends FrameLayout implements NotificationCenter.NotificationCenterDelegate {
     private final static float BACKGROUND_SPRING_STIFFNESS = 300f;

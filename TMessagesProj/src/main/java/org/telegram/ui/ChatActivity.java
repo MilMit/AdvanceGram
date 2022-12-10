@@ -310,16 +310,16 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.components.ImportSettingsDialog;
-import it.owlgram.android.helpers.ForwardContext;
-import it.owlgram.android.helpers.PermissionHelper;
-import it.owlgram.android.settings.DoNotTranslateSettings;
-import it.owlgram.android.translator.AutoTranslateConfig;
-import it.owlgram.android.translator.BaseTranslator;
-import it.owlgram.android.translator.Translator;
-import it.owlgram.android.translator.TranslatorHelper;
-import it.owlgram.android.ui.DetailsActivity;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.components.ImportSettingsDialog;
+import milmit.advancegram.messenger.helpers.ForwardContext;
+import milmit.advancegram.messenger.helpers.PermissionHelper;
+import milmit.advancegram.messenger.settings.DoNotTranslateSettings;
+import milmit.advancegram.messenger.translator.AutoTranslateConfig;
+import milmit.advancegram.messenger.translator.BaseTranslator;
+import milmit.advancegram.messenger.translator.Translator;
+import milmit.advancegram.messenger.translator.TranslatorHelper;
+import milmit.advancegram.messenger.ui.DetailsActivity;
 
 @SuppressWarnings("unchecked")
 public class ChatActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate, DialogsActivity.DialogsActivityDelegate, LocationActivity.LocationActivityDelegate, ChatAttachAlertDocumentLayout.DocumentSelectActivityDelegate, ChatActivityInterface, FloatingDebugProvider, ForwardContext {
@@ -23775,7 +23775,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                         }
                         return false;
                     });
-                    if (option == 201) { // OwlGram Translate Button
+                    if (option == 201) { // AdvanceGram Translate Button
                         MessageObject messageObject = getMessageHelper().getMessageForTranslate(selectedObject, selectedObjectGroup);
                         TranslateAlert.OnLinkPress onLinkPress = (link) ->  {
                             didPressMessageUrl(link, false, selectedObject, v instanceof ChatMessageCell ? (ChatMessageCell) v : null);
@@ -25415,7 +25415,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                     getSendMessagesHelper().sendMessage(spannableString.toString(), dialog_id, selectedObject, threadMessageObject, null, false, entities, null, null, true, 0, null, false);
                 }
                 if (OwlConfig.unlockedSecretIcon >= 4) {
-                    AppIconBulletinLayout layout = new AppIconBulletinLayout(getParentActivity(), LauncherIconController.LauncherIcon.FOXGRAM, getResourceProvider());
+                    AppIconBulletinLayout layout = new AppIconBulletinLayout(getParentActivity(), LauncherIconController.LauncherIcon.TURBO, getResourceProvider());
                     layout.textView.setText(LocaleController.getString("UnlockedHiddenFoxIcon", R.string.UnlockedHiddenFoxIcon));
                     fireworksOverlay.start();
                     fragmentView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);

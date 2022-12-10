@@ -76,7 +76,6 @@ import org.telegram.ui.TwoStepVerificationSetupActivity;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
@@ -91,8 +90,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.entities.EntitiesHelper;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.entities.EntitiesHelper;
 
 public class SendMessagesHelper extends BaseController implements NotificationCenter.NotificationCenterDelegate {
 

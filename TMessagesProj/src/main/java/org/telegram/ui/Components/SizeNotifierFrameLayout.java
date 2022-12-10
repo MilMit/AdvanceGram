@@ -41,7 +41,7 @@ import org.telegram.ui.BlurSettingsBottomSheet;
 
 import java.util.ArrayList;
 
-import it.owlgram.android.OwlConfig;
+import milmit.advancegram.messenger.OwlConfig;
 
 public class SizeNotifierFrameLayout extends FrameLayout {
 

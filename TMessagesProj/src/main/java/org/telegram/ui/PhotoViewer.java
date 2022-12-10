@@ -257,13 +257,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.helpers.ForwardContext;
-import it.owlgram.android.helpers.MessageHelper;
-import it.owlgram.android.settings.DoNotTranslateSettings;
-import it.owlgram.android.translator.BaseTranslator;
-import it.owlgram.android.translator.Translator;
-import it.owlgram.android.translator.TranslatorHelper;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.helpers.ForwardContext;
+import milmit.advancegram.messenger.helpers.MessageHelper;
+import milmit.advancegram.messenger.settings.DoNotTranslateSettings;
+import milmit.advancegram.messenger.translator.BaseTranslator;
+import milmit.advancegram.messenger.translator.Translator;
+import milmit.advancegram.messenger.translator.TranslatorHelper;
 
 @SuppressLint("WrongConstant")
 @SuppressWarnings("unchecked")

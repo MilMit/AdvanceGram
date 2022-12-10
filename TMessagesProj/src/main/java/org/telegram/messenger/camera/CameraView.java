@@ -81,7 +81,7 @@ import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.egl.EGLSurface;
 import javax.microedition.khronos.opengles.GL;
 
-import it.owlgram.android.camera.BaseCameraView;
+import milmit.advancegram.messenger.camera.BaseCameraView;
 
 @SuppressLint("NewApi")
 public class CameraView extends BaseCameraView implements TextureView.SurfaceTextureListener {

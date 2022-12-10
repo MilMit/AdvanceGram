@@ -53,8 +53,8 @@ import org.telegram.ui.Components.RecyclerListView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import it.owlgram.android.components.IconSelectorAlert;
-import it.owlgram.android.helpers.FolderIconHelper;
+import milmit.advancegram.messenger.components.IconSelectorAlert;
+import milmit.advancegram.messenger.helpers.FolderIconHelper;
 
 public class FilterCreateActivity extends BaseFragment {
 

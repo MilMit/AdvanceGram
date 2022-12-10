@@ -8,7 +8,6 @@
 
 package org.telegram.messenger;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
@@ -22,7 +21,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
@@ -100,9 +98,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.helpers.AudioEnhance;
-import it.owlgram.android.helpers.PermissionHelper;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.helpers.AudioEnhance;
+import milmit.advancegram.messenger.helpers.PermissionHelper;
 
 public class MediaController implements AudioManager.OnAudioFocusChangeListener, NotificationCenter.NotificationCenterDelegate, SensorEventListener {
 

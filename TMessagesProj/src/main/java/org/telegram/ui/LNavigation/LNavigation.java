@@ -71,7 +71,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import it.owlgram.android.OwlConfig;
+import milmit.advancegram.messenger.OwlConfig;
 
 public class LNavigation extends FrameLayout implements INavigationLayout, FloatingDebugProvider {
     private final static boolean ALLOW_OPEN_STIFFNESS_CONTROL = false;

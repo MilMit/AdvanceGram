@@ -43,8 +43,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.helpers.LanguageHelper;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.helpers.LanguageHelper;
 
 public class LocaleController {
 

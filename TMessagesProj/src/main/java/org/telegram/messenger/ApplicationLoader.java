@@ -44,7 +44,7 @@ import org.telegram.ui.LauncherIconController;
 
 import java.io.File;
 
-import it.owlgram.android.camera.CameraXUtilities;
+import milmit.advancegram.messenger.camera.CameraXUtilities;
 
 public class ApplicationLoader extends Application {
 

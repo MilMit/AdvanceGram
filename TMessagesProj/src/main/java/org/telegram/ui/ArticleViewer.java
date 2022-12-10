@@ -177,7 +177,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import it.owlgram.android.translator.Translator;
+import milmit.advancegram.messenger.translator.Translator;
 
 public class ArticleViewer implements NotificationCenter.NotificationCenterDelegate {
 

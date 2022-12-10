@@ -62,7 +62,7 @@ import java.util.Collections;
 import java.util.Locale;
 import java.util.Set;
 
-import it.owlgram.android.OwlConfig;
+import milmit.advancegram.messenger.OwlConfig;
 
 public class VoIPHelper {
 

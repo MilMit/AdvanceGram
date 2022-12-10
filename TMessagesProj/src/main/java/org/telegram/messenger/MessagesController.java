@@ -35,6 +35,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.util.Consumer;
 
+import milmit.advancegram.messenger.AdvConfig;
+
 import org.telegram.SQLite.SQLiteCursor;
 import org.telegram.SQLite.SQLiteException;
 import org.telegram.SQLite.SQLitePreparedStatement;
@@ -82,8 +84,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 
-import it.owlgram.android.StoreUtils;
-import it.owlgram.android.OwlConfig;
+import milmit.advancegram.messenger.StoreUtils;
 
 public class  MessagesController extends BaseController implements NotificationCenter.NotificationCenterDelegate {
 
@@ -509,9 +510,9 @@ public class  MessagesController extends BaseController implements NotificationC
     public int getChatReactionsCount() {
         return getUserConfig().isPremium() ? reactionsInChatMax : 1;
     }
-
+//MilMit #2
     public boolean isPremiumUser(TLRPC.User currentUser) {
-        return !premiumLocked && currentUser.premium;
+        return AdvConfig.localPremium.Bool() || (!premiumLocked && currentUser.premium);
     }
 
     public boolean didPressTranscribeButtonEnough() {
@@ -1143,6 +1144,9 @@ public class  MessagesController extends BaseController implements NotificationC
             directPaymentsCurrency.clear();
             directPaymentsCurrency.addAll(currencySet);
         }
+        //MilMit #2
+        if (AdvConfig.localPremium.Bool())
+            premiumLocked = false;
 
         loadPremiumFeaturesPreviewOrder(mainPreferences.getString("premiumFeaturesTypesToPosition", null));
         if (pendingSuggestions != null) {
@@ -1845,6 +1849,9 @@ public class  MessagesController extends BaseController implements NotificationC
                             if (value.value instanceof TLRPC.TL_jsonBool) {
                                 if (premiumLocked != ((TLRPC.TL_jsonBool) value.value).value) {
                                     premiumLocked = ((TLRPC.TL_jsonBool) value.value).value;
+                                    //MilMit #2
+                                    if (AdvConfig.localPremium.Bool())
+                                        premiumLocked = false;
                                     editor.putBoolean("premiumLocked", premiumLocked);
                                     changed = true;
                                 }

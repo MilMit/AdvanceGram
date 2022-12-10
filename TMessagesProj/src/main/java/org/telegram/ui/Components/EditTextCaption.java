@@ -52,7 +52,7 @@ import org.telegram.ui.ActionBar.Theme;
 
 import java.util.List;
 
-import it.owlgram.android.entities.EntitiesHelper;
+import milmit.advancegram.messenger.entities.EntitiesHelper;
 
 public class EditTextCaption extends EditTextBoldCursor {
 

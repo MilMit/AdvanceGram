@@ -8,8 +8,6 @@
 
 package org.telegram.messenger;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -76,9 +74,9 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.helpers.MessageHelper;
-import it.owlgram.android.entities.syntax_highlight.SyntaxHighlight;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.helpers.MessageHelper;
+import milmit.advancegram.messenger.entities.syntax_highlight.SyntaxHighlight;
 
 public class MessageObject {
 

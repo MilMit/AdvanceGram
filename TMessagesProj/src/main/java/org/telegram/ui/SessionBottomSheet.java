@@ -361,7 +361,7 @@ public class SessionBottomSheet extends BottomSheet {
             if (app_name.contains("owlgram")) {
                 animation = false;
                 colorValue = Color.parseColor("#4285F4");
-                iconId = R.drawable.device_owlgram;
+                iconId = R.drawable.advgram_notification;
             } else {
                 colorKey = Theme.key_avatar_backgroundGreen;
                 colorKey2 = Theme.key_avatar_background2Green;

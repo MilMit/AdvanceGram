@@ -62,7 +62,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Timer;
 
-import it.owlgram.android.settings.OwlgramGeneralSettings;
+import milmit.advancegram.messenger.settings.OwlgramGeneralSettings;
 
 public class LanguageSelectActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 

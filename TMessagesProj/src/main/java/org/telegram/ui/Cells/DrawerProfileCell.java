@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
-import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
@@ -23,20 +22,16 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import androidx.palette.graphics.Palette;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
+import milmit.advancegram.messenger.AdvConfig;
 
 import org.telegram.PhoneFormat.PhoneFormat;
 import org.telegram.messenger.AndroidUtilities;
@@ -45,8 +40,6 @@ import org.telegram.messenger.ImageLocation;
 import org.telegram.messenger.ImageReceiver;
 import org.telegram.messenger.Emoji;
 import org.telegram.messenger.FileLog;
-import org.telegram.messenger.ImageLocation;
-import org.telegram.messenger.ImageReceiver;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MediaDataController;
 import org.telegram.messenger.MessageObject;
@@ -74,7 +67,7 @@ import org.telegram.ui.Components.Reactions.AnimatedEmojiEffect;
 import org.telegram.ui.Components.Reactions.ReactionsLayoutInBubble;
 import org.telegram.ui.Components.SnowflakesEffect;
 import org.telegram.ui.ThemeActivity;
-import it.owlgram.android.OwlConfig;
+import milmit.advancegram.messenger.OwlConfig;
 
 import java.util.ArrayList;
 
@@ -742,8 +735,8 @@ public class DrawerProfileCell extends FrameLayout implements NotificationCenter
         try {
             text = Emoji.replaceEmoji(text, nameTextView.getPaint().getFontMetricsInt(), AndroidUtilities.dp(22), false);
         } catch (Exception ignore) {}
-
-        drawPremium = false;//user.premium;
+        //MilMit #2
+        drawPremium = user.premium || AdvConfig.localPremium.Bool();
         nameTextView.setText(text);
         if (user.emoji_status instanceof TLRPC.TL_emojiStatusUntil && ((TLRPC.TL_emojiStatusUntil) user.emoji_status).until > (int) (System.currentTimeMillis() / 1000)) {
             animatedStatus.animate().alpha(1).setDuration(200).start();

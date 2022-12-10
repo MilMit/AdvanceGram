@@ -134,8 +134,8 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.components.ImportSettingsDialog;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.components.ImportSettingsDialog;
 
 public class ChannelAdminLogActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 

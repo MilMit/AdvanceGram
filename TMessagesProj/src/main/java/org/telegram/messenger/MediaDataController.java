@@ -89,7 +89,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import it.owlgram.android.OwlConfig;
+import milmit.advancegram.messenger.OwlConfig;
 
 @SuppressWarnings("unchecked")
 public class MediaDataController extends BaseController {

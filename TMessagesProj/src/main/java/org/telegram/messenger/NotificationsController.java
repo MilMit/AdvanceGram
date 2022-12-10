@@ -55,8 +55,6 @@ import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 
-import com.google.android.exoplayer2.util.Log;
-
 import org.telegram.messenger.support.LongSparseIntArray;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
@@ -67,14 +65,13 @@ import org.telegram.ui.PopupNotificationActivity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.function.Consumer;
 
-import it.owlgram.android.OwlConfig;
+import milmit.advancegram.messenger.OwlConfig;
 
 public class NotificationsController extends BaseController {
 
@@ -3779,7 +3776,7 @@ public class NotificationsController extends BaseController {
             PendingIntent contentIntent = PendingIntent.getActivity(ApplicationLoader.applicationContext, 0, intent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_ONE_SHOT);
 
             mBuilder.setContentTitle(name)
-                    .setSmallIcon(R.drawable.notification)
+                    .setSmallIcon(R.drawable.advgram_notification)
                     .setAutoCancel(true)
                     .setNumber(total_unread_count)
                     .setContentIntent(contentIntent)
@@ -4525,7 +4522,7 @@ public class NotificationsController extends BaseController {
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(ApplicationLoader.applicationContext)
                     .setContentTitle(name)
-                    .setSmallIcon(R.drawable.notification)
+                    .setSmallIcon(R.drawable.advgram_notification)
                     .setContentText(text.toString())
                     .setAutoCancel(true)
                     .setNumber(messageObjects.size())

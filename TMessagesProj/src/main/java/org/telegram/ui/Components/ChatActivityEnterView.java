@@ -156,11 +156,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.entities.EntitiesHelper;
-import it.owlgram.android.helpers.MessageHelper;
-import it.owlgram.android.translator.BaseTranslator;
-import it.owlgram.android.translator.Translator;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.entities.EntitiesHelper;
+import milmit.advancegram.messenger.helpers.MessageHelper;
+import milmit.advancegram.messenger.translator.BaseTranslator;
+import milmit.advancegram.messenger.translator.Translator;
 
 public class ChatActivityEnterView extends BlurredFrameLayout implements NotificationCenter.NotificationCenterDelegate, SizeNotifierFrameLayout.SizeNotifierFrameLayoutDelegate, StickersAlert.StickersAlertDelegate {
 

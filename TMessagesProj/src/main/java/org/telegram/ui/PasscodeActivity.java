@@ -93,9 +93,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import it.owlgram.android.helpers.PasscodeHelper;
-import it.owlgram.android.settings.AccountProtectionSettings;
-import it.owlgram.android.ui.AccountProtectionIntro;
+import milmit.advancegram.messenger.helpers.PasscodeHelper;
+import milmit.advancegram.messenger.settings.AccountProtectionSettings;
+import milmit.advancegram.messenger.ui.AccountProtectionIntro;
 
 public class PasscodeActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
     public final static int TYPE_MANAGE_CODE_SETTINGS = 0,

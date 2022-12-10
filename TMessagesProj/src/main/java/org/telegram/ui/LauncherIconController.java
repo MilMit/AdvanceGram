@@ -35,19 +35,18 @@ public class LauncherIconController {
 
     public enum LauncherIcon {
         DEFAULT("DefaultIcon", R.drawable.icon_background_sa, R.drawable.icon_launcher_foreground, R.string.AppIconDefault),
-        DEVELOPER("DeveloperIcon", R.drawable.iconc_1_background_sa, R.drawable.icon_launcher_foreground, R.string.AppIconDeveloper),
-        AQUA("AquaIcon", R.drawable.icon_4_background_sa, R.drawable.icon_launcher_foreground, R.string.AppIconAqua),
-        FOXGRAM("FoxgramIcon", R.drawable.icon_7_launcher_background, R.drawable.icon_7_launcher_foreground, R.string.AppIconFoxgram, false, true),
+        GOOGLE("GoogleIcon", R.mipmap.icon_background_google, R.mipmap.icon_foreground_google, R.string.AppIconGoogle),
+        COLORFUL("ColorfulIcon", R.mipmap.icon_background_colorful, R.mipmap.icon_foreground_colorful, R.string.AppIconColorful,false,true),
         RAINBOW("RainbowIcon", R.drawable.icon_8_launcher_background, R.drawable.icon_8_launcher_foreground, R.string.AppIconRainbow),
-        MONO_BLACK("MonoBlackIcon", R.drawable.iconc_2_background_sa, R.drawable.icon_launcher_foreground, R.string.AppIconMonoBlack),
-        ARCTIC("ArcticIcon", R.drawable.iconc_3_background_sa, R.drawable.iconc_3_launcher_foreground, R.string.AppIconArctic),
-        CHUPA("ChupaIcon", R.drawable.iconc_3_background_sa, R.mipmap.icon_9_launcher_foreground, R.string.AppIconChupa, false, true),
-        VINTAGE("VintageIcon", R.drawable.icon_6_background_sa, -1, R.string.AppIconVintage),
+        MONO_BLACK("MonoBlackIcon", R.drawable.iconc_2_background_sa, R.drawable.icon_8_launcher_foreground, R.string.AppIconMonoBlack),
+        DARKGREEN("DarkGreenIcon", R.mipmap.icon_background_darkgreen, R.mipmap.icon_foreground_darkgreen, R.string.AppIconDarkGreen),
+        NEON("NeonIcon", R.mipmap.icon_background_neon, R.mipmap.icon_foreground_neon, R.string.AppIconNeon,false,true),
         MONET("MonetIcon", -1, -1, R.string.MonetIcon, false, true),
         PREMIUM("PremiumIcon", R.drawable.icon_3_background_sa, R.mipmap.icon_3_foreground, R.string.AppIconPremium, true),
         TURBO("TurboIcon", R.drawable.icon_5_background_sa, R.drawable.icon_5_launcher_foreground, R.string.AppIconTurbo, true),
-        NOX("NoxIcon", R.drawable.icon_2_background_sa, R.drawable.icon_launcher_foreground, R.string.AppIconNox, true);
-
+        NOX("NoxIcon", R.drawable.icon_2_background_sa, R.drawable.icon_launcher_foreground, R.string.AppIconNox, true),
+        AQUA("AquaIcon", R.drawable.icon_4_background_sa, R.mipmap.icon_foreground_sa, R.string.AppIconAqua),
+        VINTAGE("VintageIcon", R.drawable.icon_6_background_sa, R.mipmap.icon_foreground_sa, R.string.AppIconVintage);
         public final String key;
         public final int background;
         public final int foreground;

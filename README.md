@@ -57,6 +57,7 @@ MAPS_API_KEY=<your-api-key>
 • Test Backend  
 • Playback Speed for audio files shorter than 20 minutes  
 • Side Menu Customization  
+• Max Account = 16
 • [And more...](<https://telegra.ph/OwlGram---List-of-Features-03-04>)
 
 ## ✏️ Credits

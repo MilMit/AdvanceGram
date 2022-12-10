@@ -54,7 +54,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.util.Property;
 import android.util.SparseIntArray;
 import android.util.TypedValue;
@@ -230,22 +229,22 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.StoreUtils;
-import it.owlgram.android.components.ActionPanelCell;
-import it.owlgram.android.components.DatacenterCell;
-import it.owlgram.android.components.DcStyleSelector;
-import it.owlgram.android.components.dynamic.ThemeInfo;
-import it.owlgram.android.helpers.ActionButtonManager;
-import it.owlgram.android.helpers.DCHelper;
-import it.owlgram.android.settings.BaseSettingsActivity;
-import it.owlgram.android.settings.DoNotTranslateSettings;
-import it.owlgram.android.settings.OwlgramSettings;
-import it.owlgram.android.translator.AutoTranslatePopupWrapper;
-import it.owlgram.android.translator.BaseTranslator;
-import it.owlgram.android.translator.Translator;
-import it.owlgram.android.translator.TranslatorHelper;
-import it.owlgram.android.updates.ApkDownloader;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.StoreUtils;
+import milmit.advancegram.messenger.components.ActionPanelCell;
+import milmit.advancegram.messenger.components.DatacenterCell;
+import milmit.advancegram.messenger.components.DcStyleSelector;
+import milmit.advancegram.messenger.components.dynamic.ThemeInfo;
+import milmit.advancegram.messenger.helpers.ActionButtonManager;
+import milmit.advancegram.messenger.helpers.DCHelper;
+import milmit.advancegram.messenger.settings.BaseSettingsActivity;
+import milmit.advancegram.messenger.settings.DoNotTranslateSettings;
+import milmit.advancegram.messenger.settings.OwlgramSettings;
+import milmit.advancegram.messenger.translator.AutoTranslatePopupWrapper;
+import milmit.advancegram.messenger.translator.BaseTranslator;
+import milmit.advancegram.messenger.translator.Translator;
+import milmit.advancegram.messenger.translator.TranslatorHelper;
+import milmit.advancegram.messenger.updates.ApkDownloader;
 
 public class ProfileActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate, DialogsActivity.DialogsActivityDelegate, SharedMediaLayout.SharedMediaPreloaderDelegate, ImageUpdater.ImageUpdaterDelegate, SharedMediaLayout.Delegate {
     private final static int PHONE_OPTION_CALL = 0,
@@ -4487,7 +4486,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         }
         lastClickTime = SystemClock.elapsedRealtime();
         SoundPool soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        soundPool.load(ApplicationLoader.applicationContext, R.raw.owl_sound, 1);
+        soundPool.load(ApplicationLoader.applicationContext, R.raw.avd_sound, 1);
         soundPool.setOnLoadCompleteListener((pool, sampleId, status) -> {
             if (status == 0) {
                 try {

@@ -17,7 +17,7 @@ import org.telegram.ui.ActionBar.Theme;
 
 import java.util.Random;
 
-import it.owlgram.android.components.dynamic.ButtonCell;
+import milmit.advancegram.messenger.components.dynamic.ButtonCell;
 
 public class FlickerLoadingView extends View {
 

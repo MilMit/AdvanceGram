@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:826016820998:android:9b4f2b158dcb543e13f887",
         "android_client_info": {
-          "package_name": "it.owlgram.android"
+          "package_name": "milmit.advancegram.messenger"
         }
       },
       "oauth_client": [
@@ -38,7 +38,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:826016820998:android:10665689bf34ecb613f887",
         "android_client_info": {
-          "package_name": "it.owlgram.android.beta"
+          "package_name": "milmit.advancegram.messenger.beta"
         }
       },
       "oauth_client": [

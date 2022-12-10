@@ -43,7 +43,6 @@ import org.telegram.messenger.FileLog;
 import org.telegram.messenger.ImageLocation;
 import org.telegram.messenger.ImageReceiver;
 import org.telegram.messenger.LocaleController;
-import org.telegram.messenger.MediaDataController;
 import org.telegram.messenger.MessageObject;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.NotificationCenter;
@@ -62,14 +61,13 @@ import org.telegram.ui.Cells.StickerCell;
 import org.telegram.ui.Cells.StickerEmojiCell;
 import org.telegram.ui.Components.AlertsCreator;
 import org.telegram.ui.Components.CubicBezierInterpolator;
-import org.telegram.ui.Components.EmojiView;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.RecyclerListView;
 
 import java.util.ArrayList;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.helpers.MessageHelper;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.helpers.MessageHelper;
 
 public class ContentPreviewViewer {
 

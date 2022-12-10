@@ -84,7 +84,6 @@ import androidx.recyclerview.widget.LinearSmoothScrollerCustom;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import org.json.JSONObject;
 import org.telegram.messenger.AccountInstance;
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
@@ -200,21 +199,19 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.components.AppLinkVerifyBottomSheet;
-import it.owlgram.android.components.CrashReportBottomSheet;
-import it.owlgram.android.components.MonetAndroidFixDialog;
-import it.owlgram.android.components.SendOptionsMenuLayout;
-import it.owlgram.android.Crashlytics;
-import it.owlgram.android.helpers.ForwardContext;
-import it.owlgram.android.helpers.MonetIconsHelper;
-import it.owlgram.android.helpers.PasscodeHelper;
-import it.owlgram.android.updates.ApkDownloader;
-import it.owlgram.android.updates.AppDownloader;
-import it.owlgram.android.updates.UpdateManager;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.components.AppLinkVerifyBottomSheet;
+import milmit.advancegram.messenger.components.CrashReportBottomSheet;
+import milmit.advancegram.messenger.components.MonetAndroidFixDialog;
+import milmit.advancegram.messenger.components.SendOptionsMenuLayout;
+import milmit.advancegram.messenger.Crashlytics;
+import milmit.advancegram.messenger.helpers.ForwardContext;
+import milmit.advancegram.messenger.helpers.MonetIconsHelper;
+import milmit.advancegram.messenger.helpers.PasscodeHelper;
+import milmit.advancegram.messenger.updates.ApkDownloader;
+import milmit.advancegram.messenger.updates.AppDownloader;
+import milmit.advancegram.messenger.updates.UpdateManager;
 
 public class DialogsActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate, FloatingDebugProvider {
     public final static int DIALOGS_TYPE_START_ATTACH_BOT = 14;

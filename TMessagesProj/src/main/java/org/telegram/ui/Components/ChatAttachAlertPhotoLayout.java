@@ -8,17 +8,13 @@
 
 package org.telegram.ui.Components;
 
-import static android.widget.GridLayout.*;
-
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -38,7 +34,6 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.TypedValue;
-import android.view.DisplayCutout;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -51,7 +46,6 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -89,7 +83,6 @@ import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.Theme;
-import org.telegram.ui.BasePermissionsActivity;
 import org.telegram.ui.Cells.PhotoAttachCameraCell;
 import org.telegram.ui.Cells.PhotoAttachPermissionCell;
 import org.telegram.ui.Cells.PhotoAttachPhotoCell;
@@ -102,15 +95,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.camera.BaseCameraView;
-import it.owlgram.android.camera.CameraXController;
-import it.owlgram.android.camera.CameraXUtilities;
-import it.owlgram.android.camera.CameraXView;
-import it.owlgram.android.camera.EffectSelector;
-import it.owlgram.android.camera.LockAnimationView;
-import it.owlgram.android.camera.SlideControlView;
-import it.owlgram.android.helpers.PermissionHelper;
+import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.camera.BaseCameraView;
+import milmit.advancegram.messenger.camera.CameraXController;
+import milmit.advancegram.messenger.camera.CameraXUtilities;
+import milmit.advancegram.messenger.camera.CameraXView;
+import milmit.advancegram.messenger.camera.EffectSelector;
+import milmit.advancegram.messenger.camera.LockAnimationView;
+import milmit.advancegram.messenger.camera.SlideControlView;
+import milmit.advancegram.messenger.helpers.PermissionHelper;
 
 public class ChatAttachAlertPhotoLayout extends ChatAttachAlert.AttachAlertLayout implements NotificationCenter.NotificationCenterDelegate {
 
