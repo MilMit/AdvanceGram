@@ -667,6 +667,26 @@ public class ActionBarMenuItem extends FrameLayout {
         yOffset = offset;
     }
 
+    private View anchor;
+
+    public View getAnchor() {
+        return anchor;
+    }
+
+    public void setAnchor(View anchor) {
+        this.anchor = anchor;
+    }
+
+    public boolean isShowOnTop() {
+        return showOnTop;
+    }
+
+    public void setShowOnTop(boolean showOnTop) {
+        this.showOnTop = showOnTop;
+    }
+
+    private boolean showOnTop;
+
     public void toggleSubMenu(View topView, View fromView) {
         if (popupLayout == null || parentMenu != null && parentMenu.isActionMode && parentMenu.parentActionBar != null && !parentMenu.parentActionBar.isActionModeShowed()) {
             return;
@@ -1715,6 +1735,26 @@ public class ActionBarMenuItem extends FrameLayout {
     private void updateOrShowPopup(boolean show, boolean update) {
         int offsetY;
 
+        //MilMit #3
+        if (anchor != null) {
+            float scaleY = anchor.getScaleY();
+            offsetY = -(int) (anchor.getMeasuredHeight() * scaleY - anchor.getTranslationY() / scaleY) + additionalYOffset;
+            int height = AndroidUtilities.displayMetrics.heightPixels;
+            int[] location = new int[2];
+            anchor.getLocationOnScreen(location);
+            int y = location[1];
+            if (showOnTop) {
+                offsetY -= popupLayout.getMeasuredHeight();
+            } else if (height - y < popupLayout.getMeasuredHeight() + offsetY) {
+                if (height - (height - y) >= popupLayout.getMeasuredHeight()) {
+                    offsetY -= popupLayout.getMeasuredHeight();
+                } else if (popupLayout.getMeasuredHeight() > height) {
+                    offsetY -= scaleY;
+                } else {
+                    offsetY -= popupLayout.getMeasuredHeight() / 2;
+                }
+            }
+        }else
         if (parentMenu != null) {
             offsetY = -parentMenu.parentActionBar.getMeasuredHeight() + parentMenu.getTop() + parentMenu.getPaddingTop()/* - (int) parentMenu.parentActionBar.getTranslationY()*/;
         } else {
@@ -1726,8 +1766,36 @@ public class ActionBarMenuItem extends FrameLayout {
         if (show) {
             popupLayout.scrollToTop();
         }
-        View fromView = showSubMenuFrom == null ? this : showSubMenuFrom;
+        //MilMit #3
+        if (anchor != null) {
+            if (subMenuOpenSide == 0) {
+                //if (anchor.getParent() != null) {
+                //View parent = (View) anchor.getParent();
+                if (show) {
+                    popupWindow.showAsDropDown(anchor, anchor.getLeft() + anchor.getMeasuredWidth() - popupLayout.getMeasuredWidth() + additionalXOffset, offsetY);
+                }
+                if (update) {
+                    popupWindow.update(anchor, anchor.getLeft() + anchor.getMeasuredWidth() - popupLayout.getMeasuredWidth() + additionalXOffset, offsetY, -1, -1);
+                }
+                //}
+            } else if (subMenuOpenSide == 1) {
+                if (show) {
+                    popupWindow.showAsDropDown(anchor, -AndroidUtilities.dp(8) + additionalXOffset, offsetY);
+                }
+                if (update) {
+                    popupWindow.update(anchor, -AndroidUtilities.dp(8) + additionalXOffset, offsetY, -1, -1);
+                }
+            } else {
+                if (show) {
+                    popupWindow.showAsDropDown(anchor, anchor.getMeasuredWidth() - popupLayout.getMeasuredWidth() + additionalXOffset, offsetY);
+                }
+                if (update) {
+                    popupWindow.update(anchor, anchor.getMeasuredWidth() - popupLayout.getMeasuredWidth() + additionalXOffset, offsetY, -1, -1);
+                }
+            }
+        } else
         if (parentMenu != null) {
+            View fromView = showSubMenuFrom == null ? this : showSubMenuFrom;
             View parent = parentMenu.parentActionBar;
             if (subMenuOpenSide == 0) {
                 if (show) {

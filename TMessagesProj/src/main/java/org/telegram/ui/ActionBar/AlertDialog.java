@@ -1299,6 +1299,10 @@ public class AlertDialog extends Dialog implements Drawable.Callback, Notificati
             this(context, null);
         }
 
+        public Builder(Context context, int progressViewStyle) {
+            alertDialog = new AlertDialog(context, progressViewStyle, null);
+        }
+
         public Builder(Context context, Theme.ResourcesProvider resourcesProvider) {
             this(context, 0, resourcesProvider);
         }

@@ -4,6 +4,7 @@ import java.nio.file.Paths
 
 plugins {
     id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
 }
 
 configurations.all {
@@ -95,6 +96,19 @@ dependencies {
 
     // NATIVE LIBS
     implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
+
+    // MilMit
+    implementation "cn.hutool:hutool-core:5.7.13"
+    implementation "cn.hutool:hutool-crypto:5.7.13"
+    implementation 'cn.hutool:hutool-http:5.7.5'
+    implementation "org.dizitart:nitrite:3.4.3"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
+    implementation 'dnsjava:dnsjava:3.4.1'
+    compileOnly 'org.yaml:snakeyaml:1.29'
+    implementation("org.yaml:snakeyaml:1.29")
+    implementation 'androidx.core:core:1.9.0'
+    implementation "androidx.core:core-ktx:1.9.0"
 }
 
 android {

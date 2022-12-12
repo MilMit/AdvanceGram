@@ -42,7 +42,11 @@ android {
             if (signingProperties.getProperty("storeFile") != null) {
                 signingConfig signingConfigs.sign
             }
+            minifyEnabled true
+            shrinkResources true
             jniDebuggable true
+            proguardFiles '../TMessagesProj/proguard-rules.pro'
+            ndk.debugSymbolLevel 'FULL'
             applicationIdSuffix ".beta"
         }
 

@@ -36,6 +36,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
+import org.jetbrains.annotations.NotNull;
 import org.telegram.messenger.voip.VideoCapturerDevice;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
@@ -129,6 +130,24 @@ public class ApplicationLoader extends Application {
 
     protected boolean isHuaweiBuild() {
         return false;
+    }
+
+    //MilMit #3
+    @SuppressLint("SdCardPath")
+    public static File getDataDirFixed() {
+        try {
+            File path = applicationContext.getFilesDir();
+            if (path != null) {
+                return path.getParentFile();
+            }
+        } catch (Exception ignored) {
+        }
+        try {
+            ApplicationInfo info = applicationContext.getApplicationInfo();
+            return new File(info.dataDir);
+        } catch (Exception ignored) {
+        }
+        return new File("/data/data/" + BuildVars.APPLICATION_ID + "/");
     }
 
     public static File getFilesDirFixed() {

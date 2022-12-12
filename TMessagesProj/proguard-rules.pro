@@ -11,6 +11,15 @@
 -keep class com.google.android.exoplayer2.metadata.flac.PictureFrame { *; }
 -keep class com.google.android.exoplayer2.decoder.SimpleOutputBuffer { *; }
 
+-keep class org.dizitart.no2.**  { *; }
+-keep class org.slf4j.** { *; }
+-keep class org.h2.** { *; }
+-keep class org.objenesis.** { *; }
+-keep class com.fasterxml.jackson.** { *; }
+
+-keepnames class * implements java.io.Serializable
+-keep class * implements org.dizitart.no2.mapper.Mappable { *; }
+
 # https://developers.google.com/ml-kit/known-issues#android_issues
 -keep class com.google.mlkit.nl.languageid.internal.ThickLanguageIdentifier { *; }
 

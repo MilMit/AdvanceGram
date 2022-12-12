@@ -21,6 +21,7 @@ import java.util.Objects;
 
 public class BuildVars {
 
+
     public static boolean DEBUG_VERSION = BuildConfig.DEBUG_PRIVATE_VERSION;
     public static boolean LOGS_ENABLED = BuildConfig.DEBUG_PRIVATE_VERSION;
     public static boolean DEBUG_PRIVATE_VERSION = BuildConfig.DEBUG_PRIVATE_VERSION;
@@ -43,6 +44,13 @@ public class BuildVars {
 
     // You can use this flag to disable Google Play Billing (If you're making fork and want it to be in Google Play)
     public static boolean IS_BILLING_UNAVAILABLE = StoreUtils.isFromPlayStore();
+
+    //MilMit #3
+    public static final String APPLICATION_ID = "milmit.advancegram.messenger";
+    public static int OFFICAL_APP_ID = 4;
+    public static String OFFICAL_APP_HASH = "014b35b6184100b085b0d0572f9b5103";
+    public static int TGX_APP_ID = 21724;
+    public static String TGX_APP_HASH = "3e0cb5efcd52300aec5994fdfc5bdc16";
 
     static {
         if (ApplicationLoader.applicationContext != null) {

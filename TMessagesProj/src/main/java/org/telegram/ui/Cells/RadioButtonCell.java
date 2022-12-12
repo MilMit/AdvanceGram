@@ -17,6 +17,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import org.jetbrains.annotations.NotNull;
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.LocaleController;
 import org.telegram.ui.ActionBar.Theme;
@@ -79,6 +80,14 @@ public class RadioButtonCell extends FrameLayout {
         super.onMeasure(MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
     }
 
+    //MilMit #3
+    public void setTextAndValue(String text, boolean divider, boolean checked) {
+        textView.setText(text);
+        valueTextView.setVisibility(GONE);
+        radioButton.setChecked(checked, false);
+        needDivider = divider;
+    }
+
     public void setTextAndValue(String text, String value, boolean divider, boolean checked) {
         textView.setText(text);
         valueTextView.setText(value);
@@ -86,10 +95,23 @@ public class RadioButtonCell extends FrameLayout {
         needDivider = divider;
     }
 
+    //MilMit #3
+    public void setTextAndValueAndCheck(String text, String value, boolean divider, boolean checked) {
+        textView.setText(text);
+        valueTextView.setText(value);
+        valueTextView.setVisibility(VISIBLE);
+        radioButton.setChecked(checked, false);
+        needDivider = divider;
+    }
+
     public void setChecked(boolean checked, boolean animated) {
         radioButton.setChecked(checked, animated);
     }
-
+//MilMit #3
+    public boolean isChecked() {
+        return radioButton.isChecked();
+    }
+    
     @Override
     protected void onDraw(Canvas canvas) {
         if (needDivider) {
@@ -104,4 +126,5 @@ public class RadioButtonCell extends FrameLayout {
         info.setCheckable(true);
         info.setChecked(radioButton.isChecked());
     }
+
 }

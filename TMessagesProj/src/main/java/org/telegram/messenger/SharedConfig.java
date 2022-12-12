@@ -24,6 +24,7 @@ import android.webkit.WebView;
 import androidx.annotation.IntDef;
 import androidx.core.content.pm.ShortcutManagerCompat;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.SerializedData;
@@ -35,9 +36,14 @@ import java.io.RandomAccessFile;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.stream.Collectors;
+
+import cn.hutool.core.util.StrUtil;
 
 public class SharedConfig {
     public final static int PASSCODE_TYPE_PIN = 0,
@@ -171,6 +177,10 @@ public class SharedConfig {
 
     public static boolean isFloatingDebugActive;
 
+    //MilMit #3
+    public static CopyOnWriteArraySet<Integer> activeAccounts;
+    public static int loginingAccount = -1;
+
     static {
         loadConfig();
     }
@@ -282,6 +292,13 @@ public class SharedConfig {
             value = lastLocalId--;
         }
         return value;
+    }
+
+    public static void saveAccounts() {
+        FileLog.e("Save accounts: " + activeAccounts, new Exception());
+        ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE).edit()
+                .putString("active_accounts", StringUtils.join(activeAccounts, ","))
+                .apply();
     }
 
     public static void loadConfig() {
@@ -430,6 +447,38 @@ public class SharedConfig {
             messageSeenHintCount = preferences.getInt("messageSeenCount", 3);
             emojiInteractionsHintCount = preferences.getInt("emojiInteractionsHintCount", 3);
             dayNightThemeSwitchHintCount = preferences.getInt("dayNightThemeSwitchHintCount", 3);
+            //MilMit #3
+            activeAccounts = Arrays.stream(preferences.getString("active_accounts", "").split(",")).filter(StrUtil::isNotBlank).map(Integer::parseInt).collect(Collectors.toCollection(CopyOnWriteArraySet::new));
+            if (!preferences.contains("activeAccountsLoaded")) {
+                int maxAccounts;
+
+                File filesDir = ApplicationLoader.applicationContext.getFilesDir();
+                if (new File(filesDir, "account31").isDirectory()) {
+                    maxAccounts = 32;
+                } else if (new File(filesDir, "account15").isDirectory()) {
+                    maxAccounts = 16;
+                } else {
+                    maxAccounts = -1;
+                }
+
+                for (int i = 0; i < maxAccounts; i++) {
+                    SharedPreferences perf;
+                    if (i == 0) {
+                        perf = ApplicationLoader.applicationContext.getSharedPreferences("userconfing", Context.MODE_PRIVATE);
+                    } else {
+                        perf = ApplicationLoader.applicationContext.getSharedPreferences("userconfig" + i, Context.MODE_PRIVATE);
+                    }
+                    if (StrUtil.isNotBlank(perf.getString("user", null))) {
+                        activeAccounts.add(i);
+                    }
+                }
+
+                if (!SharedConfig.activeAccounts.isEmpty()) {
+                    preferences.edit().putString("active_accounts", StringUtils.join(activeAccounts, ",")).apply();
+                }
+
+                preferences.edit().putBoolean("activeAccountsLoaded", true).apply();
+            }
             mediaColumnsCount = preferences.getInt("mediaColumnsCount", 3);
             fastScrollHintCount = preferences.getInt("fastScrollHintCount", 3);
             dontAskManageStorage = preferences.getBoolean("dontAskManageStorage", false);

@@ -19,8 +19,10 @@ import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MessagesController;
+import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
+import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.DrawerLayoutContainer;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.DividerCell;
@@ -39,7 +41,7 @@ import milmit.advancegram.messenger.OwlConfig;
 import milmit.advancegram.messenger.helpers.MenuOrderManager;
 import milmit.advancegram.messenger.helpers.PasscodeHelper;
 
-public class DrawerLayoutAdapter extends RecyclerListView.SelectionAdapter {
+public class DrawerLayoutAdapter extends RecyclerListView.SelectionAdapter implements NotificationCenter.NotificationCenterDelegate {
 
     private Context mContext;
     private DrawerLayoutContainer mDrawerLayoutContainer;
@@ -110,7 +112,21 @@ public class DrawerLayoutAdapter extends RecyclerListView.SelectionAdapter {
     public void setOnPremiumDrawableClick(View.OnClickListener listener) {
         onPremiumDrawableClick = listener;
     }
-
+//MilMit #3
+    @Override
+    public void didReceivedNotification(int id, int account, Object... args) {
+        if (id == NotificationCenter.updateUserStatus) {
+            if (args[0] != null) {
+                TLRPC.TL_updateUserStatus update = (TLRPC.TL_updateUserStatus) args[0];
+                long selectedUserId = UserConfig.getInstance(UserConfig.selectedAccount).getClientUserId();
+                if (update.user_id != selectedUserId) {
+                    return;
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+//
     @Override
     public void notifyDataSetChanged() {
         resetItems();

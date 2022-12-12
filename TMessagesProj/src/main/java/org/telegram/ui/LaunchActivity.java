@@ -783,6 +783,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
         NotificationCenter.getGlobalInstance().addObserver(this, NotificationCenter.appUpdateAvailable);
         NotificationCenter.getGlobalInstance().addObserver(this, NotificationCenter.requestPermissions);
         NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.currentUserPremiumStatusChanged);
+
+        //MilMit #3
+        NotificationCenter.getGlobalInstance().addObserver(drawerLayoutAdapter, NotificationCenter.updateUserStatus);
         if (actionBarLayout.getFragmentStack().isEmpty()) {
             if (!UserConfig.getInstance(currentAccount).isClientActivated()) {
                 actionBarLayout.addFragmentToStack(getClientNotActivatedFragment());
@@ -1345,6 +1348,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
             showTosActivity(account, UserConfig.getInstance(account).unacceptedTermsOfService);
         }
         updateCurrentConnectionState(currentAccount);
+        NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.updateUserStatus, (Object) null);
     }
 
     private void switchToAvailableAccountOrLogout() {
@@ -5352,6 +5356,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
         NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.showBulletin);
         NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.appUpdateAvailable);
         NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.requestPermissions);
+  //MilMit #3
+        NotificationCenter.getGlobalInstance().removeObserver(drawerLayoutAdapter, NotificationCenter.updateUserStatus);
     }
 
     public void presentFragment(INavigationLayout.NavigationParams params) {

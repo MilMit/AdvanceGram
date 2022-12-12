@@ -84,7 +84,10 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 
+import milmit.advancegram.messenger.AdvXConfig;
 import milmit.advancegram.messenger.StoreUtils;
+import milmit.advancegram.messenger.utils.AlertUtil;
+
 
 public class  MessagesController extends BaseController implements NotificationCenter.NotificationCenterDelegate {
 
@@ -6386,6 +6389,30 @@ public class  MessagesController extends BaseController implements NotificationC
             if (pinnedMessages != null) {
                 getNotificationCenter().postNotificationName(NotificationCenter.pinnedInfoDidLoad, user.id, pinnedMessages, pinnedMessagesMap, totalPinnedCount, pinnedEndReached);
             }
+        });
+    }
+//MilMit #3
+    public void updateStatus(boolean online) {
+
+        statusSettingState = online ? 2 : 1;
+
+        if (statusRequest != 0) {
+            getConnectionsManager().cancelRequest(statusRequest, true);
+        }
+
+        offlineSent = !online;
+        AndroidUtilities.runOnUIThread(() -> NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.updateUserStatus, (Object) null));
+
+        TLRPC.TL_account_updateStatus req = new TLRPC.TL_account_updateStatus();
+        req.offline = !online;
+        statusRequest = getConnectionsManager().sendRequest(req, (response, error) -> {
+            if (error == null) {
+                lastStatusUpdateTime = System.currentTimeMillis();
+                statusSettingState = 0;
+            } else {
+                AlertUtil.showToast(error);
+            }
+            statusRequest = 0;
         });
     }
 
@@ -14493,7 +14520,15 @@ public class  MessagesController extends BaseController implements NotificationC
                     updatesOnMainThread = new ArrayList<>();
                 }
                 updatesOnMainThread.add(baseUpdate);
-            } else if (baseUpdate instanceof TLRPC.TL_updatePeerHistoryTTL) {
+            }
+            //MilMit #3
+            else if (baseUpdate instanceof TLRPC.TL_updateLoginToken) {
+                if (updatesOnMainThread == null) {
+                    updatesOnMainThread = new ArrayList<>();
+                }
+                updatesOnMainThread.add(baseUpdate);
+            }
+            else if (baseUpdate instanceof TLRPC.TL_updatePeerHistoryTTL) {
                 if (updatesOnMainThread == null) {
                     updatesOnMainThread = new ArrayList<>();
                 }
@@ -14645,9 +14680,17 @@ public class  MessagesController extends BaseController implements NotificationC
                         toDbUser.id = update.user_id;
                         toDbUser.status = update.status;
                         dbUsersStatus.add(toDbUser);
+                        //MilMit #3
                         if (update.user_id == getUserConfig().getClientUserId()) {
+                            boolean offline = !(update.status instanceof TLRPC.TL_userStatusOnline);
                             getNotificationsController().setLastOnlineFromOtherDevice(update.status.expires);
+                            if (AdvXConfig.keepOnlineStatus && offline != offlineSent) {
+                                getMessagesController().updateStatus(offline);
+                            } else {
+                                offlineSent = offline;
+                            }
                         }
+                        NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.updateUserStatus, update);
                     } else if (baseUpdate instanceof TLRPC.TL_updateUserEmojiStatus) {
                         TLRPC.TL_updateUserEmojiStatus update = (TLRPC.TL_updateUserEmojiStatus) baseUpdate;
                         TLRPC.User currentUser = getUser(update.user_id);
@@ -15195,6 +15238,10 @@ public class  MessagesController extends BaseController implements NotificationC
                     } else if (baseUpdate instanceof TLRPC.TL_updateReadChannelDiscussionOutbox) {
                         TLRPC.TL_updateReadChannelDiscussionOutbox update = (TLRPC.TL_updateReadChannelDiscussionOutbox) baseUpdate;
                         getNotificationCenter().postNotificationName(NotificationCenter.threadMessagesRead, -update.channel_id, update.top_msg_id, 0, update.read_max_id);
+                    }
+                     //MilMit #3
+                    else if (baseUpdate instanceof TLRPC.TL_updateLoginToken) {
+                        getNotificationCenter().postNotificationName(NotificationCenter.updateLoginToken);
                     } else if (baseUpdate instanceof TLRPC.TL_updatePeerHistoryTTL) {
                         TLRPC.TL_updatePeerHistoryTTL updatePeerHistoryTTL = (TLRPC.TL_updatePeerHistoryTTL) baseUpdate;
                         long peerId = MessageObject.getPeerId(updatePeerHistoryTTL.peer);
