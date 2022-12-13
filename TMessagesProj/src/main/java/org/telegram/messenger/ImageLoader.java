@@ -78,6 +78,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 
+import tw.nekomimi.nekogram.utils.EnvUtil;
+
 /**
  * image filter types
  * suffixes:
@@ -2156,7 +2158,7 @@ public class ImageLoader {
             FileLog.e(e);
         }
     }
-
+//MilMit #4
     public SparseArray<File> createMediaPaths() {
         SparseArray<File> mediaDirs = new SparseArray<>();
         File cachePath = AndroidUtilities.getCacheDir();
@@ -2175,53 +2177,7 @@ public class ImageLoader {
         }
 
         try {
-            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-                File path = Environment.getExternalStorageDirectory();
-                if (Build.VERSION.SDK_INT >= 19 && !TextUtils.isEmpty(SharedConfig.storageCacheDir)) {
-                    ArrayList<File> dirs = AndroidUtilities.getRootDirs();
-                    if (dirs != null) {
-                        for (int a = 0, N = dirs.size(); a < N; a++) {
-                            File dir = dirs.get(a);
-                            if (dir.getAbsolutePath().startsWith(SharedConfig.storageCacheDir)) {
-                                path = dir;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                File publicMediaDir = null;
-                if (Build.VERSION.SDK_INT >= 30) {
-                    File newPath;
-                    try {
-                        if (ApplicationLoader.applicationContext.getExternalMediaDirs().length > 0) {
-                            publicMediaDir = ApplicationLoader.applicationContext.getExternalMediaDirs()[0];
-                            publicMediaDir = new File(publicMediaDir, "Telegram");
-                            publicMediaDir.mkdirs();
-                        }
-                    } catch (Exception e) {
-                        FileLog.e(e);
-                    }
-                    newPath = ApplicationLoader.applicationContext.getExternalFilesDir(null);
-                    telegramPath = new File(newPath, "Telegram");
-                } else {
-                    telegramPath = new File(path, "Telegram");
-                }
-                telegramPath.mkdirs();
-
-                if (Build.VERSION.SDK_INT >= 19 && !telegramPath.isDirectory()) {
-                    ArrayList<File> dirs = AndroidUtilities.getDataDirs();
-                    for (int a = 0, N = dirs.size(); a < N; a++) {
-                        File dir = dirs.get(a);
-                        if (dir.getAbsolutePath().startsWith(SharedConfig.storageCacheDir)) {
-                            path = dir;
-                            telegramPath = new File(path, "Telegram");
-                            telegramPath.mkdirs();
-                            break;
-                        }
-                    }
-                }
-
+            telegramPath = EnvUtil.getTelegramPath();
                 if (telegramPath.isDirectory()) {
                     try {
                         File imagePath = new File(telegramPath, "Telegram Images");
@@ -2291,38 +2247,6 @@ public class ImageLoader {
                         FileLog.e(e);
                     }
                 }
-                if (publicMediaDir != null && publicMediaDir.isDirectory()) {
-                    try {
-                        File imagePath = new File(publicMediaDir, "Telegram Images");
-                        imagePath.mkdir();
-                        if (imagePath.isDirectory() && canMoveFiles(cachePath, imagePath, FileLoader.MEDIA_DIR_IMAGE)) {
-                            mediaDirs.put(FileLoader.MEDIA_DIR_IMAGE_PUBLIC, imagePath);
-                            if (BuildVars.LOGS_ENABLED) {
-                                FileLog.d("image path = " + imagePath);
-                            }
-                        }
-                    } catch (Exception e) {
-                        FileLog.e(e);
-                    }
-
-                    try {
-                        File videoPath = new File(publicMediaDir, "Telegram Video");
-                        videoPath.mkdir();
-                        if (videoPath.isDirectory() && canMoveFiles(cachePath, videoPath, FileLoader.MEDIA_DIR_VIDEO)) {
-                            mediaDirs.put(FileLoader.MEDIA_DIR_VIDEO_PUBLIC, videoPath);
-                            if (BuildVars.LOGS_ENABLED) {
-                                FileLog.d("video path = " + videoPath);
-                            }
-                        }
-                    } catch (Exception e) {
-                        FileLog.e(e);
-                    }
-                }
-            } else {
-                if (BuildVars.LOGS_ENABLED) {
-                    FileLog.d("this Android can't rename files");
-                }
-            }
             SharedConfig.checkSaveToGalleryFiles();
         } catch (Exception e) {
             FileLog.e(e);

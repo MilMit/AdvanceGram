@@ -89,6 +89,8 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
+import tw.nekomimi.nekogram.utils.EnvUtil;
+
 public class ChatAttachAlertDocumentLayout extends ChatAttachAlert.AttachAlertLayout {
 
     public interface DocumentSelectActivityDelegate {
@@ -1314,7 +1316,8 @@ public class ChatAttachAlertDocumentLayout extends ChatAttachAlert.AttachAlertLa
 
         ListItem fs;
         try {
-            File telegramPath = new File(ApplicationLoader.applicationContext.getExternalFilesDir(null), "Telegram");
+            //MilMit #4
+            File telegramPath = EnvUtil.getTelegramPath();
             if (telegramPath.exists()) {
                 fs = new ListItem();
                 fs.title = "Telegram";

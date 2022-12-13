@@ -180,6 +180,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import milmit.advancegram.messenger.AdvConfig;
 import milmit.advancegram.messenger.OwlConfig;
 import milmit.advancegram.messenger.components.ImportSettingsDialog;
 
@@ -2726,7 +2727,9 @@ public class AndroidUtilities {
         }
         File storageDir = null;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Telegram");
+            //MilMit #4
+            final String folderName = AdvConfig.customSavePath.String();
+            storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), folderName);
             if (!storageDir.mkdirs()) {
                 if (!storageDir.exists()) {
                     if (BuildVars.LOGS_ENABLED) {

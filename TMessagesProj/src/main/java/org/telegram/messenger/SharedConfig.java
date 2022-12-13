@@ -44,6 +44,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.stream.Collectors;
 
 import cn.hutool.core.util.StrUtil;
+import tw.nekomimi.nekogram.utils.EnvUtil;
 
 public class SharedConfig {
     public final static int PASSCODE_TYPE_PIN = 0,
@@ -1222,7 +1223,8 @@ public class SharedConfig {
     public static void checkSaveToGalleryFiles() {
         Utilities.globalQueue.postRunnable(() -> {
             try {
-                File telegramPath = new File(Environment.getExternalStorageDirectory(), "Telegram");
+                //MilMit #4
+                File telegramPath = EnvUtil.getTelegramPath();
                 File imagePath = new File(telegramPath, "Telegram Images");
                 imagePath.mkdir();
                 File videoPath = new File(telegramPath, "Telegram Video");

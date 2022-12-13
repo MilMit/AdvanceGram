@@ -53,6 +53,12 @@ import org.telegram.ui.Components.voip.VoIPHelper;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
+
+import kotlin.Unit;
+import milmit.advancegram.messenger.AdvConfig;
+import milmit.advancegram.messenger.ui.BottomBuilder;
+import tw.nekomimi.nekogram.utils.EnvUtil;
 
 public class DataSettingsActivity extends BaseFragment {
 
@@ -113,13 +119,8 @@ public class DataSettingsActivity extends BaseFragment {
         usageSectionRow = rowCount++;
         storageUsageRow = rowCount++;
         dataUsageRow = rowCount++;
-        storageNumRow = -1;
-        if (Build.VERSION.SDK_INT >= 19) {
-            storageDirs = AndroidUtilities.getRootDirs();
-            if (storageDirs.size() > 1) {
-                storageNumRow = rowCount++;
-            }
-        }
+        //MilMit #4
+        storageNumRow = rowCount++;
         usageSection2Row = rowCount++;
         mediaDownloadSectionRow = rowCount++;
         mobileRow = rowCount++;
@@ -362,41 +363,76 @@ public class DataSettingsActivity extends BaseFragment {
             } else if (position == dataUsageRow) {
                 presentFragment(new DataUsageActivity());
             } else if (position == storageNumRow) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getParentActivity());
-                builder.setTitle(LocaleController.getString("StoragePath", R.string.StoragePath));
-                final LinearLayout linearLayout = new LinearLayout(getParentActivity());
-                linearLayout.setOrientation(LinearLayout.VERTICAL);
-                builder.setView(linearLayout);
+                //MilMit #4
+                BottomBuilder builder = new BottomBuilder(getParentActivity());
 
-                String dir = storageDirs.get(0).getAbsolutePath();
-                if (!TextUtils.isEmpty(SharedConfig.storageCacheDir)) {
-                    for (int a = 0, N = storageDirs.size(); a < N; a++) {
-                        String path = storageDirs.get(a).getAbsolutePath();
-                        if (path.startsWith(SharedConfig.storageCacheDir)) {
-                            dir = path;
-                            break;
+                builder.addTitle(LocaleController.getString("StoragePath", R.string.StoragePath));
+
+                AtomicReference<String> target = new AtomicReference<>();
+
+                builder.addRadioItems(EnvUtil.getAvailableDirectories(),
+                        (index, path) -> path.equals(AdvConfig.cachePath.String()), (__, path, cell) -> {
+
+                            target.set(path);
+                            builder.doRadioCheck(cell);
+
+                            return null;
+
+                        });
+
+                builder.addCancelButton();
+                builder.addOkButton((it) -> {
+
+                    if (target.get() != null) {
+
+                        AdvConfig.cachePath.setConfigString(target.get());
+                        ImageLoader.getInstance().checkMediaPaths();
+                        listAdapter.notifyItemChanged(position);
+
+                    }
+
+                    return Unit.INSTANCE;
+
+                });
+
+                builder.show();
+                if (false){
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getParentActivity());
+                    builder1.setTitle(LocaleController.getString("StoragePath", R.string.StoragePath));
+                    final LinearLayout linearLayout = new LinearLayout(getParentActivity());
+                    linearLayout.setOrientation(LinearLayout.VERTICAL);
+                    builder1.setView(linearLayout);
+
+                    String dir = storageDirs.get(0).getAbsolutePath();
+                    if (!TextUtils.isEmpty(SharedConfig.storageCacheDir)) {
+                        for (int a = 0, N = storageDirs.size(); a < N; a++) {
+                            String path = storageDirs.get(a).getAbsolutePath();
+                            if (path.startsWith(SharedConfig.storageCacheDir)) {
+                                dir = path;
+                                break;
+                            }
                         }
                     }
-                }
 
-                for (int a = 0, N = storageDirs.size(); a < N; a++) {
-                    String storageDir = storageDirs.get(a).getAbsolutePath();
-                    RadioColorCell cell = new RadioColorCell(context);
-                    cell.setPadding(AndroidUtilities.dp(4), 0, AndroidUtilities.dp(4), 0);
-                    cell.setTag(a);
-                    cell.setCheckColor(Theme.getColor(Theme.key_radioBackground), Theme.getColor(Theme.key_dialogRadioBackgroundChecked));
-                    cell.setTextAndValue(storageDir, storageDir.startsWith(dir));
-                    linearLayout.addView(cell);
-                    cell.setOnClickListener(v -> {
-                        SharedConfig.storageCacheDir = storageDir;
-                        SharedConfig.saveConfig();
-                        ImageLoader.getInstance().checkMediaPaths();
-                        builder.getDismissRunnable().run();
-                        listAdapter.notifyItemChanged(storageNumRow);
-                    });
+                    for (int a = 0, N = storageDirs.size(); a < N; a++) {
+                        String storageDir = storageDirs.get(a).getAbsolutePath();
+                        RadioColorCell cell = new RadioColorCell(context);
+                        cell.setPadding(AndroidUtilities.dp(4), 0, AndroidUtilities.dp(4), 0);
+                        cell.setTag(a);
+                        cell.setCheckColor(Theme.getColor(Theme.key_radioBackground), Theme.getColor(Theme.key_dialogRadioBackgroundChecked));
+                        cell.setTextAndValue(storageDir, storageDir.startsWith(dir));
+                        linearLayout.addView(cell);
+                        cell.setOnClickListener(v -> {
+                            SharedConfig.storageCacheDir = storageDir;
+                            SharedConfig.saveConfig();
+                            ImageLoader.getInstance().checkMediaPaths();
+                            builder1.getDismissRunnable().run();
+                            listAdapter.notifyItemChanged(storageNumRow);
+                        });
+                    }
+                    builder1.setNegativeButton(LocaleController.getString("Cancel", R.string.Cancel), null);
+                    showDialog(builder1.create());
                 }
-                builder.setNegativeButton(LocaleController.getString("Cancel", R.string.Cancel), null);
-                showDialog(builder.create());
             } else if (position == proxyRow) {
                 presentFragment(new ProxyListActivity());
             } else if (position == enableStreamRow) {
@@ -514,20 +550,25 @@ public class DataSettingsActivity extends BaseFragment {
                         updateVoipUseLessData = false;
                     } else if (position == dataUsageRow) {
                         textCell.setIcon(R.drawable.msg_data_usage);
-                        textCell.setText(LocaleController.getString("NetworkUsage", R.string.NetworkUsage), storageNumRow != -1);
+                        textCell.setText(LocaleController.getString("NetworkUsage", R.string.NetworkUsage), true);
                     } else if (position == storageNumRow) {
-                        textCell.setIcon(0);
-                        String dir = storageDirs.get(0).getAbsolutePath();
-                        if (!TextUtils.isEmpty(SharedConfig.storageCacheDir)) {
-                            for (int a = 0, N = storageDirs.size(); a < N; a++) {
-                                String path = storageDirs.get(a).getAbsolutePath();
-                                if (path.startsWith(SharedConfig.storageCacheDir)) {
-                                    dir = path;
-                                    break;
+                        //MilMit #4
+                        textCell.setIcon(R.drawable.ic_storage_path);
+                        textCell.setText(LocaleController.getString("StoragePath", R.string.StoragePath), false);
+                        if (false){
+                            textCell.setIcon(0);
+                            String dir = storageDirs.get(0).getAbsolutePath();
+                            if (!TextUtils.isEmpty(SharedConfig.storageCacheDir)) {
+                                for (int a = 0, N = storageDirs.size(); a < N; a++) {
+                                    String path = storageDirs.get(a).getAbsolutePath();
+                                    if (path.startsWith(SharedConfig.storageCacheDir)) {
+                                        dir = path;
+                                        break;
+                                    }
                                 }
                             }
+                            textCell.setTextAndValue(LocaleController.getString("StoragePath", R.string.StoragePath), dir, false);
                         }
-                        textCell.setTextAndValue(LocaleController.getString("StoragePath", R.string.StoragePath), dir, false);
                     } else if (position == proxyRow) {
                         textCell.setIcon(0);
                         textCell.setText(LocaleController.getString("ProxySettings", R.string.ProxySettings), false);

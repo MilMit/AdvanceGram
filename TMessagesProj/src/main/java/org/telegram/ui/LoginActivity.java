@@ -686,7 +686,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                 .setContentDescription(LocaleController.getString("Proxy", R.string.Proxy));
         menu.addSubItem(menu_language, R.drawable.ic_translate, LocaleController.getString("Language", R.string.Language))
                 .setContentDescription(LocaleController.getString("Language", R.string.Language));
-        menu.addSubItem(menu_bot_login, R.drawable.list_bot, LocaleController.getString("BotLogin", R.string.BotLogin))
+        menu.addSubItem(menu_bot_login, R.drawable.ic_bot, LocaleController.getString("BotLogin", R.string.BotLogin))
                 .setContentDescription(LocaleController.getString("BotLogin", R.string.BotLogin));
         menu.addSubItem(menu_qr_login, R.drawable.msg_qrcode, LocaleController.getString("ImportLogin", R.string.ImportLogin))
                 .setContentDescription(LocaleController.getString("ImportLogin", R.string.ImportLogin));

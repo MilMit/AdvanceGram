@@ -45,7 +45,8 @@ import org.telegram.ui.LauncherIconController;
 
 import java.io.File;
 
-import milmit.advancegram.messenger.camera.CameraXUtilities;
+import milmit.advancegram.messenger.camera.CameraXUtils;
+
 
 public class ApplicationLoader extends Application {
 
@@ -224,7 +225,7 @@ public class ApplicationLoader extends Application {
         }
         hasPlayServices = checkPlayServices();
         SharedConfig.loadConfig();
-        CameraXUtilities.loadCameraXSizes();
+        CameraXUtils.loadCameraXSizes();
         SharedPrefsHelper.init(applicationContext);
         for (int a = 0; a < UserConfig.MAX_ACCOUNT_COUNT; a++) { //TODO improve account
             UserConfig.getInstance(a).loadConfig();
