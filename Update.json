@@ -1,0 +1,31 @@
+{
+  "update" : {
+    "dc": "2,5",
+    "necessary": true ,
+    "status": "update_available",
+    "title": "<b>Upgrade to AdvanceGram 1.0.1 is ready!</b>",
+    "desc": "Upgrade to AdvanceGram\nUpgrade to AdvanceGram\nUpgrade to AdvanceGram\nUpgrade to AdvanceGram",
+    "note": "Test apk",
+    "banner": "https://files.owlgram.org/m4ndq7d161y077t009.png",
+    "version": 2,
+    "linkminiarm64": "https://dl.milmit.net/AdvanceGram-1.0.1-2-armeabi-v7a.apk",
+    "sizeminiarm64": "59352261",
+    "linkminiarm7": "https://dl.milmit.net/AdvanceGram-1.0.1-2-armeabi-v7a.apk",
+    "sizeminiarm7": "59352261",
+    "linkminiarmx86_64": "https://dl.milmit.net/AdvanceGram-1.0.1-2-armeabi-v7a.apk",
+    "sizeminiarmx86_64": "59352261",
+    "linkminiarmx86": "https://dl.milmit.net/AdvanceGram-1.0.1-2-armeabi-v7a.apk",
+    "sizeminiarmx86": "59352261",
+    "linkfullarm64": "https://dl.milmit.net/AdvanceGram-1.0.1-2-armeabi-v7a.apk",
+    "sizefullarm64": "59352261",
+    "linkfullarm7": "https://dl.milmit.net/AdvanceGram-1.0.1-2-armeabi-v7a.apk",
+    "sizefullarm7": "59352261",
+    "linkfullarmx86_64": "https://dl.milmit.net/AdvanceGram-1.0.1-2-armeabi-v7a.apk",
+    "sizefullarmx86_64": "59352261",
+    "linkfullarmx86": "https://dl.milmit.net/AdvanceGram-1.0.1-2-armeabi-v7a.apk",
+    "sizefullarmx86": "59352261"
+  },
+  "changelog" : {
+    "2": "update_available"
+  }
+}
