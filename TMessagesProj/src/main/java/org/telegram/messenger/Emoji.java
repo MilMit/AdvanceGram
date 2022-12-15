@@ -28,7 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.helpers.CustomEmojiHelper;
 
 import org.telegram.ui.Components.AnimatedEmojiSpan;
@@ -275,7 +275,7 @@ public class Emoji {
                 b = getBounds();
             }
 
-            if (OwlConfig.useSystemEmoji) {
+            if (AdvanceGramConfig.useSystemEmoji) {
                 String emoji = fixEmoji(EmojiData.data[info.page][info.emojiIndex]);
                 textPaint.setTextSize(b.height() * 0.8f);
                 textPaint.setTypeface(CustomEmojiHelper.getSystemEmojiTypeface());

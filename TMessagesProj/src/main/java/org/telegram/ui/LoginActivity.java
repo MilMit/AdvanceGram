@@ -173,7 +173,7 @@ import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import kotlin.Unit;
 import milmit.advancegram.messenger.AdvXConfig;
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.helpers.PasscodeHelper;
 import milmit.advancegram.messenger.ui.BottomBuilder;
 import milmit.advancegram.messenger.utils.ProxyUtil;
@@ -486,7 +486,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
         });
 
         if (UserConfig.getActivatedAccountsCount() == 0) {
-            OwlConfig.updateCurrentVersion();
+            AdvanceGramConfig.updateCurrentVersion();
         }
 
         currentDoneType = DONE_TYPE_FLOATING;

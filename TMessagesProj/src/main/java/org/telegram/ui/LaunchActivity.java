@@ -196,7 +196,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import milmit.advancegram.messenger.StoreUtils;
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.components.UpdateAlertDialog;
 import milmit.advancegram.messenger.Crashlytics;
 import milmit.advancegram.messenger.helpers.ForwardContext;
@@ -204,11 +204,11 @@ import milmit.advancegram.messenger.helpers.LanguageHelper;
 import milmit.advancegram.messenger.helpers.MonetHelper;
 import milmit.advancegram.messenger.helpers.StickersHelper;
 import milmit.advancegram.messenger.helpers.UpdateSignaling;
-import milmit.advancegram.messenger.settings.OwlgramAppearanceSettings;
-import milmit.advancegram.messenger.settings.OwlgramChatSettings;
-import milmit.advancegram.messenger.settings.OwlgramExperimentalSettings;
-import milmit.advancegram.messenger.settings.OwlgramGeneralSettings;
-import milmit.advancegram.messenger.settings.OwlgramSettings;
+import milmit.advancegram.messenger.settings.AdvgramAppearanceSettings;
+import milmit.advancegram.messenger.settings.AdvgramChatSettings;
+import milmit.advancegram.messenger.settings.AdvgramExperimentalSettings;
+import milmit.advancegram.messenger.settings.AdvgramGeneralSettings;
+import milmit.advancegram.messenger.settings.AdvgramSettings;
 import milmit.advancegram.messenger.ui.DatacenterActivity;
 import milmit.advancegram.messenger.updates.ApkDownloader;
 import milmit.advancegram.messenger.updates.ApkInstaller;
@@ -603,7 +603,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                 } else if (id == 15) {
                     showSelectStatusDialog();
                 } else if (id == 201) {
-                    presentFragment(new OwlgramSettings());
+                    presentFragment(new AdvgramSettings());
                     drawerLayoutContainer.closeDrawer(false);
                 } else if (id == 202) {
                     Bundle args = new Bundle();
@@ -2498,7 +2498,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                             open_settings = 1;
                                         }
                                     } else if (url.startsWith("tg:owl") || url.startsWith("tg://owl")) {
-                                        ProfileActivity.startOwlSound();
+                                        ProfileActivity.startAdvSound();
                                     } else if (url.startsWith("tg:update") || url.startsWith("tg://update")) {
                                         checkAppUpdate(true);
                                     } else if (url.startsWith("tg:stocwddo") || url.startsWith("tg://stocwddo")) {
@@ -2529,17 +2529,17 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                             bulletin.show();
                                         });
                                     } else if (url.startsWith("tg:chupagram") || url.startsWith("tg://chupagram")) {
-                                        if (!OwlConfig.unlockedChupa) {
+                                        if (!AdvanceGramConfig.unlockedChupa) {
                                             BaseFragment fragment = mainFragmentsStack.get(mainFragmentsStack.size() - 1);
                                             AppIconBulletinLayout layout = new AppIconBulletinLayout(fragment.getParentActivity(), LauncherIconController.LauncherIcon.NEON, null);
                                             layout.textView.setText(LocaleController.getString("UnlockedHiddenChupaIcon", R.string.UnlockedHiddenChupaIcon));
                                             fireworksOverlay.start();
                                             layout.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
                                             Bulletin.make(fragment, layout, Bulletin.DURATION_SHORT).show();
-                                            OwlConfig.unlockChupa();
+                                            AdvanceGramConfig.unlockChupa();
                                         }
                                     } else if (url.startsWith("tg:experimental") || url.startsWith("tg://experimental")) {
-                                        AndroidUtilities.runOnUIThread(() -> presentFragment(new OwlgramExperimentalSettings(), false, false));
+                                        AndroidUtilities.runOnUIThread(() -> presentFragment(new AdvgramExperimentalSettings(), false, false));
                                         if (AndroidUtilities.isTablet()) {
                                             actionBarLayout.showLastFragment();
                                             rightActionBarLayout.showLastFragment();
@@ -2548,7 +2548,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                             drawerLayoutContainer.setAllowOpenDrawer(true, false);
                                         }
                                     } else if (url.startsWith("tg:chat") || url.startsWith("tg://chat")) {
-                                        AndroidUtilities.runOnUIThread(() -> presentFragment(new OwlgramChatSettings(), false, false));
+                                        AndroidUtilities.runOnUIThread(() -> presentFragment(new AdvgramChatSettings(), false, false));
                                         if (AndroidUtilities.isTablet()) {
                                             actionBarLayout.showLastFragment();
                                             rightActionBarLayout.showLastFragment();
@@ -2557,7 +2557,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                             drawerLayoutContainer.setAllowOpenDrawer(true, false);
                                         }
                                     } else if (url.startsWith("tg:general") || url.startsWith("tg://general")) {
-                                        AndroidUtilities.runOnUIThread(() -> presentFragment(new OwlgramGeneralSettings(), false, false));
+                                        AndroidUtilities.runOnUIThread(() -> presentFragment(new AdvgramGeneralSettings(), false, false));
                                         if (AndroidUtilities.isTablet()) {
                                             actionBarLayout.showLastFragment();
                                             rightActionBarLayout.showLastFragment();
@@ -2566,7 +2566,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                             drawerLayoutContainer.setAllowOpenDrawer(true, false);
                                         }
                                     } else if (url.startsWith("tg:appearance") || url.startsWith("tg://appearance")) {
-                                        AndroidUtilities.runOnUIThread(() -> presentFragment(new OwlgramAppearanceSettings(), false, false));
+                                        AndroidUtilities.runOnUIThread(() -> presentFragment(new AdvgramAppearanceSettings(), false, false));
                                         if (AndroidUtilities.isTablet()) {
                                             actionBarLayout.showLastFragment();
                                             rightActionBarLayout.showLastFragment();
@@ -4761,7 +4761,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     ApkDownloader.installUpdate(LaunchActivity.this);
                 } else {
                     try {
-                        String data = OwlConfig.updateData;
+                        String data = AdvanceGramConfig.updateData;
                         if(data.length() > 0) {
                             JSONObject jsonObject = new JSONObject(data);
                             UpdateManager.UpdateAvailable update = UpdateManager.loadUpdate(jsonObject);
@@ -4911,14 +4911,14 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     updateSizeTextView.animate().alpha(0.0f).scaleX(0.0f).scaleY(0.0f).setDuration(180).start();
                 } else {
                     try {
-                        String data = OwlConfig.updateData;
+                        String data = AdvanceGramConfig.updateData;
                         if(data.length() > 0) {
                             JSONObject jsonObject = new JSONObject(data);
                             UpdateManager.UpdateAvailable updateAvailable = UpdateManager.loadUpdate(jsonObject);
                             if(updateAvailable.version > BuildVars.BUILD_VERSION) {
                                 createUpdateUI();
                                 updateLayoutIcon.setIcon(MediaActionDrawable.ICON_DOWNLOAD, true, true);
-                                updateTextView.setText(LocaleController.getString("UpdateOwlGram", R.string.UpdateOwlGram));
+                                updateTextView.setText(LocaleController.getString("UpdateAdvGram", R.string.UpdateAdvGram));
                                 updateSizeTextView.setTag(null);
                                 updateSizeTextView.animate().alpha(1.0f).scaleX(1.0f).scaleY(1.0f).setDuration(180).start();
                                 updateSizeTextView.setText(AndroidUtilities.formatFileSize(updateAvailable.file_size));
@@ -4946,7 +4946,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     }
 
     public void checkAppUpdate(boolean force) {
-        if((!OwlConfig.notifyUpdates && !force) || UserConfig.getActivatedAccountsCount() == 0 || !StoreUtils.isFromCheckableStore() && StoreUtils.isDownloadedFromAnyStore()) {
+        if((!AdvanceGramConfig.notifyUpdates && !force) || UserConfig.getActivatedAccountsCount() == 0 || !StoreUtils.isFromCheckableStore() && StoreUtils.isDownloadedFromAnyStore()) {
             return;
         }
         UpdateManager.isDownloadedUpdate(result -> {
@@ -4978,31 +4978,31 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     public void onSuccess(Object updateResult) {
                         if(updateResult instanceof UpdateManager.UpdateAvailable) {
                             UpdateManager.UpdateAvailable updateAvailable = (UpdateManager.UpdateAvailable) updateResult;
-                            long passed_time = (new Date().getTime() - OwlConfig.lastUpdateCheck) / 1000;
-                            if(passed_time >= 3600 * 2 || OwlConfig.lastUpdateStatus != 1 && !updateAvailable.isReminded() || force) {
-                                OwlConfig.setUpdateData(updateResult.toString());
-                                OwlConfig.remindUpdate(-1);
+                            long passed_time = (new Date().getTime() - AdvanceGramConfig.lastUpdateCheck) / 1000;
+                            if(passed_time >= 3600 * 2 || AdvanceGramConfig.lastUpdateStatus != 1 && !updateAvailable.isReminded() || force) {
+                                AdvanceGramConfig.setUpdateData(updateResult.toString());
+                                AdvanceGramConfig.remindUpdate(-1);
                                 NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.appUpdateAvailable);
                                 if (StoreUtils.isFromPlayStore()) {
                                     PlayStoreAPI.openUpdatePopup(LaunchActivity.this);
                                 } else {
                                     new UpdateAlertDialog(LaunchActivity.this, updateAvailable).show();
                                 }
-                                OwlConfig.saveUpdateStatus(1);
-                                OwlConfig.saveLastUpdateCheck();
+                                AdvanceGramConfig.saveUpdateStatus(1);
+                                AdvanceGramConfig.saveLastUpdateCheck();
                                 updateAppUpdateViews();
                             }
                         } else {
                             if (updateResult instanceof UpdateManager.UpdateNotAvailable && force) {
                                 NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.showBulletin, Bulletin.TYPE_ERROR, LocaleController.formatString("NoUpdateAvailable", R.string.NoUpdateAvailable));
                             }
-                            OwlConfig.saveUpdateStatus(0);
+                            AdvanceGramConfig.saveUpdateStatus(0);
                         }
                     }
 
                     @Override
                     public void onError(Exception e) {}
-                });
+                },currentAccount);
             }
         });
     }
@@ -6946,7 +6946,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                         showVoiceChatTooltip(mute ? UndoView.ACTION_VOIP_SOUND_MUTED : UndoView.ACTION_VOIP_SOUND_UNMUTED);
                     }
                 }
-            } else if ((OwlConfig.turnSoundOnVDKey || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) && (!mainFragmentsStack.isEmpty() && (!PhotoViewer.hasInstance() || !PhotoViewer.getInstance().isVisible()) && event.getRepeatCount() == 0)) {
+            } else if ((AdvanceGramConfig.turnSoundOnVDKey || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) && (!mainFragmentsStack.isEmpty() && (!PhotoViewer.hasInstance() || !PhotoViewer.getInstance().isVisible()) && event.getRepeatCount() == 0)) {
                 BaseFragment fragment = mainFragmentsStack.get(mainFragmentsStack.size() - 1);
                 if (fragment instanceof ChatActivity) {
                     if (((ChatActivity) fragment).maybePlayVisibleVideo()) {

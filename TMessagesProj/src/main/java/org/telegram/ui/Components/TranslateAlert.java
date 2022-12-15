@@ -69,7 +69,11 @@ import org.telegram.ui.ActionBar.Theme;
 
 import java.util.ArrayList;
 
+import kotlin.Unit;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.translator.BaseTranslator;
+import milmit.advancegram.messenger.translator.Nekox.NekoXTranslator;
+import milmit.advancegram.messenger.translator.Nekox.NekoXTranslatorKt;
 import milmit.advancegram.messenger.translator.TranslatorHelper;
 
 public class TranslateAlert extends Dialog {
@@ -86,6 +90,7 @@ public class TranslateAlert extends Dialog {
     private TextView subtitleToView;
     private ImageView backButton;
     private ImageView copyButton;
+    private ImageView changeLangButton;
     private FrameLayout header;
     private FrameLayout headerShadowView;
     private NestedScrollView scrollView;
@@ -99,6 +104,8 @@ public class TranslateAlert extends Dialog {
     private FrameLayout.LayoutParams titleLayout;
     private FrameLayout.LayoutParams subtitleLayout;
     private FrameLayout.LayoutParams copyLayout;
+    //MilMit 5
+    private FrameLayout.LayoutParams changeLangLayout;
     private FrameLayout.LayoutParams headerLayout;
     private FrameLayout.LayoutParams scrollViewLayout;
 
@@ -138,6 +145,16 @@ public class TranslateAlert extends Dialog {
         );
         copyButton.setLayoutParams(copyLayout);
         copyButton.setColorFilter(ColorUtils.blendARGB(Theme.getColor(Theme.key_player_actionBarSubtitle), Theme.getColor(Theme.key_dialogTextBlack), t), PorterDuff.Mode.MULTIPLY);
+        //MilMit 5
+        changeLangLayout.setMargins(
+                changeLangLayout.leftMargin,
+                dp(lerp(15, 0, t)),
+                changeLangLayout.rightMargin,
+                changeLangLayout.bottomMargin
+        );
+        changeLangButton.setLayoutParams(changeLangLayout);
+        changeLangButton.setColorFilter(ColorUtils.blendARGB(Theme.getColor(Theme.key_player_actionBarSubtitle), Theme.getColor(Theme.key_dialogTextBlack), t), PorterDuff.Mode.MULTIPLY);
+
 
         backButton.setAlpha(t);
         backButton.setScaleX(.75f + .25f * t);
@@ -434,6 +451,22 @@ public class TranslateAlert extends Dialog {
         copyButton.setOnClickListener(v -> {
             AndroidUtilities.addToClipboard(allTextsView.getText());
             BulletinFactory.of(bulletinContainer, null).createCopyBulletin(LocaleController.getString("TextCopied", R.string.TextCopied)).show();
+        });
+        //MilMit 5
+        changeLangButton = new ImageView(context);
+        changeLangButton.setImageResource(R.drawable.ic_translate);
+        changeLangButton.setColorFilter(new PorterDuffColorFilter(Theme.getColor(Theme.key_player_actionBarSubtitle), PorterDuff.Mode.MULTIPLY));
+        changeLangButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        changeLangButton.setPadding(AndroidUtilities.dp(16), 0, AndroidUtilities.dp(16), 0);
+        changeLangButton.setBackground(Theme.createSelectorDrawable(Theme.getColor(Theme.key_dialogButtonSelector)));
+        header.addView(changeLangButton, changeLangLayout = LayoutHelper.createFrame(56, 56, !LocaleController.isRTL ? Gravity.RIGHT : Gravity.LEFT, 0, 15, 50, 0));
+        changeLangButton.setOnClickListener(v -> {
+            NekoXTranslator.showTargetLangSelect(v, true, (locale) -> {
+                dismiss();
+                AdvanceGramConfig.setTranslationTarget(NekoXTranslatorKt.getLocale2code(locale));
+                TranslateAlert.showAlert(context, fragment, fromLanguage, NekoXTranslatorKt.getLocale2code(locale), text, noforwards, onLinkPress, onDismiss);
+                return Unit.INSTANCE;
+            });
         });
 
         backButton = new ImageView(context);

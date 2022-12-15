@@ -134,7 +134,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.components.ImportSettingsDialog;
 
 public class ChannelAdminLogActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
@@ -1743,8 +1743,8 @@ public class ChannelAdminLogActivity extends BaseFragment implements Notificatio
                 break;
             }
             case 207: {
-                int statusConf = OwlConfig.isValidFileSettings(selectedObject);
-                if (statusConf == OwlConfig.VALID_CONFIGURATION) {
+                int statusConf = AdvanceGramConfig.isValidFileSettings(selectedObject);
+                if (statusConf == AdvanceGramConfig.VALID_CONFIGURATION) {
                     new ImportSettingsDialog(ChannelAdminLogActivity.this, selectedObject).checkCanShowDialog();
                 } else {
                     BulletinFactory.of(ChannelAdminLogActivity.this).createSimpleBulletin(R.raw.gigagroup_convert, LocaleController.getString("UpdateToImport", R.string.UpdateToImport), true).show();
@@ -1903,7 +1903,7 @@ public class ChannelAdminLogActivity extends BaseFragment implements Notificatio
                                 return 10;
                             } else if (mime.endsWith("/xml")) {
                                 return 5;
-                            } else if (messageObject.getDocumentName().toLowerCase().endsWith("owl") && OwlConfig.isValidFileSettings(messageObject) >= OwlConfig.VALID_CONFIGURATION) {
+                            } else if (messageObject.getDocumentName().toLowerCase().endsWith("owl") && AdvanceGramConfig.isValidFileSettings(messageObject) >= AdvanceGramConfig.VALID_CONFIGURATION) {
                                 return 207;
                             } else if (mime.endsWith("/png") || mime.endsWith("/jpg") || mime.endsWith("/jpeg")) {
                                 return 6;
@@ -2645,9 +2645,9 @@ public class ChannelAdminLogActivity extends BaseFragment implements Notificatio
                                     scrollToPositionOnRecreate = -1;
                                 }
                             }
-                            int statusConf = OwlConfig.isValidFileSettings(message);
-                            if (message.getDocumentName().toLowerCase().endsWith("owl") && statusConf >= OwlConfig.VALID_CONFIGURATION) {
-                                if (statusConf == OwlConfig.VALID_CONFIGURATION) {
+                            int statusConf = AdvanceGramConfig.isValidFileSettings(message);
+                            if (message.getDocumentName().toLowerCase().endsWith("owl") && statusConf >= AdvanceGramConfig.VALID_CONFIGURATION) {
+                                if (statusConf == AdvanceGramConfig.VALID_CONFIGURATION) {
                                     new ImportSettingsDialog(ChannelAdminLogActivity.this, message).checkCanShowDialog();
                                 } else {
                                     BulletinFactory.of(ChannelAdminLogActivity.this).createSimpleBulletin(R.raw.gigagroup_convert, LocaleController.getString("UpdateToImport", R.string.UpdateToImport), true).show();

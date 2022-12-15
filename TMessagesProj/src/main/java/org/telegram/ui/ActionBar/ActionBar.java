@@ -60,7 +60,7 @@ import org.telegram.ui.Components.SnowflakesEffect;
 
 import java.util.ArrayList;
 
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 
 public class ActionBar extends FrameLayout {
 
@@ -319,12 +319,12 @@ public class ActionBar extends FrameLayout {
                     }
                 }
             }
-            if (Theme.canStartHolidayAnimation() && (OwlConfig.eventType == 0 || (OwlConfig.eventType == 1 && OwlConfig.showSnowFalling))) {
+            if (Theme.canStartHolidayAnimation() && (AdvanceGramConfig.eventType == 0 || (AdvanceGramConfig.eventType == 1 && AdvanceGramConfig.showSnowFalling))) {
                 if (snowflakesEffect == null) {
                     fireworksEffect = null;
                     snowflakesEffect = new SnowflakesEffect(0);
                 }
-            } else if ((Theme.getEventType() == 3 && OwlConfig.eventType == 0) || OwlConfig.eventType == 4 && OwlConfig.canShowFireworks()) {
+            } else if ((Theme.getEventType() == 3 && AdvanceGramConfig.eventType == 0) || AdvanceGramConfig.eventType == 4 && AdvanceGramConfig.canShowFireworks()) {
                 if (fireworksEffect == null || snowflakesEffect != null ) {
                     snowflakesEffect = null;
                     fireworksEffect = new FireworksEffect();

@@ -71,7 +71,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 
 public class LNavigation extends FrameLayout implements INavigationLayout, FloatingDebugProvider {
     private final static boolean ALLOW_OPEN_STIFFNESS_CONTROL = false;
@@ -302,7 +302,7 @@ public class LNavigation extends FrameLayout implements INavigationLayout, Float
         overlayLayout = new FrameLayout(context);
         addView(overlayLayout);
 
-        headerShadowDrawable = OwlConfig.disableAppBarShadow ? null : getResources().getDrawable(R.drawable.header_shadow).mutate();
+        headerShadowDrawable = AdvanceGramConfig.disableAppBarShadow ? null : getResources().getDrawable(R.drawable.header_shadow).mutate();
         layerShadowDrawable = getResources().getDrawable(R.drawable.layer_shadow).mutate();
 
         dimmPaint.setColor(0x7a000000);

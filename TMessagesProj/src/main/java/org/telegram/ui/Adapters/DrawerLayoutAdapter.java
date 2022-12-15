@@ -37,7 +37,7 @@ import org.telegram.ui.Components.SideMenultItemAnimator;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.helpers.MenuOrderManager;
 import milmit.advancegram.messenger.helpers.PasscodeHelper;
 
@@ -273,8 +273,8 @@ public class DrawerLayoutAdapter extends RecyclerListView.SelectionAdapter imple
             return;
         }
         int eventType = Theme.getEventType();
-        if (OwlConfig.eventType > 0) {
-            eventType = OwlConfig.eventType - 1;
+        if (AdvanceGramConfig.eventType > 0) {
+            eventType = AdvanceGramConfig.eventType - 1;
         }
         int newGroupIcon;
         int newSecretIcon;

@@ -41,7 +41,7 @@ import org.telegram.ui.BlurSettingsBottomSheet;
 
 import java.util.ArrayList;
 
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 
 public class SizeNotifierFrameLayout extends FrameLayout {
 
@@ -415,7 +415,7 @@ public class SizeNotifierFrameLayout extends FrameLayout {
     }
 
     private void checkSnowflake(Canvas canvas) {
-        if (Theme.canStartHolidayAnimation() && (OwlConfig.showSnowFalling || OwlConfig.eventType != 1)) {
+        if (Theme.canStartHolidayAnimation() && (AdvanceGramConfig.showSnowFalling || AdvanceGramConfig.eventType != 1)) {
             if (snowflakesEffect == null) {
                 snowflakesEffect = new SnowflakesEffect(1);
             }

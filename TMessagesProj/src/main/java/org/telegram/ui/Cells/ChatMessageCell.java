@@ -169,7 +169,7 @@ import java.util.Locale;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicReference;
 
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.helpers.MessageHelper;
 
 public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate, ImageReceiver.ImageReceiverDelegate, DownloadController.FileDownloadProgressListener, TextSelectionHelper.SelectableView, NotificationCenter.NotificationCenterDelegate {
@@ -1256,7 +1256,7 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Theme.getColor(Theme.key_chats_onlineCircle));
         String formatUserStatus = currentUser != null ? LocaleController.formatUserStatus(this.currentAccount, currentUser) : "";
-        if (!OwlConfig.showStatusInChat || currentUser == null || currentUser.bot || !formatUserStatus.equals(LocaleController.getString("Online", R.string.Online))) {
+        if (!AdvanceGramConfig.showStatusInChat || currentUser == null || currentUser.bot || !formatUserStatus.equals(LocaleController.getString("Online", R.string.Online))) {
             imageReceiver.draw(canvas);
             return;
         }
@@ -6282,9 +6282,9 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
                     float maxHeight;
                     int maxWidth;
                     if (AndroidUtilities.isTablet()) {
-                        maxHeight = maxWidth = (int) (AndroidUtilities.getMinTabletSide() * (0.4f + (OwlConfig.stickerSizeStack - 14.0f) / 40));
+                        maxHeight = maxWidth = (int) (AndroidUtilities.getMinTabletSide() * (0.4f + (AdvanceGramConfig.stickerSizeStack - 14.0f) / 40));
                     } else {
-                        maxHeight = maxWidth = (int) (Math.min(getParentWidth(), AndroidUtilities.displaySize.y) * (0.5f + (OwlConfig.stickerSizeStack - 14.0f) / 30));
+                        maxHeight = maxWidth = (int) (Math.min(getParentWidth(), AndroidUtilities.displaySize.y) * (0.5f + (AdvanceGramConfig.stickerSizeStack - 14.0f) / 30));
                     }
                     String filter;
                     if (messageObject.isAnimatedEmoji() || messageObject.isDice()) {
@@ -11586,7 +11586,7 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
         if (timeString instanceof SpannableStringBuilder) {
             if (currentMessageObject.translating || currentMessageObject.translated) {
                 timeTextWidth = timeWidth += MessageHelper.arrowDrawable.getIntrinsicWidth();
-            } else if (edited && OwlConfig.showPencilIcon) {
+            } else if (edited && AdvanceGramConfig.showPencilIcon) {
                 timeTextWidth = timeWidth += MessageHelper.editedDrawable.getIntrinsicWidth();
             }
         }
@@ -14714,7 +14714,7 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
         if (!drawFromPinchToZoom && delegate != null && delegate.getPinchToZoomHelper() != null && delegate.getPinchToZoomHelper().isInOverlayModeFor(this) && shouldDrawTimeOnMedia()) {
             return;
         }
-        if (OwlConfig.hideTimeOnSticker && currentMessageObject.isAnyKindOfSticker() && !isDrawSelectionBackground()) {
+        if (AdvanceGramConfig.hideTimeOnSticker && currentMessageObject.isAnyKindOfSticker() && !isDrawSelectionBackground()) {
             return;
         }
         for (int i = 0; i < 2; i++) {

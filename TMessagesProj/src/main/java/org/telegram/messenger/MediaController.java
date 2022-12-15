@@ -99,7 +99,7 @@ import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 
 import milmit.advancegram.messenger.AdvConfig;
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.helpers.AudioEnhance;
 import milmit.advancegram.messenger.helpers.PermissionHelper;
 
@@ -925,7 +925,7 @@ public class MediaController implements AudioManager.OnAudioFocusChangeListener,
                 }
                 proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
                 PowerManager powerManager = (PowerManager) ApplicationLoader.applicationContext.getSystemService(Context.POWER_SERVICE);
-                proximityWakeLock = OwlConfig.disableProximityEvents ? null:powerManager.newWakeLock(0x00000020, "telegram:proximity_lock");
+                proximityWakeLock = AdvanceGramConfig.disableProximityEvents ? null:powerManager.newWakeLock(0x00000020, "telegram:proximity_lock");
             } catch (Exception e) {
                 FileLog.e(e);
             }
@@ -1444,7 +1444,7 @@ public class MediaController implements AudioManager.OnAudioFocusChangeListener,
     }
 
     private boolean isNearToSensor(float value) {
-        return !OwlConfig.disableProximityEvents && value < 5.0f && value != proximitySensor.getMaximumRange();
+        return !AdvanceGramConfig.disableProximityEvents && value < 5.0f && value != proximitySensor.getMaximumRange();
     }
 
     public boolean isRecordingOrListeningByProximity() {

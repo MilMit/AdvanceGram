@@ -89,7 +89,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 
 @SuppressWarnings("unchecked")
 public class MediaDataController extends BaseController {
@@ -754,7 +754,7 @@ public class MediaDataController extends BaseController {
         if (type == TYPE_PREMIUM_STICKERS) {
             return new ArrayList<>(recentStickers[type]);
         }
-        return new ArrayList<>(arrayList.subList(0, Math.min(arrayList.size(), OwlConfig.maxRecentStickers)));
+        return new ArrayList<>(arrayList.subList(0, Math.min(arrayList.size(), AdvanceGramConfig.maxRecentStickers)));
     }
 
     public ArrayList<TLRPC.Document> getRecentStickersNoCopy(int type) {

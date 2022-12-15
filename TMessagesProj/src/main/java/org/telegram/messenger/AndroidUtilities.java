@@ -181,7 +181,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import milmit.advancegram.messenger.AdvConfig;
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.components.ImportSettingsDialog;
 
 public class AndroidUtilities {
@@ -1614,7 +1614,7 @@ public class AndroidUtilities {
         synchronized (typefaceCache) {
             if (!typefaceCache.containsKey(assetPath)) {
                 try {
-                    if (OwlConfig.useSystemFont) {
+                    if (AdvanceGramConfig.useSystemFont) {
                         Typeface t = null;
                         switch (assetPath) {
                             case "fonts/rmedium.ttf":
@@ -3222,9 +3222,9 @@ public class AndroidUtilities {
             f = FileLoader.getInstance(UserConfig.selectedAccount).getPathToMessage(message.messageOwner);
         }
         if (f != null && f.exists()) {
-            int statusConf = OwlConfig.isValidFileSettings(message);
-            if (parentFragment != null && message.getDocumentName().toLowerCase().endsWith("owl") && statusConf >= OwlConfig.VALID_CONFIGURATION) {
-                if (statusConf == OwlConfig.VALID_CONFIGURATION) {
+            int statusConf = AdvanceGramConfig.isValidFileSettings(message);
+            if (parentFragment != null && message.getDocumentName().toLowerCase().endsWith("owl") && statusConf >= AdvanceGramConfig.VALID_CONFIGURATION) {
+                if (statusConf == AdvanceGramConfig.VALID_CONFIGURATION) {
                     new ImportSettingsDialog(parentFragment, message).checkCanShowDialog();
                 } else {
                     BulletinFactory.of(parentFragment).createSimpleBulletin(R.raw.gigagroup_convert, LocaleController.getString("UpdateToImport", R.string.UpdateToImport), true).show();

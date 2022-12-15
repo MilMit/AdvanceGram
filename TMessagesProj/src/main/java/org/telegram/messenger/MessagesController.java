@@ -286,6 +286,8 @@ public class  MessagesController extends BaseController implements NotificationC
     private Theme.OverrideWallpaperInfo uploadingWallpaperInfo;
 
     private boolean loadingAppConfig;
+   //MilMit #5
+    public int thisDc;
 
     public boolean enableJoined;
     public String linkPrefix;
@@ -2790,6 +2792,8 @@ public class  MessagesController extends BaseController implements NotificationC
         AndroidUtilities.runOnUIThread(() -> {
             getDownloadController().loadAutoDownloadConfig(false);
             loadAppConfig();
+            //MilMit #5
+            thisDc = config.this_dc;
             remoteConfigLoaded = true;
             maxMegagroupCount = config.megagroup_size_max;
             maxGroupCount = config.chat_size_max;

@@ -90,7 +90,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.entities.EntitiesHelper;
 
 public class SendMessagesHelper extends BaseController implements NotificationCenter.NotificationCenterDelegate {
@@ -3825,7 +3825,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                         reqSend.top_msg_id = replyToTopMsg.getId();
                         reqSend.flags |= 512;
                     }
-                    if (OwlConfig.stickersSorting && updateStickersOreder) {
+                    if (AdvanceGramConfig.stickersSorting && updateStickersOreder) {
                         reqSend.update_stickersets_order = true;
                     }
                     if (newMsg.from_id != null) {
@@ -4211,7 +4211,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                             request.schedule_date = scheduleDate;
                             request.flags |= 1024;
                         }
-                        if (OwlConfig.stickersSorting && updateStickersOreder) {
+                        if (AdvanceGramConfig.stickersSorting && updateStickersOreder) {
                             request.update_stickersets_order = true;
                         }
 

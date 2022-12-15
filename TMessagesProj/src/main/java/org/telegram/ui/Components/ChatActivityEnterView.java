@@ -156,7 +156,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.entities.EntitiesHelper;
 import milmit.advancegram.messenger.helpers.MessageHelper;
 import milmit.advancegram.messenger.translator.BaseTranslator;
@@ -3092,9 +3092,9 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                     if (!hasRecordVideo || calledRecordRunnable) {
                         startedDraggingX = -1;
                         if (hasRecordVideo && isInVideoMode()) {
-                            delegate.needStartRecordVideo(OwlConfig.sendConfirm ? 3 : 1, true, 0);
+                            delegate.needStartRecordVideo(AdvanceGramConfig.sendConfirm ? 3 : 1, true, 0);
                         } else {
-                            if (OwlConfig.sendConfirm) {
+                            if (AdvanceGramConfig.sendConfirm) {
                                 MediaController.getInstance().stopRecording(2, true, 0);
                             } else {
                                 if (recordingAudioVideo && isInScheduleMode()) {
@@ -3104,7 +3104,7 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                             }
                             delegate.needStartRecordAudio(0);
                         }
-                        if (!OwlConfig.sendConfirm) {
+                        if (!AdvanceGramConfig.sendConfirm) {
                             recordingAudioVideo = false;
                             messageTransitionIsRunning = false;
                             AndroidUtilities.runOnUIThread(moveToSendStateRunnable = () -> {
@@ -3180,21 +3180,21 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                         startedDraggingX = -1;
                         if (hasRecordVideo && isInVideoMode()) {
                             CameraController.getInstance().cancelOnInitRunnable(onFinishInitCameraRunnable);
-                            delegate.needStartRecordVideo(OwlConfig.sendConfirm ? 3 : 1, true, 0);
+                            delegate.needStartRecordVideo(AdvanceGramConfig.sendConfirm ? 3 : 1, true, 0);
                         } else {
-                            if (!OwlConfig.sendConfirm) {
+                            if (!AdvanceGramConfig.sendConfirm) {
                                 if (recordingAudioVideo && isInScheduleMode()) {
                                     AlertsCreator.createScheduleDatePickerDialog(parentActivity, parentFragment.getDialogId(), (notify, scheduleDate) -> MediaController.getInstance().stopRecording(1, notify, scheduleDate), () -> MediaController.getInstance().stopRecording(0, false, 0), resourcesProvider);
                                 }
                             }
                             delegate.needStartRecordAudio(0);
-                            if (!OwlConfig.sendConfirm) {
+                            if (!AdvanceGramConfig.sendConfirm) {
                                 MediaController.getInstance().stopRecording(isInScheduleMode() ? 3 : 1, true, 0);
                             } else {
                                 MediaController.getInstance().stopRecording(2, true, 0);
                             }
                         }
-                        if (!OwlConfig.sendConfirm) {
+                        if (!AdvanceGramConfig.sendConfirm) {
                             recordingAudioVideo = false;
                             messageTransitionIsRunning = false;
                             AndroidUtilities.runOnUIThread(moveToSendStateRunnable = () -> {
@@ -3864,9 +3864,9 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                     sendPopupLayout.addView(sendWithoutMarkdownButton, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, 48));
                 }
 
-                if (OwlConfig.showTranslate) {
+                if (AdvanceGramConfig.showTranslate) {
                     ActionBarMenuSubItem preSentTranslateButton = new ActionBarMenuSubItem(getContext(), false, false, resourcesProvider);
-                    String languageText = Translator.getTranslator(OwlConfig.translationProvider).getCurrentTargetKeyboardLanguage().toUpperCase();
+                    String languageText = Translator.getTranslator(AdvanceGramConfig.translationProvider).getCurrentTargetKeyboardLanguage().toUpperCase();
                     preSentTranslateButton.setTextAndIcon(LocaleController.getString("TranslateMessage", R.string.TranslateMessage) + " (" + languageText + ")", R.drawable.msg_translate);
                     preSentTranslateButton.setMinimumWidth(AndroidUtilities.dp(196));
                     preSentTranslateButton.setOnClickListener(v -> {
@@ -3880,7 +3880,7 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                             sendPopupWindow.dismiss();
                         }
                         Translator.showTranslationTargetSelector(getContext(), true, () -> {
-                            String language = Translator.getTranslator(OwlConfig.translationProvider).getCurrentTargetKeyboardLanguage().toUpperCase();
+                            String language = Translator.getTranslator(AdvanceGramConfig.translationProvider).getCurrentTargetKeyboardLanguage().toUpperCase();
                             preSentTranslateButton.setTextAndIcon(LocaleController.getString("TranslateMessage", R.string.TranslateMessage) + " (" + language + ")", R.drawable.msg_translate);
                             translatePreSend();
                         }, resourcesProvider);
@@ -7069,7 +7069,7 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
         }
         boolean wasVisible = senderSelectView.getVisibility() == View.VISIBLE;
         boolean isVisible = defPeer != null && (delegate.getSendAsPeers() == null || delegate.getSendAsPeers().peers.size() > 1) &&
-                !isEditingMessage() && !isRecordingAudioVideo() && !OwlConfig.hideSendAsChannel && recordedAudioPanel.getVisibility() != View.VISIBLE;
+                !isEditingMessage() && !isRecordingAudioVideo() && !AdvanceGramConfig.hideSendAsChannel && recordedAudioPanel.getVisibility() != View.VISIBLE;
         int pad = AndroidUtilities.dp(2);
         MarginLayoutParams params = (MarginLayoutParams) senderSelectView.getLayoutParams();
         float startAlpha = isVisible ? 0 : 1;

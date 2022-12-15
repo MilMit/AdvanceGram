@@ -229,7 +229,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.StoreUtils;
 import milmit.advancegram.messenger.components.ActionPanelCell;
 import milmit.advancegram.messenger.components.DatacenterCell;
@@ -239,7 +239,7 @@ import milmit.advancegram.messenger.helpers.ActionButtonManager;
 import milmit.advancegram.messenger.helpers.DCHelper;
 import milmit.advancegram.messenger.settings.BaseSettingsActivity;
 import milmit.advancegram.messenger.settings.DoNotTranslateSettings;
-import milmit.advancegram.messenger.settings.OwlgramSettings;
+import milmit.advancegram.messenger.settings.AdvgramSettings;
 import milmit.advancegram.messenger.translator.AutoTranslatePopupWrapper;
 import milmit.advancegram.messenger.translator.BaseTranslator;
 import milmit.advancegram.messenger.translator.Translator;
@@ -3389,7 +3389,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             } else if (position == premiumRow) {
                 presentFragment(new PremiumPreviewFragment("settings"));
             } else if (position == owlSettingsRow) {
-                presentFragment(new OwlgramSettings());
+                presentFragment(new AdvgramSettings());
             } else {
                 processOnClickOrPress(position, view, x, y);
             }
@@ -3423,7 +3423,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                                 BuildVars.DEBUG_VERSION && !AndroidUtilities.isTablet() && Build.VERSION.SDK_INT >= 23 ? (SharedConfig.smoothKeyboard ? LocaleController.getString("DebugMenuDisableSmoothKeyboard", R.string.DebugMenuDisableSmoothKeyboard) : LocaleController.getString("DebugMenuEnableSmoothKeyboard", R.string.DebugMenuEnableSmoothKeyboard)) : null,
                                 BuildVars.DEBUG_PRIVATE_VERSION ? (SharedConfig.disableVoiceAudioEffects ? "Enable voip audio effects" : "Disable voip audio effects") : null,
                                 Build.VERSION.SDK_INT >= 21 ? (SharedConfig.noStatusBar ? "Show status bar background" : "Hide status bar background") : null,
-                                OwlConfig.owlEasterSound ? LocaleController.getString("OwlSoundOff", R.string.OwlSoundOff):LocaleController.getString("OwlSoundOn", R.string.OwlSoundOn),
+                                AdvanceGramConfig.owlEasterSound ? LocaleController.getString("AdvSoundOff", R.string.AdvSoundOff):LocaleController.getString("AdvSoundOn", R.string.AdvSoundOn),
                                 BuildVars.DEBUG_PRIVATE_VERSION ? "Clean app update" : null,
                                 BuildVars.DEBUG_PRIVATE_VERSION ? "Reset suggestions" : null,
                                 BuildVars.DEBUG_PRIVATE_VERSION ? LocaleController.getString(SharedConfig.forceRtmpStream ? R.string.DebugMenuDisableForceRtmpStreamFlag : R.string.DebugMenuEnableForceRtmpStreamFlag) : null,
@@ -3495,14 +3495,14 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                                     }
                                 }
                             } else if (which == 15) {
-                                OwlConfig.toggleOwlEasterSound();
+                                AdvanceGramConfig.toggleAdvEasterSound();
                             } else if (which == 16) {
                                 SharedConfig.pendingAppUpdate = null;
                                 SharedConfig.saveConfig();
-                                OwlConfig.setUpdateData("");
-                                OwlConfig.saveUpdateStatus(0);
-                                OwlConfig.remindUpdate(-1);
-                                OwlConfig.saveLastUpdateCheck(true);
+                                AdvanceGramConfig.setUpdateData("");
+                                AdvanceGramConfig.saveUpdateStatus(0);
+                                AdvanceGramConfig.remindUpdate(-1);
+                                AdvanceGramConfig.saveLastUpdateCheck(true);
                                 if (!StoreUtils.isDownloadedFromAnyStore()) ApkDownloader.deleteUpdate();
                                 NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.appUpdateAvailable);
                             } else if (which == 17) {
@@ -3544,8 +3544,8 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         } catch (Exception e) {
                             FileLog.e(e);
                         }
-                        if(OwlConfig.owlEasterSound) {
-                            ProfileActivity.startOwlSound();
+                        if(AdvanceGramConfig.owlEasterSound) {
+                            ProfileActivity.startAdvSound();
                         }
                     }
                     return true;
@@ -4480,7 +4480,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     }
 
     private static long lastClickTime = 0;
-    public static void startOwlSound() {
+    public static void startAdvSound() {
         if (SystemClock.elapsedRealtime() - lastClickTime < 2000) {
             return;
         }
@@ -5044,7 +5044,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             final boolean translateButtonEnabled = MessagesController.getGlobalMainSettings().getBoolean("translate_button2", false);
             final boolean[] withTranslate = new boolean[1];
             withTranslate[0] = position == bioRow || position == channelInfoRow || position == userInfoRow;
-            withTranslate[0] &= OwlConfig.showTranslate;
+            withTranslate[0] &= AdvanceGramConfig.showTranslate;
             final String toLang = LocaleController.getInstance().getCurrentLocale().getLanguage();
             Runnable showMenu = () -> {
                 if (getParentActivity() == null) {
@@ -5167,7 +5167,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     }
 
     private void translateBio(String bio, AboutLinkCell aboutLinkCell){
-        if (OwlConfig.translatorStyle == BaseTranslator.INLINE_STYLE) {
+        if (AdvanceGramConfig.translatorStyle == BaseTranslator.INLINE_STYLE) {
             if(translatingBio) return;
             translatingBio = true;
             Translator.translate(bio, new Translator.TranslateCallBack() {
@@ -6744,7 +6744,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     animatingItem.setAlpha(1.0f);
                     animators.add(ObjectAnimator.ofFloat(animatingItem, View.ALPHA, 0.0f));
                 }
-                if (callItemVisible && (chatId != 0 || OwlConfig.searchIconInActionBar)) {
+                if (callItemVisible && (chatId != 0 || AdvanceGramConfig.searchIconInActionBar)) {
                     callItem.setAlpha(0.0f);
                     animators.add(ObjectAnimator.ofFloat(callItem, View.ALPHA, 1.0f));
                 }
@@ -6818,7 +6818,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     animatingItem.setAlpha(0.0f);
                     animators.add(ObjectAnimator.ofFloat(animatingItem, View.ALPHA, 1.0f));
                 }
-                if (callItemVisible && (chatId != 0 || OwlConfig.searchIconInActionBar)) {
+                if (callItemVisible && (chatId != 0 || AdvanceGramConfig.searchIconInActionBar)) {
                     callItem.setAlpha(1.0f);
                     animators.add(ObjectAnimator.ofFloat(callItem, View.ALPHA, 0.0f));
                 }
@@ -7145,7 +7145,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             TLRPC.User user = getMessagesController().getUser(userId);
 
             if (UserObject.isUserSelf(user)) {
-                if (OwlConfig.buttonStyleType != 5) {
+                if (AdvanceGramConfig.buttonStyleType != 5) {
                     actionsSectionRow = rowCount++;
                     actionsSectionDivider = rowCount++;
                 }
@@ -7154,12 +7154,12 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     setAvatarSectionRow = rowCount++;
                 }
                 numberSectionRow = rowCount++;
-                if (OwlConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.OWLGRAM_DC) {
+                if (AdvanceGramConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.OWLGRAM_DC) {
                     datacenterRow = rowCount++;
                 }
                 numberRow = rowCount++;
                 setUsernameRow = rowCount++;
-                if (OwlConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.TELEGRAM_DC) {
+                if (AdvanceGramConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.TELEGRAM_DC) {
                     datacenterRow = rowCount++;
                 }
                 bioRow = rowCount++;
@@ -7216,7 +7216,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 boolean hasInfo = userInfo != null && !TextUtils.isEmpty(userInfo.about) || user != null && !TextUtils.isEmpty(username);
                 boolean hasPhone = user != null && (!TextUtils.isEmpty(user.phone) || !TextUtils.isEmpty(vcardPhone));
 
-                if (OwlConfig.buttonStyleType != 5) {
+                if (AdvanceGramConfig.buttonStyleType != 5) {
                     if(userInfo != null) {
                         actionsSectionRow = rowCount++;
                     } else {
@@ -7226,7 +7226,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 }
                 infoHeaderRow = rowCount++;
 
-                if (OwlConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.OWLGRAM_DC) {
+                if (AdvanceGramConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.OWLGRAM_DC) {
                     if (currentUser != null || currentChat != null) {
                         datacenterRow = rowCount++;
                     } else {
@@ -7239,7 +7239,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 if (userInfo != null && !TextUtils.isEmpty(userInfo.about)) {
                     userInfoRow = rowCount++;
                 }
-                if (OwlConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.TELEGRAM_DC) {
+                if (AdvanceGramConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.TELEGRAM_DC) {
                     datacenterRow = rowCount++;
                 }
                 if (user != null && username != null) {
@@ -7304,7 +7304,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 sharedMediaRow = rowCount++;
             }
         } else if (chatId != 0) {
-            if (OwlConfig.buttonStyleType != 5) {
+            if (AdvanceGramConfig.buttonStyleType != 5) {
                 if(currentChat != null) {
                     actionsSectionRow = rowCount++;
                 }else {
@@ -7312,10 +7312,10 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 }
                 actionsSectionDivider = rowCount++;
             }
-            if (OwlConfig.showIDAndDC) {
+            if (AdvanceGramConfig.showIDAndDC) {
                 infoHeaderRow = rowCount++;
             }
-            if (OwlConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.OWLGRAM_DC) {
+            if (AdvanceGramConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.OWLGRAM_DC) {
                 if (currentUser != null || currentChat != null) {
                     datacenterRow = rowCount++;
                 } else {
@@ -7326,7 +7326,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 if (LocaleController.isRTL && ChatObject.isChannel(currentChat) && chatInfo != null && !currentChat.megagroup && chatInfo.linked_chat_id != 0) {
                     emptyRow = rowCount++;
                 }
-                if (!OwlConfig.showIDAndDC) {
+                if (!AdvanceGramConfig.showIDAndDC) {
                     infoHeaderRow = rowCount++;
                 }
                 if (chatInfo != null) {
@@ -7337,7 +7337,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         locationRow = rowCount++;
                     }
                 }
-                if (OwlConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.TELEGRAM_DC) {
+                if (AdvanceGramConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.TELEGRAM_DC) {
                     datacenterRow = rowCount++;
                 }
                 if (ChatObject.isPublic(currentChat)) {
@@ -7346,7 +7346,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 if (!currentChat.restriction_reason.isEmpty()) {
                     restrictionReasonRow = rowCount++;
                 }
-            } else if (OwlConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.TELEGRAM_DC) {
+            } else if (AdvanceGramConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.TELEGRAM_DC) {
                 datacenterRow = rowCount++;
             }
             if (infoHeaderRow != -1) {
@@ -9162,7 +9162,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                                 }
                                 break;
                         }
-                        String version_info = LocaleController.formatString("OwlGramVersion", R.string.OwlGramVersion, String.format(Locale.US, "v%s (%s) %s", BuildVars.BUILD_VERSION_STRING, BuildVars.DEBUG_PRIVATE_VERSION ? BuildConfig.GIT_COMMIT_HASH:BuildVars.BUILD_VERSION, abi), String.format(Locale.US, "v%s (%d)", BuildVars.TELEGRAM_VERSION_STRING, BuildVars.TELEGRAM_BUILD_VERSION));
+                        String version_info = LocaleController.formatString("AdvGramVersion", R.string.AdvGramVersion, String.format(Locale.US, "v%s (%s) %s", BuildVars.BUILD_VERSION_STRING, BuildVars.DEBUG_PRIVATE_VERSION ? BuildConfig.GIT_COMMIT_HASH:BuildVars.BUILD_VERSION, abi), String.format(Locale.US, "v%s (%d)", BuildVars.TELEGRAM_VERSION_STRING, BuildVars.TELEGRAM_BUILD_VERSION));
                         cell.setText(version_info);
                     } catch (Exception e) {
                         FileLog.e(e);
@@ -9280,7 +9280,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                             text = LocaleController.getString("PhoneHidden", R.string.PhoneHidden);
                             phoneNumber = null;
                         }
-                        if(OwlConfig.hideContactNumber){
+                        if(AdvanceGramConfig.hideContactNumber){
                             text = LocaleController.getString("MobileHidden",R.string.MobileHidden);
                         }
                         isFragmentPhoneNumber = phoneNumber != null && phoneNumber.matches("888\\d{8}");
@@ -9361,7 +9361,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         TLRPC.User user = UserConfig.getInstance(currentAccount).getCurrentUser();
                         String value;
                         if (user != null && user.phone != null && user.phone.length() != 0) {
-                            if(!OwlConfig.hidePhoneNumber){
+                            if(!AdvanceGramConfig.hidePhoneNumber){
                                 value = PhoneFormat.getInstance().format("+" + user.phone);
                             }else{
                                 value = LocaleController.getString("MobileHidden",R.string.MobileHidden);
@@ -9554,7 +9554,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     } else if (position == policyRow) {
                         textCell.setTextAndIcon(LocaleController.getString("PrivacyPolicy", R.string.PrivacyPolicy), R.drawable.msg_policy, true);
                     } else if (position == owlgramPolicyRow) {
-                        textCell.setTextAndIcon(LocaleController.getString("OwlPrivacyPolicy", R.string.OwlPrivacyPolicy), R.drawable.msg_policy, false);
+                        textCell.setTextAndIcon(LocaleController.getString("AdvPrivacyPolicy", R.string.AdvPrivacyPolicy), R.drawable.msg_policy, false);
                     } else if (position == sendLogsRow) {
                         textCell.setText(LocaleController.getString("DebugSendLogs", R.string.DebugSendLogs), true);
                     } else if (position == sendLastLogsRow) {
@@ -9574,7 +9574,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         textCell.setImageLeft(12);
                         setAvatarCell = textCell;
                     }else if (position == owlSettingsRow){
-                        textCell.setTextAndIcon(LocaleController.getString("OwlSetting", R.string.OwlSetting), R.drawable.msg_settings, true);
+                        textCell.setTextAndIcon(LocaleController.getString("AdvSetting", R.string.AdvSetting), R.drawable.msg_settings, true);
                     } else if (position == addToGroupButtonRow) {
                         textCell.setTextAndIcon(LocaleController.getString("AddToGroupOrChannel", R.string.AddToGroupOrChannel), R.drawable.msg_groups_create, false);
                         textCell.setColors(Theme.key_windowBackgroundWhiteBlueIcon, Theme.key_windowBackgroundWhiteBlueButton);
@@ -10021,7 +10021,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             }
         }
         ThemeInfo themeInfo = actionPanelCell.getTheme();
-        if (datacenterCell != null && themeInfo != null && OwlConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.OWLGRAM_DC) {
+        if (datacenterCell != null && themeInfo != null && AdvanceGramConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.OWLGRAM_DC) {
             datacenterCell.setTheme(themeInfo);
         }
         RLottieDrawable photoAnimationDrawable = actionPanelCell.getPhotoAnimationDrawable();
@@ -10906,13 +10906,13 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         }
 
         // CUSTOM ELEMENTS
-        if (OwlConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.OWLGRAM_DC) {
+        if (AdvanceGramConfig.showIDAndDC && DcStyleSelector.getStyleSelected() == DcStyleSelector.OWLGRAM_DC) {
             arrayList.add(new ThemeDescription(listView, 0, new Class[]{DatacenterCell.class}, new String[]{"tv"}, null, null, null, Theme.key_windowBackgroundWhiteBlackText));
             arrayList.add(new ThemeDescription(listView, 0, new Class[]{DatacenterCell.class}, new String[]{"tv2"}, null, null, null, Theme.key_windowBackgroundWhiteGrayText2));
             arrayList.add(new ThemeDescription(listView,0, new Class[]{DatacenterCell.class}, new String[]{"iv"}, null, null, null, Theme.key_switch2TrackChecked));
             arrayList.add(new ThemeDescription(listView,0, new Class[]{DatacenterCell.class}, new String[]{"mainLayout"}, null, null, null, Theme.key_windowBackgroundWhite));
         }
-        if (OwlConfig.buttonStyleType != 5) {
+        if (AdvanceGramConfig.buttonStyleType != 5) {
             arrayList.add(new ThemeDescription(listView, 0, new Class[]{ActionPanelCell.class}, new String[]{"mainLayout"}, null, null, null, Theme.key_switch2TrackChecked));
             arrayList.add(new ThemeDescription(listView, 0, new Class[]{ActionPanelCell.class}, new String[]{"mainLayout"}, null, null, null, Theme.key_windowBackgroundWhiteRedText4));
             arrayList.add(new ThemeDescription(listView, 0, new Class[]{ActionPanelCell.class}, new String[]{"mainLayout"}, null, null, null, Theme.key_statisticChartLine_green));

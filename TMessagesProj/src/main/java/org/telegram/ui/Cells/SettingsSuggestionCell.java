@@ -24,7 +24,7 @@ import org.telegram.ui.Components.TextStyleSpan;
 import org.telegram.ui.Components.URLSpanNoUnderline;
 import org.telegram.ui.Components.spoilers.SpoilersTextView;
 
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 
 public class SettingsSuggestionCell extends LinearLayout {
 
@@ -96,7 +96,7 @@ public class SettingsSuggestionCell extends LinearLayout {
             String phoneNumber = PhoneFormat.getInstance().format("+" + user.phone);
             String phoneText = LocaleController.formatString("CheckPhoneNumber", R.string.CheckPhoneNumber, phoneNumber);
             SpannableString phoneChars = new SpannableString(phoneText);
-            if (OwlConfig.hidePhoneNumber) {
+            if (AdvanceGramConfig.hidePhoneNumber) {
                 TextStyleSpan.TextStyleRun run = new TextStyleSpan.TextStyleRun();
                 run.flags |= TextStyleSpan.FLAG_STYLE_SPOILER;
                 TextStyleSpan result = new TextStyleSpan(run);

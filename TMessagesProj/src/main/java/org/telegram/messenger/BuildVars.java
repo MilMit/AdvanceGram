@@ -51,7 +51,7 @@ public class BuildVars {
     public static String OFFICAL_APP_HASH = "014b35b6184100b085b0d0572f9b5103";
     public static int TGX_APP_ID = 21724;
     public static String TGX_APP_HASH = "3e0cb5efcd52300aec5994fdfc5bdc16";
-
+    public static boolean isMini = true;
     static {
         if (ApplicationLoader.applicationContext != null) {
             SharedPreferences sharedPreferences = ApplicationLoader.applicationContext.getSharedPreferences("systemConfig", Context.MODE_PRIVATE);

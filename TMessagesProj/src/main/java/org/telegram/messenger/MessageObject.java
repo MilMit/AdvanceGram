@@ -74,7 +74,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import milmit.advancegram.messenger.OwlConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.helpers.MessageHelper;
 import milmit.advancegram.messenger.entities.syntax_highlight.SyntaxHighlight;
 
@@ -4814,7 +4814,7 @@ public class MessageObject {
     }
 
     public void replaceEmojiToLottieFrame(CharSequence text, int[] emojiOnly) {
-        if (!(text instanceof Spannable) || OwlConfig.useSystemEmoji) {
+        if (!(text instanceof Spannable) || AdvanceGramConfig.useSystemEmoji) {
             return;
         }
         Spannable spannable = (Spannable) text;

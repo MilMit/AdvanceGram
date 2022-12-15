@@ -62,7 +62,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Timer;
 
-import milmit.advancegram.messenger.settings.OwlgramGeneralSettings;
+import milmit.advancegram.messenger.settings.AdvgramGeneralSettings;
 
 public class LanguageSelectActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 
@@ -488,10 +488,10 @@ public class LanguageSelectActivity extends BaseFragment implements Notification
             addView(header, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT));
 
             TextSettingsCell cell = new TextSettingsCell(context);
-            cell.setText(LocaleController.getString("OwlSetting", R.string.OwlSetting), false);
+            cell.setText(LocaleController.getString("AdvSetting", R.string.AdvSetting), false);
             cell.setBackground(Theme.createSelectorWithBackgroundDrawable(Theme.getColor(Theme.key_windowBackgroundWhite), Theme.getColor(Theme.key_listSelector)));
             cell.setOnClickListener(e -> {
-                presentFragment(new OwlgramGeneralSettings());
+                presentFragment(new AdvgramGeneralSettings());
             });
             addView(cell, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT));
 
