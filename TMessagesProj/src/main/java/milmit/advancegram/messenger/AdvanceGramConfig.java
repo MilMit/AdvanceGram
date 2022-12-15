@@ -56,6 +56,7 @@ public class AdvanceGramConfig extends SettingsManager {
     public static boolean avatarBackgroundBlur;
     public static boolean avatarAsDrawerBackground;
     public static boolean betterAudioQuality;
+    public static boolean localPremium;
     public static boolean showReportMessage;
     public static boolean showGradientColor;
     public static boolean showAvatarImage;
@@ -230,6 +231,7 @@ public class AdvanceGramConfig extends SettingsManager {
             String dS = devOptEnabled ? "" : "_disabled";
             maxRecentStickers = SharedPreferencesHelper.getInt("maxRecentStickers" + dS, 20);
             betterAudioQuality = SharedPreferencesHelper.getBoolean("betterAudioQuality" + dS, false);
+            localPremium = SharedPreferencesHelper.getBoolean("localPremium" , false);
             downloadSpeedBoost = SharedPreferencesHelper.getInt("downloadSpeedBoost" + dS, 0);
             uploadSpeedBoost = SharedPreferencesHelper.getBoolean("uploadSpeedBoost" + dS, false);
             configLoaded = true;
@@ -350,6 +352,10 @@ public class AdvanceGramConfig extends SettingsManager {
 
     public static void toggleBetterAudioQuality() {
         SharedPreferencesHelper.putValue("betterAudioQuality", betterAudioQuality ^= true);
+    }
+
+    public static void toggleShowlocalPremium() {
+        SharedPreferencesHelper.putValue("localPremium", localPremium ^= true);
     }
 
     public static void toggleShowGradientColor() {
@@ -626,7 +632,7 @@ public class AdvanceGramConfig extends SettingsManager {
     }
 
     public static boolean isDevOptEnabled() {
-        return devOptEnabled || betterAudioQuality || MonetIconsHelper.isSelectedMonet() || maxRecentStickers != 20;
+        return devOptEnabled || betterAudioQuality || localPremium || MonetIconsHelper.isSelectedMonet() || maxRecentStickers != 20;
     }
 
     public static boolean canShowFireworks() {

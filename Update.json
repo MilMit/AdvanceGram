@@ -1,13 +1,13 @@
 {
   "update" : {
-    "dc": "2,5",
+    "dc": "1,2,3,4,5",
     "necessary": true ,
     "status": "update_available",
     "title": "<b>Upgrade to AdvanceGram 1.0.1 is ready!</b>",
     "desc": "Upgrade to AdvanceGram\nUpgrade to AdvanceGram\nUpgrade to AdvanceGram\nUpgrade to AdvanceGram",
     "note": "Test apk",
     "banner": "https://files.owlgram.org/m4ndq7d161y077t009.png",
-    "version": 2,
+    "version": 1,
     "linkminiarm64": "https://dl.milmit.net/AdvanceGram-1.0.1-2-armeabi-v7a.apk",
     "sizeminiarm64": "59352261",
     "linkminiarm7": "https://dl.milmit.net/AdvanceGram-1.0.1-2-armeabi-v7a.apk",

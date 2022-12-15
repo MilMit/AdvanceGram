@@ -14,6 +14,7 @@ import android.os.SystemClock;
 import android.util.Base64;
 
 import milmit.advancegram.messenger.AdvConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 
 import org.telegram.tgnet.SerializedData;
 import org.telegram.tgnet.TLRPC;
@@ -271,7 +272,7 @@ public class UserConfig extends BaseController {
         if (oldUser == null || (newUser != null && oldUser.premium != newUser.premium)) {
             AndroidUtilities.runOnUIThread(() -> {
                 //MilMit #2
-                getMessagesController().updatePremium(newUser.premium || AdvConfig.localPremium.Bool());
+                getMessagesController().updatePremium(newUser.premium || AdvanceGramConfig.localPremium);
                 NotificationCenter.getInstance(currentAccount).postNotificationName(NotificationCenter.currentUserPremiumStatusChanged);
                 NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.premiumStatusChangedGlobal);
 
@@ -516,7 +517,7 @@ public class UserConfig extends BaseController {
             return false;
         }
 //MilMit #2
-        return currentUser.premium || AdvConfig.localPremium.Bool();
+        return currentUser.premium || AdvanceGramConfig.localPremium;
     }
 
     public Long getEmojiStatus() {

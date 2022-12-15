@@ -199,7 +199,6 @@ public class AdvConfig {
     public static ConfigItem mapDriftingFixForGoogleMaps = addConfig("mapDriftingFixForGoogleMaps", ConfigItem.configTypeBool, true);
 
     // priv branch changes
-    public static ConfigItem localPremium = addConfig("localPremium", ConfigItem.configTypeBool, true);
 
     static {
         loadConfig(false);

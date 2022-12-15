@@ -19,8 +19,12 @@ import org.telegram.ui.Components.SlideChooseView;
 
 import java.util.ArrayList;
 
+import milmit.advancegram.messenger.AdvConfig;
 import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.components.LabsHeader;
+import milmit.advancegram.messenger.config.CellGroup;
+import milmit.advancegram.messenger.config.cell.AbstractConfigCell;
+import milmit.advancegram.messenger.config.cell.ConfigCellTextCheck;
 import milmit.advancegram.messenger.helpers.MonetIconsHelper;
 import milmit.advancegram.messenger.helpers.PopupHelper;
 
@@ -31,6 +35,7 @@ public class AdvgramExperimentalSettings extends BaseSettingsActivity {
     private int bottomHeaderRow;
     private int headerExperimental;
     private int betterAudioCallRow;
+    private int localPremium;
     private int maxRecentStickersRow;
     private int experimentalMessageAlert;
     private int monetIconRow;
@@ -38,6 +43,7 @@ public class AdvgramExperimentalSettings extends BaseSettingsActivity {
     private int headerDownloadSpeed;
     private int downloadSpeedBoostRow;
     private int uploadSpeedBoostRow;
+    private final CellGroup cellGroup = new CellGroup(this);
 
     @Override
     protected String getActionBarTitle() {
@@ -46,7 +52,13 @@ public class AdvgramExperimentalSettings extends BaseSettingsActivity {
 
     @Override
     protected void onItemClick(View view, int position, float x, float y) {
-        if (position == betterAudioCallRow) {
+        if (position == localPremium) {
+            AdvanceGramConfig.toggleShowlocalPremium();
+            if (view instanceof TextCheckCell) {
+                ((TextCheckCell) view).setChecked(AdvanceGramConfig.localPremium);
+            }
+        }
+        else if (position == betterAudioCallRow) {
             AdvanceGramConfig.toggleBetterAudioQuality();
             if (view instanceof TextCheckCell) {
                 ((TextCheckCell) view).setChecked(AdvanceGramConfig.betterAudioQuality);
@@ -122,6 +134,7 @@ public class AdvgramExperimentalSettings extends BaseSettingsActivity {
         headerImageRow = -1;
         bottomHeaderRow = -1;
         headerExperimental = -1;
+        localPremium = -1;
         betterAudioCallRow = -1;
         maxRecentStickersRow = -1;
         monetIconRow = -1;
@@ -136,6 +149,7 @@ public class AdvgramExperimentalSettings extends BaseSettingsActivity {
             headerImageRow = rowCount++;
             bottomHeaderRow = rowCount++;
             headerExperimental = rowCount++;
+            localPremium = rowCount++;
             betterAudioCallRow = rowCount++;
             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.S || Build.VERSION.SDK_INT == Build.VERSION_CODES.S_V2) {
                 monetIconRow = rowCount++;
@@ -162,7 +176,9 @@ public class AdvgramExperimentalSettings extends BaseSettingsActivity {
             switch (ViewType.fromInt(holder.getItemViewType())) {
                 case SWITCH:
                     TextCheckCell textCheckCell = (TextCheckCell) holder.itemView;
-                    if (position == betterAudioCallRow) {
+                    if (position == localPremium) {
+                        textCheckCell.setTextAndCheck(LocaleController.getString("localPremium", R.string.localPremium), AdvanceGramConfig.localPremium, true);
+                    }else if (position == betterAudioCallRow) {
                         textCheckCell.setTextAndCheck(LocaleController.getString("MediaStreamVoip", R.string.MediaStreamVoip), AdvanceGramConfig.betterAudioQuality, true);
                     } else if (position == checkBoxExperimentalRow) {
                         boolean isEnabled = AdvanceGramConfig.isDevOptEnabled();
@@ -240,7 +256,7 @@ public class AdvgramExperimentalSettings extends BaseSettingsActivity {
         public ViewType getViewType(int position) {
             if (position == downloadDividersRow) {
                 return ViewType.SHADOW;
-            } else if (position == betterAudioCallRow || position == checkBoxExperimentalRow || position == monetIconRow ||
+            } else if (position == localPremium || position == betterAudioCallRow || position == checkBoxExperimentalRow || position == monetIconRow ||
                     position == uploadSpeedBoostRow) {
                 return ViewType.SWITCH;
             } else if (position == headerImageRow) {

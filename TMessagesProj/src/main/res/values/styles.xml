@@ -156,54 +156,6 @@
         <item name="widgetPreviewImage">@null</item>
     </style>
 
-    <style name="Theme.TMessages.AppWidget.Preview">
-        <item name="widgetPreviewTitle">Local Weather</item>
-        <item name="widgetPreviewContent">&#9728; 30°C Sunny,</item>
-        <item name="widgetPreviewTime">13:00</item>
-        <item name="widgetPreviewDot">0</item>
-        <item name="widgetPreviewImage">@drawable/widget_avatar_5</item>
-    </style>
-
-    <style name="Theme.TMessages.AppWidget.Preview2">
-        <item name="widgetPreviewTitle">Rex</item>
-        <item name="widgetPreviewContent">It\'s morning in Tokyo &#128526;</item>
-        <item name="widgetPreviewTime">12:00</item>
-        <item name="widgetPreviewDot">2</item>
-        <item name="widgetPreviewImage">@drawable/widget_avatar_7</item>
-    </style>
-
-    <style name="Theme.TMessages.AppWidget.Preview3">
-        <item name="widgetPreviewTitle">Dolph Ingman</item>
-        <item name="widgetPreviewContent">&#128517; Sticker</item>
-        <item name="widgetPreviewTime">11:00</item>
-        <item name="widgetPreviewDot">2</item>
-        <item name="widgetPreviewImage">@drawable/widget_avatar_6</item>
-    </style>
-
-    <style name="Theme.TMessages.AppWidget.Preview4">
-        <item name="widgetPreviewTitle">Doge</item>
-        <item name="widgetPreviewDot">0</item>
-        <item name="widgetPreviewImage">@drawable/widget_avatar_1</item>
-    </style>
-
-    <style name="Theme.TMessages.AppWidget.Preview5">
-        <item name="widgetPreviewTitle">Donald</item>
-        <item name="widgetPreviewDot">2</item>
-        <item name="widgetPreviewImage">@drawable/widget_avatar_4</item>
-    </style>
-
-    <style name="Theme.TMessages.AppWidget.Preview6">
-        <item name="widgetPreviewTitle">Kate</item>
-        <item name="widgetPreviewDot">2</item>
-        <item name="widgetPreviewImage">@drawable/widget_avatar_2</item>
-    </style>
-
-    <style name="Theme.TMessages.AppWidget.Preview7">
-        <item name="widgetPreviewTitle">Nick</item>
-        <item name="widgetPreviewDot">2</item>
-        <item name="widgetPreviewImage">@drawable/widget_avatar_3</item>
-    </style>
-
     <!-- APP WIDGET STYLES-->
 
     <style name="Base.TMessages.AppWidget.Background" parent="android:Widget">

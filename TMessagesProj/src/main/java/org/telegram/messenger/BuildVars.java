@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.StoreUtils;
 import com.android.billingclient.api.ProductDetails;
 
@@ -61,7 +62,7 @@ public class BuildVars {
 
     public static boolean useInvoiceBilling() {
         //MilMit #2
-        if (AdvConfig.localPremium.Bool()){
+        if (AdvanceGramConfig.localPremium){
             return true;
         }
         return DEBUG_VERSION || isStandaloneApp() || isBetaApp() || isHuaweiStoreApp() || hasDirectCurrency();

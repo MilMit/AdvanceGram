@@ -85,6 +85,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 
 import milmit.advancegram.messenger.AdvXConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.StoreUtils;
 import milmit.advancegram.messenger.utils.AlertUtil;
 
@@ -517,7 +518,7 @@ public class  MessagesController extends BaseController implements NotificationC
     }
 //MilMit #2
     public boolean isPremiumUser(TLRPC.User currentUser) {
-        return AdvConfig.localPremium.Bool() || (!premiumLocked && currentUser.premium);
+        return AdvanceGramConfig.localPremium || (!premiumLocked && currentUser.premium);
     }
 
     public boolean didPressTranscribeButtonEnough() {
@@ -1150,7 +1151,7 @@ public class  MessagesController extends BaseController implements NotificationC
             directPaymentsCurrency.addAll(currencySet);
         }
         //MilMit #2
-        if (AdvConfig.localPremium.Bool())
+        if (AdvanceGramConfig.localPremium)
             premiumLocked = false;
 
         loadPremiumFeaturesPreviewOrder(mainPreferences.getString("premiumFeaturesTypesToPosition", null));
@@ -1855,7 +1856,7 @@ public class  MessagesController extends BaseController implements NotificationC
                                 if (premiumLocked != ((TLRPC.TL_jsonBool) value.value).value) {
                                     premiumLocked = ((TLRPC.TL_jsonBool) value.value).value;
                                     //MilMit #2
-                                    if (AdvConfig.localPremium.Bool())
+                                    if (AdvanceGramConfig.localPremium)
                                         premiumLocked = false;
                                     editor.putBoolean("premiumLocked", premiumLocked);
                                     changed = true;

@@ -4486,7 +4486,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         }
         lastClickTime = SystemClock.elapsedRealtime();
         SoundPool soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        soundPool.load(ApplicationLoader.applicationContext, R.raw.avd_sound, 1);
+        soundPool.load(ApplicationLoader.applicationContext, R.raw.adv_sound, 1);
         soundPool.setOnLoadCompleteListener((pool, sampleId, status) -> {
             if (status == 0) {
                 try {
