@@ -328,4 +328,5 @@
     <string name="CCSP">Simplified Chinese (China)</string>
     <string name="CCJP">New Japanese Kanji (Shinjitai)</string>
     <string name="localPremium">Local Premium</string>
+    <string name="Programcreatorschannel">Program creators channel</string>
 </resources>
