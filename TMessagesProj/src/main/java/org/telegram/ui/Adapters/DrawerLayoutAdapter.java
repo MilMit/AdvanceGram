@@ -374,7 +374,7 @@ public class DrawerLayoutAdapter extends RecyclerListView.SelectionAdapter imple
                     case "settings":
                         items.add(new Item(8, data.text, settingsIcon));
                         break;
-                    case "owlgram_settings":
+                    case "advgram_settings":
                         items.add(new Item(201, data.text, settingsIcon));
                         break;
                     case "invite_friends":

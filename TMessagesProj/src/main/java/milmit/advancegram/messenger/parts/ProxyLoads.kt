@@ -6,6 +6,7 @@ import cn.hutool.http.HttpUtil
 import kotlinx.coroutines.*
 import milmit.advancegram.messenger.AdvConfig
 import milmit.advancegram.messenger.utils.DnsFactory
+import milmit.advancegram.messenger.utils.ProxyUtil.parseProxies
 import milmit.advancegram.messenger.utils.StrUtil
 import org.telegram.messenger.FileLog
 
@@ -15,6 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
+
 
 fun loadProxiesPublic(urls: List<String>, exceptions: MutableMap<String, Exception>): List<String> {
     if (!AdvConfig.enablePublicProxy.Bool())
@@ -28,7 +30,7 @@ fun loadProxiesPublic(urls: List<String>, exceptions: MutableMap<String, Excepti
             throw Exception("DoH get public proxy: Not found")
         }
 
-        //MilMit remove
+        return parseProxies(proxiesString)
     } catch (e: Exception) {
         FileLog.e(e)
     }
@@ -56,7 +58,7 @@ fun loadProxies(urls: List<String>, exceptions: MutableMap<String, Exception>): 
                         var urlFinal = url
                         if (url.count { it == '@' } == 2) {
                             subX = url.substringAfter("@")
-                                    .substringBefore("@")
+                                .substringBefore("@")
                             subY = url.substringAfterLast("@")
                             urlFinal = url.substringBefore("@")
                         }
@@ -73,7 +75,7 @@ fun loadProxies(urls: List<String>, exceptions: MutableMap<String, Exception>): 
                         var content = resp.body()
                         if (subX.isNotBlank()) {
                             content = content.substringAfter(subX)
-                                    .substringBefore(subY)
+                                .substringBefore(subY)
                         }
 
                         if (url.contains("https://api.github.com")) {
@@ -81,7 +83,13 @@ fun loadProxies(urls: List<String>, exceptions: MutableMap<String, Exception>): 
                             content = String(Base64.decode(content, Base64.NO_PADDING))
                         }
 
-//MilMit remove
+                        val proxies = parseProxies(content)
+                        if (urlFinal.contains("https://gitee.com/") && cl.decrementAndGet() > 0) {
+                            defer = proxies
+                        } else {
+                            if (ret.getAndSet(true)) return@launch
+                            it.resume(proxies)
+                        }
                         FileLog.d(url)
                         FileLog.d("Success")
                     } catch (e: Exception) {

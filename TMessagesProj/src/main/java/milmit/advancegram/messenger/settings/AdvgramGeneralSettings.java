@@ -59,8 +59,11 @@ public class AdvgramGeneralSettings extends BaseSettingsActivity {
     private int notificationHeaderRow;
     private int notificationAccentRow;
     private int dividerNotificationRow;
+    private int dividerPersianCalendarRow;
     private int callHeaderRow;
     private int confirmCallSwitchRow;
+    private int calnederHeaderRow;
+    private int PersianCalendarRow;
     private int deepLFormalityRow;
 
     public AdvgramGeneralSettings() {
@@ -181,6 +184,11 @@ public class AdvgramGeneralSettings extends BaseSettingsActivity {
             if (view instanceof TextCheckCell) {
                 ((TextCheckCell) view).setChecked(AdvanceGramConfig.confirmCall);
             }
+        }else if (position == PersianCalendarRow) {
+            AdvanceGramConfig.togglePersianCalendar();
+            if (view instanceof TextCheckCell) {
+                ((TextCheckCell) view).setChecked(AdvanceGramConfig.PersianCalendar);
+            }
         } else if (position == notificationAccentRow) {
             AdvanceGramConfig.toggleAccentColor();
             if (view instanceof TextCheckCell) {
@@ -247,6 +255,9 @@ public class AdvgramGeneralSettings extends BaseSettingsActivity {
         dividerNotificationRow = rowCount++;
         callHeaderRow = rowCount++;
         confirmCallSwitchRow = rowCount++;
+        calnederHeaderRow = rowCount++;
+        dividerPersianCalendarRow = rowCount++;
+        PersianCalendarRow = rowCount++;
     }
 
     @Override
@@ -270,6 +281,8 @@ public class AdvgramGeneralSettings extends BaseSettingsActivity {
                         headerCell.setText(LocaleController.getString("TranslateMessages", R.string.TranslateMessages));
                     } else if (position == callHeaderRow) {
                         headerCell.setText(LocaleController.getString("Calls", R.string.Calls));
+                    } else if (position == calnederHeaderRow) {
+                        headerCell.setText(LocaleController.getString("Calendar", R.string.Calendar));
                     } else if (position == dcIdSettingsHeaderRow) {
                         headerCell.setText(LocaleController.getString("DC_IDSettings", R.string.DC_IDSettings));
                     } else if (position == notificationHeaderRow) {
@@ -287,6 +300,8 @@ public class AdvgramGeneralSettings extends BaseSettingsActivity {
                         textCheckCell.setTextAndCheck(LocaleController.getString("ShowID_DC", R.string.ShowID_DC), AdvanceGramConfig.showIDAndDC, true);
                     } else if (position == confirmCallSwitchRow) {
                         textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ConfirmCalls", R.string.ConfirmCalls), LocaleController.getString("ConfirmCallsDesc", R.string.ConfirmCallsDesc), AdvanceGramConfig.confirmCall, true, true);
+                    } else if (position == PersianCalendarRow) {
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("usePersianCalendar", R.string.UsePersiancalendar), LocaleController.getString("UsePersiancalendarInfo", R.string.UsePersiancalendarInfo), AdvanceGramConfig.PersianCalendar, true, true);
                     } else if (position == notificationAccentRow) {
                         textCheckCell.setTextAndCheck(LocaleController.getString("AccentAsNotificationColor", R.string.AccentAsNotificationColor), AdvanceGramConfig.accentAsNotificationColor, true);
                     } else if (position == keepMarkdownRow) {
@@ -465,13 +480,13 @@ public class AdvgramGeneralSettings extends BaseSettingsActivity {
         @Override
         public ViewType getViewType(int position) {
             if (position == divisorPrivacyRow || position == divisorTranslationRow || position == divisorDCIdRow ||
-                    position == dividerNotificationRow) {
+                    position == dividerNotificationRow || position ==dividerPersianCalendarRow) {
                 return ViewType.SHADOW;
-            } else if (position == privacyHeaderRow || position == translationHeaderRow || position == callHeaderRow ||
+            } else if (position == privacyHeaderRow || position == translationHeaderRow || position == callHeaderRow || position == calnederHeaderRow ||
                     position == dcIdSettingsHeaderRow || position == notificationHeaderRow) {
                 return ViewType.HEADER;
             } else if (position == phoneNumberSwitchRow || position == phoneContactsSwitchRow || position == dcIdRow ||
-                    position == confirmCallSwitchRow || position == notificationAccentRow || position == keepMarkdownRow ||
+                    position == confirmCallSwitchRow || position == PersianCalendarRow || position == notificationAccentRow || position == keepMarkdownRow ||
                     position == showTranslateButtonRow) {
                 return ViewType.SWITCH;
             } else if (position == translationProviderSelectRow || position == destinationLanguageSelectRow || position == deepLFormalityRow ||

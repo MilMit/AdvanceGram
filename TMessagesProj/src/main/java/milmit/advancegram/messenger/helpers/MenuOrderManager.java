@@ -22,7 +22,7 @@ public class MenuOrderManager {
             "nearby_people",
             "saved_message",
             "settings",
-            "owlgram_settings",
+            "advgram_settings",
             "new_channel",
             "new_secret_chat",
             "invite_friends",

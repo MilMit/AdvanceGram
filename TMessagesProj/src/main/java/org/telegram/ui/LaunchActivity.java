@@ -181,6 +181,7 @@ import org.webrtc.voiceengine.WebRtcAudioTrack;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
@@ -195,6 +196,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import milmit.advancegram.messenger.AdvConfig;
 import milmit.advancegram.messenger.StoreUtils;
 import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.components.UpdateAlertDialog;
@@ -204,6 +206,8 @@ import milmit.advancegram.messenger.helpers.LanguageHelper;
 import milmit.advancegram.messenger.helpers.MonetHelper;
 import milmit.advancegram.messenger.helpers.StickersHelper;
 import milmit.advancegram.messenger.helpers.UpdateSignaling;
+import milmit.advancegram.messenger.proxy.SubInfo;
+import milmit.advancegram.messenger.proxy.SubManager;
 import milmit.advancegram.messenger.settings.AdvgramAppearanceSettings;
 import milmit.advancegram.messenger.settings.AdvgramChatSettings;
 import milmit.advancegram.messenger.settings.AdvgramExperimentalSettings;
@@ -215,6 +219,7 @@ import milmit.advancegram.messenger.updates.ApkInstaller;
 import milmit.advancegram.messenger.updates.AppDownloader;
 import milmit.advancegram.messenger.updates.PlayStoreAPI;
 import milmit.advancegram.messenger.updates.UpdateManager;
+import milmit.advancegram.messenger.utils.UIUtil;
 
 public class LaunchActivity extends BasePermissionsActivity implements INavigationLayout.INavigationLayoutDelegate, NotificationCenter.NotificationCenterDelegate, DialogsActivity.DialogsActivityDelegate {
     public final static Pattern PREFIX_T_ME_PATTERN = Pattern.compile("^(?:http(?:s|)://|)([A-z0-9-]+?)\\.t\\.me");
@@ -913,6 +918,22 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
         MediaController.getInstance().setBaseActivity(this, true);
         ApplicationLoader.startAppCenter(this);
         updateAppUpdateViews();
+        //MilMit #5
+        UIUtil.runOnIoDispatcher(() -> {
+//            ExternalGcm.checkUpdate(this);
+            if (AdvConfig.autoUpdateSubInfo.Bool())
+                for (SubInfo subInfo : SubManager.getSubList().find()) {
+                    if (subInfo == null || !subInfo.enable) continue;
+                    try {
+                        subInfo.proxies = subInfo.reloadProxies();
+                        subInfo.lastFetch = System.currentTimeMillis();
+                        SubManager.getSubList().update(subInfo, true);
+                        SharedConfig.reloadProxyList();
+                    } catch (IOException allTriesFailed) {
+                        FileLog.e(allTriesFailed);
+                    }
+                }
+        }, 4000);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             FingerprintController.checkKeyReady();
@@ -2497,7 +2518,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                         } else {
                                             open_settings = 1;
                                         }
-                                    } else if (url.startsWith("tg:owl") || url.startsWith("tg://owl")) {
+                                    } else if (url.startsWith("tg:adv") || url.startsWith("tg://adv")) {
                                         ProfileActivity.startAdvSound();
                                     } else if (url.startsWith("tg:update") || url.startsWith("tg://update")) {
                                         checkAppUpdate(true);
@@ -4991,6 +5012,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                 AdvanceGramConfig.saveUpdateStatus(1);
                                 AdvanceGramConfig.saveLastUpdateCheck();
                                 updateAppUpdateViews();
+                            }else if (updateAvailable.necessary){
+                                new UpdateAlertDialog(LaunchActivity.this, updateAvailable).show();
                             }
                         } else {
                             if (updateResult instanceof UpdateManager.UpdateNotAvailable && force) {

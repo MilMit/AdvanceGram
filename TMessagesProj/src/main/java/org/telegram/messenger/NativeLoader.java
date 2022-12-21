@@ -15,7 +15,7 @@ import com.getkeepsafe.relinker.ReLinker;
 public class NativeLoader {
 
     private final static int LIB_VERSION = 42;
-    private final static String LIB_NAME = "owl." + LIB_VERSION;
+    private final static String LIB_NAME = "adv." + LIB_VERSION;
 
     public static synchronized void initNativeLibs(Context context) {
         ReLinker.loadLibrary(context, LIB_NAME);

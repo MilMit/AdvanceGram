@@ -467,7 +467,8 @@ public class GroupCallUserCell extends FrameLayout {
             avatarDrawable.setInfo(currentUser);
 
             nameTextView.setText(UserObject.getUserName(currentUser));
-            if (currentUser != null && currentUser.verified) {
+            //MilMit #5
+            if (currentUser != null && currentUser.verifiedExtended()) {
                 rightDrawable.set(verifiedDrawable = (verifiedDrawable == null ? new VerifiedDrawable(getContext()) : verifiedDrawable), animated);
             } else if (currentUser != null && currentUser.emoji_status instanceof TLRPC.TL_emojiStatus) {
                 rightDrawable.set(((TLRPC.TL_emojiStatus) currentUser.emoji_status).document_id, animated);
@@ -508,7 +509,8 @@ public class GroupCallUserCell extends FrameLayout {
 
             if (currentChat != null) {
                 nameTextView.setText(currentChat.title);
-                if (currentChat.verified) {
+                //MilMit #5
+                if (currentChat.verifiedExtended()) {
                     rightDrawable.set(verifiedDrawable = (verifiedDrawable == null ? new VerifiedDrawable(getContext()) : verifiedDrawable), animated);
                 } else {
                     rightDrawable.set((Drawable) null, animated);

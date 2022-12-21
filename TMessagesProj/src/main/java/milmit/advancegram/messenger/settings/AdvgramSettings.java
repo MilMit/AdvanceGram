@@ -99,7 +99,7 @@ public class AdvgramSettings extends BaseSettingsActivity {
         }  else if (position == sourceCodeRow) {
             Browser.openUrl(getParentActivity(), "https://github.com/MilMit/AdvanceGram");
         } else if (position == supportTranslationRow) {
-            Browser.openUrl(getParentActivity(), "https://translations.owlgram.org/");
+            Browser.openUrl(getParentActivity(), "https://milmit.net/appstore/translations");
         } else if (position == generalSettingsRow) {
             presentFragment(new AdvgramGeneralSettings());
         } else if (position == chatSettingsRow) {
@@ -109,7 +109,7 @@ public class AdvgramSettings extends BaseSettingsActivity {
         } else if (position == experimentalSettingsRow) {
             presentFragment(new AdvgramExperimentalSettings());
         } else if (position == supportDonationRow) {
-            Browser.openUrl(getParentActivity(), "https://donations.owlgram.org/");
+            Browser.openUrl(getParentActivity(), "https://milmit.net/appstore/donations");
         } else if (position == appearanceSettingsRow) {
             presentFragment(new AdvgramAppearanceSettings());
         } else if (position == bugReportRow) {
@@ -165,11 +165,11 @@ public class AdvgramSettings extends BaseSettingsActivity {
                     } else if (position == updateSettingsRow) {
                         textCell.setTextAndIcon(LocaleController.getString("AdvUpdates", R.string.AdvUpdates), R.drawable.round_update_white_28, false);
                     } else if (position == channelUpdatesRow) {
-                        textCell.setTextAndValueAndIcon(LocaleController.getString("Programcreatorschannel", R.string.Programcreatorschannel), "@" + "MilMit Network", R.drawable.msg_channel, true);
+                        textCell.setTextAndValueAndIcon(LocaleController.getString("Programcreatorschannel", R.string.Programcreatorschannel), "@" + "MilMit", R.drawable.ic_milmit, true);
                     } else if (position == channelAdvRow) {
-                        textCell.setTextAndValueAndIcon(LocaleController.getString("OfficialChannel", R.string.OfficialChannel), "@" + "Advancegram Official", R.drawable.ic_milmit, true);
+                        textCell.setTextAndValueAndIcon(LocaleController.getString("OfficialChannel", R.string.OfficialChannel), "@" + "Advancegram Official", R.drawable.advgram_notification, true);
                     } else if (position == groupUpdatesRow) {
-                        textCell.setTextAndValueAndIcon(LocaleController.getString("OfficialGroup", R.string.OfficialGroup), "@" + "Advancegram Official Forum", R.drawable.msg_groups, true);
+                        textCell.setTextAndValueAndIcon(LocaleController.getString("OfficialGroup", R.string.OfficialGroup), "@" + "Advancegram Forum", R.drawable.msg_groups, true);
                     } else if (position == experimentalSettingsRow) {
                         textCell.setTextAndIcon(LocaleController.getString("Experimental", R.string.Experimental), R.drawable.outline_science_white, true);
                     } else if (position == appearanceSettingsRow) {

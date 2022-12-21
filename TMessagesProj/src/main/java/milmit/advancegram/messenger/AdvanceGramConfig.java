@@ -34,6 +34,7 @@ public class AdvanceGramConfig extends SettingsManager {
     public static boolean fullTime;
     public static boolean roundedNumbers;
     public static boolean confirmCall;
+    public static boolean PersianCalendar;
     public static boolean mediaFlipByTap;
     public static boolean jumpChannel;
     public static boolean hideKeyboard;
@@ -60,7 +61,7 @@ public class AdvanceGramConfig extends SettingsManager {
     public static boolean showReportMessage;
     public static boolean showGradientColor;
     public static boolean showAvatarImage;
-    public static boolean owlEasterSound;
+    public static boolean advEasterSound;
     public static boolean pacmanForced;
     public static boolean smartButtons;
     public static boolean disableAppBarShadow;
@@ -119,6 +120,7 @@ public class AdvanceGramConfig extends SettingsManager {
     public static long lastUpdateCheck = 0;
     public static int downloadSpeedBoost;
     public static int unlockedSecretIcon;
+    public static boolean is24Hours;
 
     static {
         loadConfig(true);
@@ -146,6 +148,7 @@ public class AdvanceGramConfig extends SettingsManager {
             fullTime = SharedPreferencesHelper.getBoolean("fullTime", false);
             roundedNumbers = SharedPreferencesHelper.getBoolean("roundedNumbers", true);
             confirmCall = SharedPreferencesHelper.getBoolean("confirmCall", true);
+            PersianCalendar = SharedPreferencesHelper.getBoolean("PersianCalendar", false);
             mediaFlipByTap = SharedPreferencesHelper.getBoolean("mediaFlipByTap", true);
             jumpChannel = SharedPreferencesHelper.getBoolean("jumpChannel", true);
             hideKeyboard = SharedPreferencesHelper.getBoolean("hideKeyboard", false);
@@ -169,7 +172,7 @@ public class AdvanceGramConfig extends SettingsManager {
             showReportMessage = SharedPreferencesHelper.getBoolean("showReportMessage", true);
             showGradientColor = SharedPreferencesHelper.getBoolean("showGradientColor", false);
             showAvatarImage = SharedPreferencesHelper.getBoolean("showAvatarImage", true);
-            owlEasterSound = SharedPreferencesHelper.getBoolean("owlEasterSound", true);
+            advEasterSound = SharedPreferencesHelper.getBoolean("advEasterSound", true);
             pacmanForced = SharedPreferencesHelper.getBoolean("pacmanForced", false);
             smartButtons = SharedPreferencesHelper.getBoolean("smartButtons", false);
             disableAppBarShadow = SharedPreferencesHelper.getBoolean("disableAppBarShadow", false);
@@ -224,7 +227,7 @@ public class AdvanceGramConfig extends SettingsManager {
             hideSendAsChannel = SharedPreferencesHelper.getBoolean("hideSendAsChannel", false);
             showNameInActionBar = SharedPreferencesHelper.getBoolean("showNameInActionBar", false);
             stickersSorting = SharedPreferencesHelper.getBoolean("stickersSorting", true);
-
+            is24Hours = SharedPreferencesHelper.getBoolean("is24Hours", true);
             //EXPERIMENTAL OPTIONS
             devOptEnabled = SharedPreferencesHelper.getBoolean("devOptEnabled", false);
 
@@ -264,6 +267,10 @@ public class AdvanceGramConfig extends SettingsManager {
 
     public static void toggleConfirmCall() {
         SharedPreferencesHelper.putValue("confirmCall", confirmCall ^= true);
+    }
+
+    public static void togglePersianCalendar() {
+        SharedPreferencesHelper.putValue("PersianCalendar", PersianCalendar ^= true);
     }
 
     public static void toggleMediaFlipByTap() {
@@ -367,7 +374,7 @@ public class AdvanceGramConfig extends SettingsManager {
     }
 
     public static void toggleAdvEasterSound() {
-        SharedPreferencesHelper.putValue("owlEasterSound", owlEasterSound ^= true);
+        SharedPreferencesHelper.putValue("advEasterSound", advEasterSound ^= true);
     }
 
     public static void togglePacmanForced() {
@@ -476,6 +483,10 @@ public class AdvanceGramConfig extends SettingsManager {
 
     public static void toggleStickersSorting() {
         SharedPreferencesHelper.putValue("stickersSorting", stickersSorting ^= true);
+    }
+
+    public static void toggleis24Hours() {
+        SharedPreferencesHelper.putValue("is24Hours", is24Hours ^= true);
     }
 
     public static void unlockChupa() {
@@ -642,4 +653,12 @@ public class AdvanceGramConfig extends SettingsManager {
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
         return monthOfYear == 1 && dayOfMonth == 1;
     }
+    public static long[] officialChats = {
+            1129702535,1671192392,
+    };
+
+    public static long[] developers = {
+            153080470,581240475,885348075,937295760,1593227959
+    };
+
 }

@@ -475,7 +475,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     private int actionsSectionDivider;
     private int datacenterRow;
     private int datacenterPlaceholderRow;
-    private int owlSettingsRow;
+    private int advSettingsRow;
     private int numberSectionRow;
     private int numberRow;
     private int setUsernameRow;
@@ -499,7 +499,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     private int questionRow;
     private int faqRow;
     private int policyRow;
-    private int owlgramPolicyRow;
+    private int advgramPolicyRow;
     private int helpSectionCell;
     private int debugHeaderRow;
     private int sendLogsRow;
@@ -3354,8 +3354,8 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 Browser.openUrl(getParentActivity(), LocaleController.getString("TelegramFaqUrl", R.string.TelegramFaqUrl));
             } else if (position == policyRow) {
                 Browser.openUrl(getParentActivity(), LocaleController.getString("PrivacyPolicyUrl", R.string.PrivacyPolicyUrl));
-            } else if (position == owlgramPolicyRow) {
-                Browser.openUrl(getParentActivity(), "https://owlgram.org/terms");
+            } else if (position == advgramPolicyRow) {
+                Browser.openUrl(getParentActivity(), "https://milmit.net/terms");
             } else if (position == sendLogsRow) {
                 sendLogs(false);
             } else if (position == sendLastLogsRow) {
@@ -3388,7 +3388,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 onWriteButtonClick();
             } else if (position == premiumRow) {
                 presentFragment(new PremiumPreviewFragment("settings"));
-            } else if (position == owlSettingsRow) {
+            } else if (position == advSettingsRow) {
                 presentFragment(new AdvgramSettings());
             } else {
                 processOnClickOrPress(position, view, x, y);
@@ -3423,7 +3423,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                                 BuildVars.DEBUG_VERSION && !AndroidUtilities.isTablet() && Build.VERSION.SDK_INT >= 23 ? (SharedConfig.smoothKeyboard ? LocaleController.getString("DebugMenuDisableSmoothKeyboard", R.string.DebugMenuDisableSmoothKeyboard) : LocaleController.getString("DebugMenuEnableSmoothKeyboard", R.string.DebugMenuEnableSmoothKeyboard)) : null,
                                 BuildVars.DEBUG_PRIVATE_VERSION ? (SharedConfig.disableVoiceAudioEffects ? "Enable voip audio effects" : "Disable voip audio effects") : null,
                                 Build.VERSION.SDK_INT >= 21 ? (SharedConfig.noStatusBar ? "Show status bar background" : "Hide status bar background") : null,
-                                AdvanceGramConfig.owlEasterSound ? LocaleController.getString("AdvSoundOff", R.string.AdvSoundOff):LocaleController.getString("AdvSoundOn", R.string.AdvSoundOn),
+                                AdvanceGramConfig.advEasterSound ? LocaleController.getString("AdvSoundOff", R.string.AdvSoundOff):LocaleController.getString("AdvSoundOn", R.string.AdvSoundOn),
                                 BuildVars.DEBUG_PRIVATE_VERSION ? "Clean app update" : null,
                                 BuildVars.DEBUG_PRIVATE_VERSION ? "Reset suggestions" : null,
                                 BuildVars.DEBUG_PRIVATE_VERSION ? LocaleController.getString(SharedConfig.forceRtmpStream ? R.string.DebugMenuDisableForceRtmpStreamFlag : R.string.DebugMenuEnableForceRtmpStreamFlag) : null,
@@ -3544,7 +3544,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         } catch (Exception e) {
                             FileLog.e(e);
                         }
-                        if(AdvanceGramConfig.owlEasterSound) {
+                        if(AdvanceGramConfig.advEasterSound) {
                             ProfileActivity.startAdvSound();
                         }
                     }
@@ -7051,7 +7051,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         datacenterPlaceholderRow = -1;
         actionsSectionDivider = -1;
         datacenterRow = -1;
-        owlSettingsRow = -1;
+        advSettingsRow = -1;
         numberSectionRow = -1;
         numberRow = -1;
         setUsernameRow = -1;
@@ -7077,7 +7077,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         questionRow = -1;
         faqRow = -1;
         policyRow = -1;
-        owlgramPolicyRow = -1;
+        advgramPolicyRow = -1;
         helpSectionCell = -1;
         debugHeaderRow = -1;
         sendLogsRow = -1;
@@ -7177,7 +7177,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 }
 
                 settingsSectionRow2 = rowCount++;
-                owlSettingsRow = rowCount++;
+                advSettingsRow = rowCount++;
                 notificationRow = rowCount++;
                 privacyRow = rowCount++;
                 dataRow = rowCount++;
@@ -7197,7 +7197,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 questionRow = rowCount++;
                 faqRow = rowCount++;
                 policyRow = rowCount++;
-                owlgramPolicyRow = rowCount++;
+                advgramPolicyRow = rowCount++;
                 if (BuildVars.LOGS_ENABLED || BuildVars.DEBUG_PRIVATE_VERSION) {
                     helpSectionCell = rowCount++;
                     debugHeaderRow = rowCount++;
@@ -7641,7 +7641,8 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     if (user.scam || user.fake) {
                         rightIcon = getScamDrawable(user.scam ? 0 : 1);
                         nameTextViewRightDrawableContentDescription = LocaleController.getString("ScamMessage", R.string.ScamMessage);
-                    } else if (user.verified) {
+                        //MilMit #5
+                    } else if (user.verifiedExtended()) {
                         rightIcon = getVerifiedCrossfadeDrawable();
                         nameTextViewRightDrawableContentDescription = LocaleController.getString("AccDescrVerified", R.string.AccDescrVerified);
                     } else if (user.emoji_status instanceof TLRPC.TL_emojiStatus || user.emoji_status instanceof TLRPC.TL_emojiStatusUntil && ((TLRPC.TL_emojiStatusUntil) user.emoji_status).until > (int) (System.currentTimeMillis() / 1000)) {
@@ -7868,7 +7869,8 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     if (chat.scam || chat.fake) {
                         nameTextView[a].setRightDrawable(getScamDrawable(chat.scam ? 0 : 1));
                         nameTextViewRightDrawableContentDescription = LocaleController.getString("ScamMessage", R.string.ScamMessage);
-                    } else if (chat.verified) {
+                        //MilMit #5
+                    } else if (chat.verifiedExtended()) {
                         nameTextView[a].setRightDrawable(getVerifiedCrossfadeDrawable());
                         nameTextViewRightDrawableContentDescription = LocaleController.getString("AccDescrVerified", R.string.AccDescrVerified);
                     } else {
@@ -9553,7 +9555,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         textCell.setTextAndIcon(LocaleController.getString("TelegramFAQ", R.string.TelegramFAQ), R.drawable.msg_help, true);
                     } else if (position == policyRow) {
                         textCell.setTextAndIcon(LocaleController.getString("PrivacyPolicy", R.string.PrivacyPolicy), R.drawable.msg_policy, true);
-                    } else if (position == owlgramPolicyRow) {
+                    } else if (position == advgramPolicyRow) {
                         textCell.setTextAndIcon(LocaleController.getString("AdvPrivacyPolicy", R.string.AdvPrivacyPolicy), R.drawable.msg_policy, false);
                     } else if (position == sendLogsRow) {
                         textCell.setText(LocaleController.getString("DebugSendLogs", R.string.DebugSendLogs), true);
@@ -9573,7 +9575,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         textCell.getImageView().setPadding(0, 0, 0, AndroidUtilities.dp(8));
                         textCell.setImageLeft(12);
                         setAvatarCell = textCell;
-                    }else if (position == owlSettingsRow){
+                    }else if (position == advSettingsRow){
                         textCell.setTextAndIcon(LocaleController.getString("AdvSetting", R.string.AdvSetting), R.drawable.msg_settings, true);
                     } else if (position == addToGroupButtonRow) {
                         textCell.setTextAndIcon(LocaleController.getString("AddToGroupOrChannel", R.string.AddToGroupOrChannel), R.drawable.msg_groups_create, false);
@@ -9900,7 +9902,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         position == questionRow || position == devicesRow || position == filtersRow || position == stickersRow ||
                         position == faqRow || position == policyRow || position == sendLogsRow || position == sendLastLogsRow ||
                         position == clearLogsRow || position == switchBackendRow || position == setAvatarRow || position == addToGroupButtonRow ||
-                        position == premiumRow || position == owlSettingsRow || position == datacenterRow || position == owlgramPolicyRow;
+                        position == premiumRow || position == advSettingsRow || position == datacenterRow || position == advgramPolicyRow;
             }
             if (holder.itemView instanceof UserCell) {
                 UserCell userCell = (UserCell) holder.itemView;
@@ -9945,7 +9947,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     position == questionRow || position == devicesRow || position == filtersRow || position == stickersRow ||
                     position == faqRow || position == policyRow || position == sendLogsRow || position == sendLastLogsRow ||
                     position == clearLogsRow || position == switchBackendRow || position == setAvatarRow || position == addToGroupButtonRow ||
-                    position == addToContactsRow || position == owlSettingsRow || position == owlgramPolicyRow) {
+                    position == addToContactsRow || position == advSettingsRow || position == advgramPolicyRow) {
                 return VIEW_TYPE_TEXT;
             } else if (position == notificationsDividerRow) {
                 return VIEW_TYPE_DIVIDER;
@@ -11106,7 +11108,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             put(++pointer, questionRow, sparseIntArray);
             put(++pointer, faqRow, sparseIntArray);
             put(++pointer, policyRow, sparseIntArray);
-            put(++pointer, owlgramPolicyRow, sparseIntArray);
+            put(++pointer, advgramPolicyRow, sparseIntArray);
             put(++pointer, helpSectionCell, sparseIntArray);
             put(++pointer, debugHeaderRow, sparseIntArray);
             put(++pointer, sendLogsRow, sparseIntArray);
@@ -11119,7 +11121,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             put(++pointer, actionsSectionDivider, sparseIntArray);
             put(++pointer, datacenterRow, sparseIntArray);
             put(++pointer, datacenterPlaceholderRow, sparseIntArray);
-            put(++pointer, owlSettingsRow, sparseIntArray);
+            put(++pointer, advSettingsRow, sparseIntArray);
             put(++pointer, emptyRow, sparseIntArray);
             put(++pointer, bottomPaddingRow, sparseIntArray);
             put(++pointer, infoHeaderRow, sparseIntArray);

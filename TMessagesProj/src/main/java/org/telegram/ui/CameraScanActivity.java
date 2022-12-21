@@ -140,12 +140,81 @@ public class CameraScanActivity extends BaseFragment {
     private BarcodeDetector visionQrReader = null;
 
     private boolean needGalleryButton;
+    //MilMit #5
+    private boolean any;
 
     private int currentType;
 
     public static final int TYPE_MRZ = 0;
     public static final int TYPE_QR = 1;
     public static final int TYPE_QR_LOGIN = 2;
+    //MilMit #5
+    public static INavigationLayout[] showAsSheet(BaseFragment parentFragment, CameraScanActivityDelegate cameraDelegate) {
+        return showAsSheet(parentFragment, true, TYPE_QR, cameraDelegate, true);
+    }
+
+    //MilMit #5
+    public static INavigationLayout[] showAsSheet(BaseFragment parentFragment, boolean gallery, int type, CameraScanActivityDelegate cameraDelegate, boolean any) {
+        if (parentFragment == null || parentFragment.getParentActivity() == null) {
+            return null;
+        }
+        INavigationLayout[] actionBarLayout = new INavigationLayout[]{INavigationLayout.newLayout(parentFragment.getParentActivity())};
+        BottomSheet bottomSheet = new BottomSheet(parentFragment.getParentActivity(), false) {
+            CameraScanActivity fragment;
+            {
+                actionBarLayout[0].setFragmentStack(new ArrayList<>());
+                fragment = new CameraScanActivity(type) {
+                    @Override
+                    public void finishFragment() {
+                        dismiss();
+                    }
+
+                    @Override
+                    public void removeSelfFromStack() {
+                        dismiss();
+                    }
+                };
+                fragment.shownAsBottomSheet = true;
+                fragment.needGalleryButton = gallery;
+                fragment.any = any;
+                actionBarLayout[0].addFragmentToStack(fragment);
+                actionBarLayout[0].showLastFragment();
+                actionBarLayout[0].getView().setPadding(backgroundPaddingLeft, 0, backgroundPaddingLeft, 0);
+                fragment.setDelegate(cameraDelegate);
+                containerView = actionBarLayout[0].getView();
+                setApplyBottomPadding(false);
+                setApplyBottomPadding(false);
+                setOnDismissListener(dialog -> fragment.onFragmentDestroy());
+            }
+
+            @Override
+            protected boolean canDismissWithSwipe() {
+                return false;
+            }
+
+            @Override
+            public void onBackPressed() {
+                if (actionBarLayout[0] == null || actionBarLayout[0].getFragmentStack().size() <= 1) {
+                    super.onBackPressed();
+                } else {
+                    actionBarLayout[0].onBackPressed();
+                }
+            }
+
+            @Override
+            public void dismiss() {
+                super.dismiss();
+                actionBarLayout[0] = null;
+            }
+        };
+        bottomSheet.setUseLightStatusBar(false);
+        AndroidUtilities.setLightNavigationBar(bottomSheet.getWindow(), false);
+        AndroidUtilities.setNavigationBarColor(bottomSheet.getWindow(), 0xff000000, false);
+        bottomSheet.setUseLightStatusBar(false);
+        bottomSheet.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        bottomSheet.show();
+        return actionBarLayout;
+    }
 
     public interface CameraScanActivityDelegate {
         default void didFindMrzInfo(MrzRecognizer.Result result) {
@@ -1072,6 +1141,13 @@ public class CameraScanActivity extends BaseFragment {
     private class QrResult {
         String text;
         RectF bounds;
+
+        public QrResult(String text, RectF bounds) {
+            this.text = text;
+            this.bounds = bounds;
+        }
+
+        public QrResult() {}
     }
 
     private QrResult tryReadQr(byte[] data, Size size, int x, int y, int side, Bitmap bitmap) {
@@ -1209,6 +1285,7 @@ public class CameraScanActivity extends BaseFragment {
                 onNoQrFound();
                 return null;
             }
+            if (any) return new QrResult(text, bounds);
             if (needGalleryButton) {
                 if (!text.startsWith("ton://transfer/")) {
                     //onNoWalletFound(bitmap != null);

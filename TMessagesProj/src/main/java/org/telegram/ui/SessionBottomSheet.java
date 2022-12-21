@@ -21,6 +21,8 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
+import com.google.android.exoplayer2.util.Log;
+
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.LocaleController;
@@ -358,7 +360,7 @@ public class SessionBottomSheet extends BottomSheet {
             colorKey2 = Theme.key_avatar_background2Cyan;
         } else if (platform.contains("android")) {
             iconId = R.raw.android_30;
-            if (app_name.contains("owlgram")) {
+            if (app_name.contains("advancegram")) {
                 animation = false;
                 colorValue = Color.parseColor("#4285F4");
                 iconId = R.drawable.advgram_notification;

@@ -60,7 +60,7 @@ public class SettingsManager extends SharedPreferencesHelper {
 
     private static boolean isBackupAvailable(String key) {
         switch (key) {
-            case "owlEasterSound":
+            case "advEasterSound":
             case "isChineseUser":
             case "verifyLinkTip":
             case "updateData":
@@ -307,7 +307,7 @@ public class SettingsManager extends SharedPreferencesHelper {
     public static void shareSettings(Activity activity) {
         new FileSettingsNameDialog(activity, fileName -> {
             try {
-                File cacheFile = new File(FileLoader.getDirectory(FileLoader.MEDIA_DIR_CACHE), fileName + ".owl");
+                File cacheFile = new File(FileLoader.getDirectory(FileLoader.MEDIA_DIR_CACHE), fileName + ".adv");
                 BufferedWriter writer = new BufferedWriter(new FileWriter(cacheFile));
                 JSONObject object = new JSONObject();
 
@@ -347,7 +347,7 @@ public class SettingsManager extends SharedPreferencesHelper {
     }
 
     static File backupFile() {
-        return new File(ApplicationLoader.getFilesDirFixed(), "owlgram_data.json");
+        return new File(ApplicationLoader.getFilesDirFixed(), "advgram_data.json");
     }
 
     public static void restoreBackup(MessageObject messageObject) {

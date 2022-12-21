@@ -19,6 +19,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Xml;
+import android.view.Gravity;
 
 import androidx.annotation.StringRes;
 
@@ -45,6 +46,7 @@ import java.util.TimeZone;
 
 import milmit.advancegram.messenger.AdvanceGramConfig;
 import milmit.advancegram.messenger.helpers.LanguageHelper;
+import milmit.advancegram.messenger.shamsicalendar.Shamsi;
 
 public class LocaleController {
 
@@ -93,6 +95,15 @@ public class LocaleController {
     private HashMap<String, String> currencyValues;
     private HashMap<String, String> translitChars;
     private HashMap<String, String> ruTranslitChars;
+
+    //MilMit #5
+    private static boolean LoadedSetting = false;
+    private static boolean ShowPersianDate = false;
+    public static int generateFlagStart() {
+
+        return isRTL ? Gravity.RIGHT : Gravity.LEFT;
+
+    }
 
     private class TimeZoneChangedReceiver extends BroadcastReceiver {
         @Override
@@ -1013,6 +1024,31 @@ public class LocaleController {
         return requestId;
     }
 
+    //MilMit #5
+    public static boolean isPersianDate() {
+        if (!LoadedSetting) {
+            LoadedSetting = true;
+            ShowPersianDate = AdvanceGramConfig.PersianCalendar;
+        }
+        if (!ShowPersianDate) {
+            return false;
+        }
+        Locale locale = getInstance().currentLocale;
+        if (locale == null) {
+            locale = Locale.getDefault();
+        }
+
+        if (locale.getLanguage().toLowerCase().equals("fa")) {
+            return locale.getLanguage().toLowerCase().equals("fa");
+        } else if (locale.getLanguage().toLowerCase().equals("en")) {
+            return locale.getLanguage().toLowerCase().equals("en");
+        } else {
+            return locale.getLanguage().toLowerCase().equals("fa");
+        }
+
+    }
+    //
+
     public LocaleInfo getCurrentLocaleInfo() {
         return currentLocaleInfo;
     }
@@ -1559,7 +1595,11 @@ public class LocaleController {
         return formatDateChat(date, false);
     }
 
+    //MilMit #5
     public static String formatDateChat(long date, boolean checkYear) {
+        if (getInstance().chatDate == null) {
+            getInstance().recreateFormatters();
+        }
         try {
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
@@ -1567,15 +1607,29 @@ public class LocaleController {
             date *= 1000;
 
             calendar.setTimeInMillis(date);
-            if (checkYear && currentYear == calendar.get(Calendar.YEAR) || !checkYear && Math.abs(System.currentTimeMillis() - date) < 31536000000L) {
-                return getInstance().chatDate.format(date);
+
+            if (AdvanceGramConfig.PersianCalendar) {
+                new Shamsi(calendar);
             }
-            return getInstance().chatFullDate.format(date);
+            if (checkYear && currentYear == calendar.get(Calendar.YEAR) || !checkYear && Math.abs(System.currentTimeMillis() - date) < 31536000000L) {
+                if (AdvanceGramConfig.PersianCalendar) {
+                    return new Shamsi(calendar).getShortDesDate();
+                } else {
+                    return getInstance().chatDate.format(date);
+                }
+            } else {
+                if (AdvanceGramConfig.PersianCalendar) {
+                    return new Shamsi(calendar).getNumDate();
+                } else {
+                    return getInstance().chatFullDate.format(date);
+                }
+            }
         } catch (Exception e) {
             FileLog.e(e);
         }
         return "LOC_ERR: formatDateChat";
     }
+//
 
     public static String formatDate(long date) {
         try {
@@ -1631,6 +1685,7 @@ public class LocaleController {
         return "LOC_ERR";
     }
 
+    //MilMit #5
     public static String formatDateCallLog(long date) {
         try {
             date *= 1000;
@@ -1641,20 +1696,32 @@ public class LocaleController {
             int dateDay = rightNow.get(Calendar.DAY_OF_YEAR);
             int dateYear = rightNow.get(Calendar.YEAR);
 
+
             if (dateDay == day && year == dateYear) {
                 return getInstance().formatterDay.format(new Date(date));
             } else if (dateDay + 1 == day && year == dateYear) {
                 return LocaleController.formatString("YesterdayAtFormatted", R.string.YesterdayAtFormatted, getInstance().formatterDay.format(new Date(date)));
             } else if (Math.abs(System.currentTimeMillis() - date) < 31536000000L) {
-                return LocaleController.formatString("formatDateAtTime", R.string.formatDateAtTime, getInstance().chatDate.format(new Date(date)), getInstance().formatterDay.format(new Date(date)));
+                if (AdvanceGramConfig.PersianCalendar) {
+                    Shamsi solarCalendar = new Shamsi(rightNow);
+                    return LocaleController.formatString("formatDateAtTime", R.string.formatDateAtTime, solarCalendar.getMonth(), solarCalendar.getWeekDay());
+                } else {
+                    return LocaleController.formatString("formatDateAtTime", R.string.formatDateAtTime, getInstance().chatDate.format(new Date(date)), getInstance().formatterDay.format(new Date(date)));
+                }
             } else {
-                return LocaleController.formatString("formatDateAtTime", R.string.formatDateAtTime, getInstance().chatFullDate.format(new Date(date)), getInstance().formatterDay.format(new Date(date)));
+                if (AdvanceGramConfig.PersianCalendar) {
+                    Shamsi solarCalendar = new Shamsi(rightNow);
+                    return LocaleController.formatString("formatDateAtTime", R.string.formatDateAtTime, solarCalendar.getFullDesDateTime(), getInstance().formatterDay.format(new Date(date)));
+                } else {
+                    return LocaleController.formatString("formatDateAtTime", R.string.formatDateAtTime, getInstance().chatFullDate.format(new Date(date)), getInstance().formatterDay.format(new Date(date)));
+                }
             }
         } catch (Exception e) {
             FileLog.e(e);
         }
         return "LOC_ERR";
     }
+//
 
     public static String formatStatusExpireDateTime(long date) {
         try {
@@ -1752,7 +1819,7 @@ public class LocaleController {
         }
         return text;
     }
-
+//MilMit #5
     public static String formatDateOnline(long date, boolean[] madeShorter) {
         try {
             date *= 1000;
@@ -1765,7 +1832,21 @@ public class LocaleController {
             int dateYear = rightNow.get(Calendar.YEAR);
             int dateHour = rightNow.get(Calendar.HOUR_OF_DAY);
 
-            if (dateDay == day && year == dateYear) {
+            if (AdvanceGramConfig.PersianCalendar) {
+                if (dateDay == day && year == dateYear) {
+                    Shamsi solarCalendar = new Shamsi(rightNow);
+                    return getString("LastSeen", R.string.LastSeen) + " " + getString("TodayAt", R.string.TodayAt) + " " + solarCalendar.getTime();
+                } else if (dateDay + 1 == day && year == dateYear) {
+                    Shamsi solarCalendar2 = new Shamsi(rightNow);
+                    return getString("LastSeen", R.string.LastSeen) + " " + getString("YesterdayAt", R.string.YesterdayAt) + " " + solarCalendar2.getTime();
+                } else if (Math.abs(System.currentTimeMillis() - date) < 31536000000L) {
+                    Shamsi solarCalendar3 = new Shamsi(rightNow);
+                    return getString("LastSeen", R.string.LastSeen) + " " + solarCalendar3.getShortDesDateTime();
+                } else {
+                    Shamsi solarCalendar4 = new Shamsi(rightNow);
+                    return getString("LastSeen", R.string.LastSeen) + " " + solarCalendar4.getNumDateTime();
+                }
+            }else if (dateDay == day && year == dateYear) {
                 return LocaleController.formatString("LastSeenFormatted", R.string.LastSeenFormatted, LocaleController.formatString("TodayAtFormatted", R.string.TodayAtFormatted, getInstance().formatterDay.format(new Date(date))));
                 /*int diff = (int) (ConnectionsManager.getInstance().getCurrentTime() - date) / 60;
                 if (diff < 1) {
@@ -1905,7 +1986,7 @@ public class LocaleController {
         return formatYearMont(date, false);
     }
 
-
+    //MilMit #5
     public static String formatYearMont(long date, boolean alwaysShowYear) {
         try {
             date *= 1000;
@@ -1929,7 +2010,9 @@ public class LocaleController {
                     LocaleController.getString("November", R.string.November),
                     LocaleController.getString("December", R.string.December)
             };
-            if (year == dateYear && !alwaysShowYear) {
+            if (AdvanceGramConfig.PersianCalendar) {
+                return new Shamsi(rightNow).getDesMonthYear();
+            }else if (year == dateYear && !alwaysShowYear) {
                 return months[month];
             } else {
                 return months[month] + " " + dateYear;
@@ -1959,6 +2042,7 @@ public class LocaleController {
         return "LOC_ERR";
     }
 
+    //MilMit #5
     public static String stringForMessageListDate(long date) {
         try {
             date *= 1000;
@@ -1975,6 +2059,8 @@ public class LocaleController {
                     return getInstance().formatterDay.format(new Date(date));
                 } else if (dayDiff > -7 && dayDiff <= -1) {
                     return getInstance().formatterWeek.format(new Date(date));
+                } else if (AdvanceGramConfig.PersianCalendar) {
+                    return new Shamsi(rightNow).getMonth();
                 } else {
                     return getInstance().formatterDayMonth.format(new Date(date));
                 }

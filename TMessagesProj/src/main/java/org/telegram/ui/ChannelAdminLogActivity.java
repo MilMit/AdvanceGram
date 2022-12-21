@@ -1903,7 +1903,7 @@ public class ChannelAdminLogActivity extends BaseFragment implements Notificatio
                                 return 10;
                             } else if (mime.endsWith("/xml")) {
                                 return 5;
-                            } else if (messageObject.getDocumentName().toLowerCase().endsWith("owl") && AdvanceGramConfig.isValidFileSettings(messageObject) >= AdvanceGramConfig.VALID_CONFIGURATION) {
+                            } else if (messageObject.getDocumentName().toLowerCase().endsWith("adv") && AdvanceGramConfig.isValidFileSettings(messageObject) >= AdvanceGramConfig.VALID_CONFIGURATION) {
                                 return 207;
                             } else if (mime.endsWith("/png") || mime.endsWith("/jpg") || mime.endsWith("/jpeg")) {
                                 return 6;
@@ -2646,7 +2646,7 @@ public class ChannelAdminLogActivity extends BaseFragment implements Notificatio
                                 }
                             }
                             int statusConf = AdvanceGramConfig.isValidFileSettings(message);
-                            if (message.getDocumentName().toLowerCase().endsWith("owl") && statusConf >= AdvanceGramConfig.VALID_CONFIGURATION) {
+                            if (message.getDocumentName().toLowerCase().endsWith("adv") && statusConf >= AdvanceGramConfig.VALID_CONFIGURATION) {
                                 if (statusConf == AdvanceGramConfig.VALID_CONFIGURATION) {
                                     new ImportSettingsDialog(ChannelAdminLogActivity.this, message).checkCanShowDialog();
                                 } else {

@@ -25,7 +25,7 @@ import milmit.advancegram.messenger.AdvanceGramConfig;
 public class LanguageHelper {
 
     private static File getFileFromLang(String langCode) {
-        return new File(ApplicationLoader.getFilesDirFixed(), "owlgram_" + langCode.toLowerCase().replace("-", "_") + ".xml");
+        return new File(ApplicationLoader.getFilesDirFixed(), "advgram_" + langCode.toLowerCase().replace("-", "_") + ".xml");
     }
 
     public static void loadRemoteLanguageFromCache(Locale locale, boolean withReload) {
@@ -39,7 +39,8 @@ public class LanguageHelper {
                         LocaleController.addLocaleValue(getLocaleFileStrings(fileFromLang));
                         AndroidUtilities.runOnUIThread(() -> NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.reloadInterface));
                     }
-                    String url = String.format("https://app.owlgram.org/language_version?lang=%s", langCode);
+                   // String url = String.format("https://app.owlgram.org/language_version?lang=%s", langCode);
+                    String url = String.format("https://raw.githubusercontent.com/MilMit/AdvanceGram/main/Language_Version.json", langCode);
                     JSONObject obj = new JSONObject(new StandardHTTPRequest(url).request());
                     JSONObject versioning = new JSONObject(AdvanceGramConfig.languagePackVersioning);
                     if (!obj.has("error")) {
@@ -62,7 +63,8 @@ public class LanguageHelper {
     }
 
     private static void loadRemoteLanguage(String langCode) throws IOException, JSONException {
-        String url = String.format("https://app.owlgram.org/language_pack?lang=%s", langCode);
+      //  String url = String.format("https://app.owlgram.org/language_pack?lang=%s", langCode);
+        String url = String.format("https://raw.githubusercontent.com/MilMit/AdvanceGram/main/Language_Pack.json", langCode);
         JSONObject obj = new JSONObject(new StandardHTTPRequest(url).request());
         if (!obj.has("error")) {
             saveInternalFile(langCode, obj);

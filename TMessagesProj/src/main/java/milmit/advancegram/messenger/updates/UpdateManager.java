@@ -59,11 +59,13 @@ public class UpdateManager {
             @Override
             public void run() {
                 try {
-                    String url = String.format("https://app.owlgram.org/get_changelogs?lang=%s&version=%s", locale.getLanguage(), BuildVars.BUILD_VERSION);
+                    String url = "https://raw.githubusercontent.com/MilMit/AdvanceGram/master/Update.json";
+                  //  String url = String.format("https://app.owlgram.org/get_changelogs?lang=%s&version=%s", locale.getLanguage(), BuildVars.BUILD_VERSION);
                     JSONObject obj = new JSONObject(new StandardHTTPRequest(url).request());
-                    String changelog_text = obj.getString("changelogs");
-                    if (!changelog_text.equals("null")) {
-                        AndroidUtilities.runOnUIThread(() -> changelogCallback.onSuccess(HTMLKeeper.htmlToEntities(changelog_text, null, true)));
+                    JSONObject changelogs = new JSONObject(obj.getString("changelogs"));
+                    String update_status = changelogs.getString(String.valueOf(BuildVars.BUILD_VERSION));
+                    if (!update_status.equals("null")) {
+                        AndroidUtilities.runOnUIThread(() -> changelogCallback.onSuccess(HTMLKeeper.htmlToEntities(update_status, null, true)));
                     }
                 } catch (Exception ignored) {
                 } finally {

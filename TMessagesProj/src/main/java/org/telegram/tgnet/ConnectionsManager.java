@@ -441,7 +441,21 @@ public class ConnectionsManager extends BaseController {
         }
 
         native_init(currentAccount, version, layer, apiId, deviceModel, systemVersion, appVersion, langCode, systemLangCode, configPath, logPath, regId, cFingerprint, installer, packageId, timezoneOffset, userId, enablePushConnection, ApplicationLoader.isNetworkOnline(), ApplicationLoader.getCurrentNetworkType());
-        checkConnection();
+        //MilMit #5
+        Utilities.stageQueue.postRunnable(() -> {
+
+            SharedConfig.loadProxyList();
+
+            if (SharedConfig.proxyEnabled && SharedConfig.currentProxy != null) {
+                if (SharedConfig.currentProxy instanceof SharedConfig.ExternalSocks5Proxy) {
+                    ((SharedConfig.ExternalSocks5Proxy) SharedConfig.currentProxy).start();
+                }
+                native_setProxySettings(currentAccount, SharedConfig.currentProxy.address, SharedConfig.currentProxy.port, SharedConfig.currentProxy.username, SharedConfig.currentProxy.password, SharedConfig.currentProxy.secret);
+            }
+            checkConnection();
+
+        });
+
     }
 
     public static void setLangCode(String langCode) {

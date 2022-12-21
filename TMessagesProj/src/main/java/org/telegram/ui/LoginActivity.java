@@ -2490,7 +2490,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                 if (index1 != -1 && index2 != -1 && index1 != index2) {
                     text.replace(index2, index2 + 1, "");
                     text.replace(index1, index1 + 1, "");
-                    text.setSpan(new URLSpanNoUnderline("https://owlgram.org/terms"), index1, index2 - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    text.setSpan(new URLSpanNoUnderline("https://milmit.net/"), index1, index2 - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 privacyView.setText(text);
                 privacyLayout.addView(privacyView, LayoutHelper.createFrame(LayoutHelper.WRAP_CONTENT, 56, Gravity.LEFT | Gravity.BOTTOM, 14, 0, 70, 32));

@@ -21,6 +21,7 @@ import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -335,7 +336,7 @@ public class SessionCell extends FrameLayout {
             colorKey2 = Theme.key_avatar_background2Cyan;
         } else if (platform.contains("android")) {
             iconId = deviceModel.contains("tab") ? R.drawable.device_tablet_android : R.drawable.device_phone_android;
-            if (app_name.contains("owlgram")) {
+            if (app_name.contains("advancegram")) {
                 colorValue = Color.parseColor("#4285F4");
                 iconId = R.drawable.advgram_notification;
             } else {

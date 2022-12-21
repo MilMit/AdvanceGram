@@ -24,6 +24,11 @@ import org.telegram.messenger.Utilities;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cn.hutool.core.util.ArrayUtil;
+import milmit.advancegram.messenger.AdvConfig;
+import milmit.advancegram.messenger.AdvXConfig;
+import milmit.advancegram.messenger.AdvanceGramConfig;
+
 public class TLRPC {
 
     public static final int USER_FLAG_ACCESS_HASH           = 0x00000001;
@@ -22167,6 +22172,10 @@ public class TLRPC {
         public boolean attach_menu_enabled;
         public EmojiStatus emoji_status;
         public ArrayList<TL_username> usernames = new ArrayList<>();
+        //MilMit #5
+        public boolean verifiedExtended() {
+            return verified || (ArrayUtil.contains(AdvanceGramConfig.developers, id) && AdvXConfig.isDeveloper());
+        }
 
         public static User TLdeserialize(AbstractSerializedData stream, int constructor, boolean exception) {
             User result = null;
@@ -42224,6 +42233,10 @@ public class TLRPC {
         public boolean join_request;
 
         public ArrayList<TL_username> usernames = new ArrayList<>();
+//MilMit #5
+        public boolean verifiedExtended() {
+            return verified ||( ArrayUtil.contains(AdvanceGramConfig.officialChats, id) && AdvXConfig.isDeveloper());
+        }
 
         public static Chat TLdeserialize(AbstractSerializedData stream, int constructor, boolean exception) {
             Chat result = null;
