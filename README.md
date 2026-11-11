@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="200" src="https://raw.githubusercontent.com/MilMit/AdvanceGram/master/AdvanceGram.svg" alt="AdvanceGram">
+    <img width="200" src="https://raw.githubusercontent.com/MilMit/AdvanceGram/main/AdvanceGram.svg" alt="AdvanceGram">
 </p>
 <h1 align="center">AdvanceGram</h1>
     <div align="center">
@@ -7,9 +7,9 @@
   <img src="https://github.com/devicons/devicon/blob/master/icons/cplusplus/cplusplus-original.svg" title="CplusPlus" alt="CplusPlus" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/kotlin/kotlin-plain.svg" title="Kotlin" alt="Kotlin" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/go/go-original.svg" title="Go" alt="Go" width="40" height="40"/>&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/perl/perl-plain.svg" title="Go" alt="Go" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/perl/perl-plain.svg" title="Perl" alt="Perl" width="40" height="40"/>&nbsp;
 </div>
-<h4 align="center">AdvanceGram is an **unofficial** messaging app that uses **Telegram's API**.</h4>
+<h4 align="center">AdvanceGram is an <strong>unofficial</strong> messaging app that uses <strong>Telegram's API</strong>.</h4>
 
 <div align="center" id="badges">
   <a href="https://instagram.com/milmit_net">
